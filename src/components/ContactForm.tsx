@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { Send } from 'lucide-react';
+import { solutionSlugs, labelMap } from '@/content/solutions';
 
 interface ContactFormProps {
   solution?: string;
@@ -146,10 +147,9 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
                 <SelectValue placeholder="Select a solution" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="contact-center">Contact Center Solution</SelectItem>
-                <SelectItem value="auto-dialer">Auto Dialer</SelectItem>
-                <SelectItem value="cloud-pbx">Cloud PBX</SelectItem>
-                <SelectItem value="unified-communications">Unified Communications</SelectItem>
+                {solutionSlugs.map(slug => (
+                  <SelectItem key={slug} value={slug}>{labelMap[slug]}</SelectItem>
+                ))}
                 <SelectItem value="multiple">Multiple Solutions</SelectItem>
                 <SelectItem value="not-sure">Not Sure / Need Consultation</SelectItem>
               </SelectContent>

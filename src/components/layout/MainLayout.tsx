@@ -1,7 +1,8 @@
+
 import { ReactNode } from 'react';
 import Navbar from './Navbar';
-import Footer from './Footer';
-import SEO from './SEO';
+import MergedFooter from './MergedFooter';
+import { SEO } from './SEO';
 import { useSiteSettings } from '@/hooks/useSanityContent';
 
 interface MainLayoutProps {
@@ -17,7 +18,6 @@ interface MainLayoutProps {
 const MainLayout = ({ children, seo }: MainLayoutProps) => {
   const { data: siteSettings } = useSiteSettings();
 
-  // Maintenance banner logic
   const showMaintenance = (() => {
     if (!siteSettings?.maintenanceMode) return false;
     const now = new Date();
@@ -28,7 +28,6 @@ const MainLayout = ({ children, seo }: MainLayoutProps) => {
     return true;
   })();
 
-  // Analytics scripts
   const analyticsScripts = [];
   if (siteSettings?.googleAnalyticsId) {
     analyticsScripts.push(
@@ -85,7 +84,7 @@ const MainLayout = ({ children, seo }: MainLayoutProps) => {
       <main className="flex-1 pt-16">
         {children}
       </main>
-      <Footer />
+      <MergedFooter />
     </div>
   );
 };

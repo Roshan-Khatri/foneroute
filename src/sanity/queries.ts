@@ -1,16 +1,17 @@
 
 export const featureBySlugQuery = `*[_type == "feature" && slug.current == $slug][0]{
-  _id, title, slug, description, longDescription, benefits, useCases, technicalSpecs, featureCategory->{title}, parentFeature->{title, slug}, relatedSolutions[]->{title, slug}, relatedFeatures[]->{title, slug}, heroImage, ogImage, howItWorks, setupGuide, apiReference, metaTitle, metaDescription, featured, order, showInNavigation
+  _id, title, slug, description, longDescription, benefits, useCases, technicalSpecs, featureCategory->{title}, parentFeature->{title, slug}, relatedSolutions[]{title, slug}, relatedFeatures[]{title, slug}, heroImage, ogImage, howItWorks, setupGuide, apiReference, metaTitle, metaDescription, featured, order, showInNavigation
 }`;
 // --- SANITY CMS INTEGRATION QUERIES ---
 
 // Solutions
 export const allSolutionsQuery = `*[_type == "solution" && published == true] | order(order asc, title asc){
-  _id, title, slug, description, longDescription, features, benefits, pricing, pricingModel, category->{title}, relatedSolutions[]->{title, slug}, parentSolution->{title, slug}, heroImage, ogImage, metaTitle, metaDescription, published, featured, order, integrations, testimonials, demoUrl
+  _id, title, slug, description, longDescription, features, benefits, pricing, pricingModel, category->{title}, relatedSolutions[]{title, slug}, parentSolution->{title, slug}, heroImage, ogImage, metaTitle, metaDescription, published, featured, order, integrations, testimonials, demoUrl
 }`;
 export const solutionBySlugQuery = `*[_type == "solution" && published == true && slug.current == $slug][0]{
-  _id, title, slug, description, longDescription, features, benefits, pricing, pricingModel, category->{title}, relatedSolutions[]->{title, slug}, parentSolution->{title, slug}, heroImage, ogImage, metaTitle, metaDescription, published, featured, order, integrations, testimonials, demoUrl
+  _id, title, slug, description, longDescription, features, benefits, pricing, pricingModel, category->{title}, relatedSolutions[]{title, slug}, parentSolution->{title, slug}, heroImage, ogImage, metaTitle, metaDescription, published, featured, order, integrations, testimonials, demoUrl
 }`;
+export const solutionQuery = solutionBySlugQuery;
 export const featuredSolutionsQuery = `*[_type == "solution" && published == true && featured == true] | order(order asc, title asc){
   _id, title, slug, description, category->{title}, heroImage, featured, order
 }`;
@@ -20,10 +21,15 @@ export const solutionByCategoryQuery = `*[_type == "solution" && published == tr
 
 // Features
 export const allFeaturesQuery = `*[_type == "feature"] | order(order asc, title asc){
-  _id, title, slug, description, longDescription, benefits, useCases, technicalSpecs, featureCategory->{title}, parentFeature->{title, slug}, relatedSolutions[]->{title, slug}, relatedFeatures[]->{title, slug}, heroImage, ogImage, howItWorks, setupGuide, apiReference, metaTitle, metaDescription, featured, order, showInNavigation
+  _id, title, slug, description, longDescription, benefits, useCases, technicalSpecs, featureCategory->{title}, parentFeature->{title, slug}, relatedSolutions[]{title, slug}, relatedFeatures[]{title, slug}, heroImage, ogImage, howItWorks, setupGuide, apiReference, metaTitle, metaDescription, featured, order, showInNavigation
 }`;
 export const featuredFeaturesQuery = `*[_type == "feature" && featured == true] | order(order asc, title asc){
   _id, title, slug, description, featureCategory->{title}, heroImage, featured, order
+}`;
+
+// Industries
+export const allIndustriesQuery = `*[_type == "industry"] | order(order asc, title asc){
+  _id, title, slug, description, longDescription, industryType, category, heroImage, challenges, solutions[]{title, slug}, successStories, industryStats, metaTitle, metaDescription, ogImage, featured, order, showInNavigation, complianceRequirements, certifications
 }`;
 
 // Site Settings
@@ -91,7 +97,7 @@ export const allPagesQuery = `*[_type == "page"] | order(pageOrder asc){_id, tit
 export const pageBySlugQuery = `*[_type == "page" && slug.current == $slug][0]{_id, title, slug, content, heroImage, metaTitle, metaDescription, ogImage, showInNavigation, pageOrder, pageTemplate, excerpt}`;
 
 // Featured posts (by 'featured' boolean or 'tags' includes 'featured')
-export const featuredPosts = `*[_type == "post" && status == "published" && (featured == true || tags[] == "featured")] | order(publishedAt desc){${postFields}}`;
+export const featuredPosts = `*[_type == "post" && status == "published" && (featured == true || "featured" in tags)] | order(publishedAt desc){${postFields}}`;
 
 // Posts by author
 export const postsByAuthor = `*[_type == "post" && status == "published" && author._ref == $authorId] | order(publishedAt desc){${postFields}}`;

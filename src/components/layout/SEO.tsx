@@ -19,7 +19,7 @@ function getImageUrl(image: any): string {
   }
 }
 
-const SEO = ({ title, description, ogImage, favicon }: SEOProps) => {
+export const SEO = ({ title, description, ogImage, favicon }: SEOProps) => {
   const { data: siteSettings } = useSiteSettings();
 
   const metaTitle = title || siteSettings?.defaultMetaTitle || siteSettings?.siteName || 'FoneRoute';
@@ -36,5 +36,3 @@ const SEO = ({ title, description, ogImage, favicon }: SEOProps) => {
     </Helmet>
   );
 };
-
-export default SEO;

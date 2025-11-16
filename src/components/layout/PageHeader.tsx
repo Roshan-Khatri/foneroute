@@ -10,18 +10,18 @@ interface PageHeaderProps {
 const PageHeader = ({ title, subtitle, breadcrumb, children }: PageHeaderProps) => {
   return (
     <div className="bg-gradient-surface border-b border-border">
-      <div className="container-custom py-16 md:py-20">
+      <div className="container-custom py-12 md:py-20">
         {breadcrumb && (
           <nav className="mb-4">
             <p className="text-sm text-muted-foreground">{breadcrumb}</p>
           </nav>
         )}
         <div className="max-w-4xl">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="font-poppins font-bold text-foreground mb-4 text-3xl md:text-5xl">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
+            <p className="text-muted-foreground leading-relaxed mb-8 text-lg md:text-xl">
               {subtitle}
             </p>
           )}

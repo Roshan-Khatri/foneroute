@@ -6,7 +6,6 @@ export type Industry = {
   solutions: string[];
   metrics: string;
 };
-
 export const industries: Industry[] = [
   {
     name: 'Healthcare',
@@ -51,7 +50,6 @@ export const industries: Industry[] = [
     metrics: 'Reliable, Secure',
   },
 ];
-
 export const challenges: string[] = [
   'Data security & compliance',
   'Scalability for growth',
@@ -60,7 +58,6 @@ export const challenges: string[] = [
   'Real-time analytics & reporting',
   'Cost control & efficiency',
 ];
-
 export type SuccessStory = { industry: string; story: string };
 export const successStories: SuccessStory[] = [
   {

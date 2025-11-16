@@ -1,18 +1,23 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import PageHeader from '@/components/layout/PageHeader';
 import {
   Phone,
   Mail,
   MapPin,
   MessageSquare,
-  Building,
 } from 'lucide-react';
 import { useSiteSettings } from '@/hooks/useSanityContent';
 import { ContactForm } from '@/components/ContactForm';
 import { ContactInfo } from '@/components/ContactInfo';
+import ContactSkeleton from './ContactSkeleton';
 
 const Contact = () => {
   const { data: siteSettings, isLoading: settingsLoading, isError: settingsError } = useSiteSettings();
+
+  if (settingsLoading) {
+    return <ContactSkeleton />;
+  }
+
   if (settingsError) {
     console.warn('Failed to load site settings from CMS', settingsError);
   }
@@ -181,40 +186,8 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Office Locations */}
-      <section className="section-padding bg-surface">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              Our Locations
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Visit us at one of our global offices or connect with our regional teams
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {offices.map((office, index) => (
-              <Card key={index} className="card-professional card-hover text-center">
-                <CardContent className="p-8">
-                  <Building className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-poppins font-semibold text-foreground mb-3">
-                    {office.city}
-                  </h3>
-                  <div className="space-y-2 text-muted-foreground">
-                    <p>{office.address}</p>
-                    <p className="font-medium text-foreground">{office.phone}</p>
-                    <p className="text-sm">{office.hours}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
-      <section className="section-padding bg-background">
+      <section className="section-padding bg-surface">
         <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
@@ -244,7 +217,7 @@ const Contact = () => {
                 answer: "We provide complete setup, configuration, training, and ongoing support. No hidden fees or additional charges for standard implementation."
               }
             ].map((faq, index) => (
-              <Card key={index} className="card-professional">
+              <Card key={index} className="card-professional card-hover">
                 <CardContent className="p-6">
                   <h3 className="font-poppins font-semibold text-foreground mb-3">
                     {faq.question}

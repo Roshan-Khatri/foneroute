@@ -76,6 +76,44 @@ export interface FeatureDoc {
   order?: number;
 }
 
+export interface Industry {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  description: string;
+  longDescription?: PortableTextBlock[];
+  industryType?: 'startup' | 'small-business' | 'enterprise';
+  category?: 'education' | 'finance' | 'healthcare' | 'technology' | 'other';
+  heroImage?: SanityImage;
+  challenges?: string[];
+  solutions?: Array<{ title?: string; slug?: { current: string } }>;
+  successStories?: Array<SuccessStory>;
+  industryStats?: Array<{
+    metric?: string;
+    value?: string;
+    description?: string;
+  }>;
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: SanityImage;
+  featured?: boolean;
+  order?: number;
+  showInNavigation?: boolean;
+  complianceRequirements?: string[];
+  certifications?: string[];
+}
+
+export interface Challenge {
+  _id: string;
+  challenge: string;
+}
+
+export interface SuccessStory {
+  _id: string;
+  industry: string;
+  story: string;
+}
+
 export interface SiteSettings {
   siteName?: string;
   siteDescription?: string;

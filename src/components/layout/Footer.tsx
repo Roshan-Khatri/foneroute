@@ -47,7 +47,7 @@ const Footer = () => {
   const copyrightText = siteSettings?.copyrightText || `© ${currentYear} ${siteName}. All rights reserved.`;
 
   return (
-    <footer className="bg-surface border-t border-border">
+    <footer className="bg-gray-100 border-t border-gray-200">
       <div className="container-custom">
         <div className="py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
@@ -59,41 +59,41 @@ const Footer = () => {
                 ) : (
                   <Phone className="h-8 w-8 text-primary" />
                 )}
-                <span className="font-poppins font-bold text-xl text-foreground">
+                <span className="font-poppins font-bold text-xl text-gray-800">
                   {siteName}
                 </span>
               </div>
-              <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
+              <p className="text-gray-600 mb-6 max-w-md leading-relaxed">
                 {description}
                 {tagline && <span className="block mt-2 font-semibold text-primary">{tagline}</span>}
               </p>
               <div className="space-y-3">
-                <div className="flex items-center space-x-3 text-muted-foreground">
+                <div className="flex items-center space-x-3 text-gray-600">
                   <Phone size={16} />
                   <span>{phone}</span>
                 </div>
-                <div className="flex items-center space-x-3 text-muted-foreground">
+                <div className="flex items-center space-x-3 text-gray-600">
                   <Mail size={16} />
                   <span>{email}</span>
                 </div>
-                <div className="flex items-center space-x-3 text-muted-foreground">
+                <div className="flex items-center space-x-3 text-gray-600">
                   <MapPin size={16} />
                   <span>{address}</span>
                 </div>
               </div>
               {/* Social Links */}
               <div className="flex space-x-3 mt-4">
-                {social.twitter && <a href={social.twitter} target="_blank" rel="noopener noreferrer"><Twitter size={20} className="text-muted-foreground hover:text-primary" /></a>}
-                {social.linkedin && <a href={social.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={20} className="text-muted-foreground hover:text-primary" /></a>}
-                {social.facebook && <a href={social.facebook} target="_blank" rel="noopener noreferrer"><Facebook size={20} className="text-muted-foreground hover:text-primary" /></a>}
-                {social.youtube && <a href={social.youtube} target="_blank" rel="noopener noreferrer"><Youtube size={20} className="text-muted-foreground hover:text-primary" /></a>}
-                {social.instagram && <a href={social.instagram} target="_blank" rel="noopener noreferrer"><Instagram size={20} className="text-muted-foreground hover:text-primary" /></a>}
+                {social.twitter && <a href={social.twitter} target="_blank" rel="noopener noreferrer"><Twitter size={20} className="text-gray-500 hover:text-primary" /></a>}
+                {social.linkedin && <a href={social.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={20} className="text-gray-500 hover:text-primary" /></a>}
+                {social.facebook && <a href={social.facebook} target="_blank" rel="noopener noreferrer"><Facebook size={20} className="text-gray-500 hover:text-primary" /></a>}
+                {social.youtube && <a href={social.youtube} target="_blank" rel="noopener noreferrer"><Youtube size={20} className="text-gray-500 hover:text-primary" /></a>}
+                {social.instagram && <a href={social.instagram} target="_blank" rel="noopener noreferrer"><Instagram size={20} className="text-gray-500 hover:text-primary" /></a>}
               </div>
             </div>
 
             {/* Solutions */}
             <div>
-              <h3 className="font-poppins font-semibold text-foreground mb-4">
+              <h3 className="font-poppins font-semibold text-gray-800 mb-4">
                 Solutions
               </h3>
               <ul className="space-y-3">
@@ -101,7 +101,7 @@ const Footer = () => {
                   <li key={link.href}>
                     <Link
                       to={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors"
+                      className="text-gray-600 hover:text-primary transition-colors"
                     >
                       {link.title}
                     </Link>
@@ -112,7 +112,7 @@ const Footer = () => {
 
             {/* Features */}
             <div>
-              <h3 className="font-poppins font-semibold text-foreground mb-4">
+              <h3 className="font-poppins font-semibold text-gray-800 mb-4">
                 Features
               </h3>
               <ul className="space-y-3">
@@ -120,7 +120,7 @@ const Footer = () => {
                   <li key={link.href}>
                     <Link
                       to={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors"
+                      className="text-gray-600 hover:text-primary transition-colors"
                     >
                       {link.title}
                     </Link>
@@ -131,7 +131,7 @@ const Footer = () => {
 
             {/* Company */}
             <div>
-              <h3 className="font-poppins font-semibold text-foreground mb-4">
+              <h3 className="font-poppins font-semibold text-gray-800 mb-4">
                 Company
               </h3>
               <ul className="space-y-3">
@@ -139,7 +139,7 @@ const Footer = () => {
                   <li key={link.href}>
                     <Link
                       to={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors"
+                      className="text-gray-600 hover:text-primary transition-colors"
                     >
                       {link.title}
                     </Link>
@@ -151,9 +151,9 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-border">
+        <div className="py-6 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-muted-foreground text-sm">
+            <div className="text-gray-500 text-sm">
               {copyrightText}
             </div>
             <div className="flex space-x-6 text-sm">
@@ -161,7 +161,7 @@ const Footer = () => {
                 <Link
                   key={link.href}
                   to={link.href}
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-gray-500 hover:text-primary transition-colors"
                 >
                   {link.title}
                 </Link>

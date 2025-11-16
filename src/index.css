@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
@@ -19,7 +20,6 @@
     --primary-light: 217 91% 95%;
     
     /* Secondary - Sophisticated Gray */
-
     --secondary: 225 10% 96%;
     --secondary-foreground: 225 15% 15%;
     
@@ -39,9 +39,9 @@
     --muted-foreground: 225 8% 55%;
     
     /* Accent Colors - Strategic Use */
-    --accent: 160 84% 39%;
+    --accent: 217 91% 50%;
     --accent-foreground: 0 0% 100%;
-    --accent-light: 160 84% 95%;
+    --accent-light: 217 91% 95%;
     
     /* Status Colors */
     --success: 142 76% 36%;
@@ -68,18 +68,22 @@
     --gradient-surface: linear-gradient(180deg, hsl(0 0% 100%), hsl(225 25% 98%));
     
     /* Professional Shadows */
-    --shadow-sm: 0 2px 4px hsl(225 15% 15% / 0.08);
-    --shadow-md: 0 4px 12px hsl(225 15% 15% / 0.12);
-    --shadow-lg: 0 8px 24px hsl(225 15% 15% / 0.15);
-    --shadow-xl: 0 16px 48px hsl(225 15% 15% / 0.18);
+    --shadow-sm: 0 1px 2px hsl(225 15% 15% / 0.1);
+    --shadow-md: 0 4px 6px hsl(225 15% 15% / 0.1);
+    --shadow-lg: 0 10px 15px hsl(225 15% 15% / 0.1);
+    --shadow-xl: 0 20px 25px hsl(225 15% 15% / 0.1);
     
     /* Navigation */
     --nav-height: 4rem;
-    --nav-background: hsl(0 0% 100% / 0.95);
+    --nav-background: hsl(0 0% 100% / 0.8);
     
     /* Professional Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   .dark {
@@ -108,9 +112,9 @@
     --muted: 225 15% 15%;
     --muted-foreground: 225 8% 65%;
     
-    --accent: 160 84% 45%;
+    --accent: 217 91% 55%;
     --accent-foreground: 225 15% 8%;
-    --accent-light: 160 84% 15%;
+    --accent-light: 217 91% 15%;
     
     --success: 142 76% 42%;
     --warning: 38 92% 55%;
@@ -121,16 +125,16 @@
     --input-border: 225 15% 25%;
     --ring: 217 91% 55%;
     
-    --nav-background: hsl(225 15% 8% / 0.95);
+    --nav-background: hsl(225 15% 8% / 0.8);
     
     --gradient-primary: linear-gradient(135deg, hsl(217 91% 55%), hsl(217 91% 65%));
     --gradient-hero: linear-gradient(135deg, hsl(217 91% 55%), hsl(160 84% 45%));
     --gradient-surface: linear-gradient(180deg, hsl(225 15% 8%), hsl(225 15% 10%));
     
-    --shadow-sm: 0 2px 4px hsl(0 0% 0% / 0.25);
-    --shadow-md: 0 4px 12px hsl(0 0% 0% / 0.35);
-    --shadow-lg: 0 8px 24px hsl(0 0% 0% / 0.45);
-    --shadow-xl: 0 16px 48px hsl(0 0% 0% / 0.55);
+    --shadow-sm: 0 1px 2px hsl(0 0% 0% / 0.2);
+    --shadow-md: 0 4px 6px hsl(0 0% 0% / 0.2);
+    --shadow-lg: 0 10px 15px hsl(0 0% 0% / 0.2);
+    --shadow-xl: 0 20px 25px hsl(0 0% 0% / 0.2);
   }
 }
 
@@ -150,9 +154,47 @@
 }
 
 @layer components {
+
+  .hero-image-container img {
+    display: block;
+    height: auto;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    margin: 0 auto;
+    width: 100%;
+    max-width: 320px; /* Adjusted from 360px */
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+  }
+
+  .hero-image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .core-solution-image {
+    display: block;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    margin: 0 auto;
+    width: 100%;
+    max-width: 320px; /* Adjusted from 280px */
+  }
+
+  @screen xl {
+    .hero-image-container img {
+      max-width: 420px; /* Adjusted from 520px */
+    }
+
+    .core-solution-image {
+      max-width: 420px; /* Adjusted from 380px */
+    }
+  }
+
   /* Navigation Components */
   .nav-glass {
-    @apply bg-white/95 backdrop-blur-md border-b border-border/50;
+    background-color: var(--nav-background);
+    @apply backdrop-blur-md border-b border-border/50;
     box-shadow: var(--shadow-sm);
   }
   
@@ -166,17 +208,13 @@
   }
   
   /* Button Variants */
-  .btn-hero {
-    @apply bg-gradient-to-r from-primary to-accent text-white font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105;
-  }
-  
   .btn-secondary {
     @apply bg-surface border border-border text-foreground font-medium px-6 py-2.5 rounded-lg hover:bg-surface-hover transition-all duration-200;
   }
   
   /* Section Layouts */
   .section-padding {
-    @apply py-16 md:py-24;
+    @apply py-12 md:py-16;
   }
   
   .container-custom {
@@ -213,5 +251,23 @@
   
   .prose-professional p {
     @apply text-muted-foreground leading-relaxed mb-6;
+  }
+}
+
+.page-header-title {
+  font-size: 2.5rem; /* 40px */
+}
+
+.page-header-subtitle {
+  font-size: 1.25rem; /* 20px */
+}
+
+@media (min-width: 768px) {
+  .page-header-title {
+    font-size: 3.5rem; /* 56px */
+  }
+
+  .page-header-subtitle {
+    font-size: 1.5rem; /* 24px */
   }
 }

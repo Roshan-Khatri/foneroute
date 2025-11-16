@@ -13,6 +13,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { usePageBySlug, useSanityStatus } from '../hooks/useSanityContent';
+import AllPagesSkeleton from './AllPagesSkeleton';
 
 const About = () => {
   // Demonstrate Sanity content loading by slug
@@ -21,30 +22,6 @@ const About = () => {
 
   // Dev-only banner for missing Sanity config
   const showDevBanner = import.meta.env.DEV && !sanityStatus.isConfigured;
-
-  if (isLoading) return <div>Loading page content...</div>;
-  if (error) return <div>Error loading page: {error.message}</div>;
-  if (page) {
-    return (
-      <div>
-        {showDevBanner && (
-          <div style={{ background: '#fffbe6', color: '#ad8a00', padding: '1rem', marginBottom: '1rem', borderRadius: '6px', border: '1px solid #ffe58f' }}>
-            <strong>Sanity CMS is not fully configured.</strong><br />
-            Missing: {sanityStatus.missing.join(', ') || 'unknown'}<br />
-            To enable live editing, set up your environment variables as described in <code>.env.example</code> and <code>src/sanity/env.ts</code>.
-          </div>
-        )}
-        <PageHeader title={page.title} />
-        <Card>
-          <CardContent>
-            <div>{page.excerpt}</div>
-            {/* Render more Sanity content as needed */}
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-  // If no Sanity page, fallback to static content below
 
   // Static fallback content
   const stats = [
@@ -100,39 +77,26 @@ const About = () => {
     }
   ];
 
-  const milestones = [
-    {
-      year: '2013',
-      title: 'Company Founded',
-      description: 'Started with a mission to simplify business communications'
-    },
-    {
-      year: '2015',
-      title: 'First 100 Customers',
-      description: 'Reached our first major milestone with small business adoption'
-    },
-    {
-      year: '2018',
-      title: 'Enterprise Launch',
-      description: 'Expanded to serve large enterprise clients with advanced features'
-    },
-    {
-      year: '2021',
-      title: 'Global Expansion',
-      description: 'Extended services to 50+ countries worldwide'
-    },
-    {
-      year: '2024',
-      title: 'AI Integration',
-      description: 'Launched AI-powered analytics and automation features'
-    }
-  ];
+  if (isLoading) return <AllPagesSkeleton />;
+  if (error) return <div>Error loading page: {error.message}</div>;
+
+  // When Sanity has content, it will be used. Otherwise, the static content below is used.
+  const pageTitle = page?.title || "About FoneRoute";
+  const pageSubtitle = page?.excerpt || "Empowering businesses worldwide with innovative telecommunications solutions that drive growth, enhance productivity, and transform customer experiences.";
 
   return (
     <div>
+      {showDevBanner && (
+        <div style={{ background: '#fffbe6', color: '#ad8a00', padding: '1rem', marginBottom: '1rem', borderRadius: '6px', border: '1px solid #ffe58f' }}>
+          <strong>Sanity CMS is not fully configured.</strong><br />
+          Missing: {sanityStatus.missing?.join(', ') || 'unknown'}<br />
+          To enable live editing, set up your environment variables as described in <code>.env.example</code> and <code>src/sanity/env.ts</code>.
+        </div>
+      )}
+      
       <PageHeader
-        title="About FoneRoute"
-        subtitle="Empowering businesses worldwide with innovative telecommunications solutions that drive growth, enhance productivity, and transform customer experiences."
+        title={pageTitle}
+        subtitle={pageSubtitle}
         breadcrumb="Home / About"
       />
 
@@ -241,58 +205,14 @@ const About = () => {
         </div>
       </section>
 
-      {/* Timeline Section */}
-      <section className="section-padding bg-surface">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              Our Journey
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Key milestones in our mission to transform business communications
-            </p>
-          </div>
-
-          <div className="relative">
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-border transform md:-translate-x-px"></div>
-            
-            <div className="space-y-12">
-              {milestones.map((milestone, index) => (
-                <div key={index} className={`relative flex items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                  <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
-                    <Card className="card-professional ml-12 md:ml-0">
-                      <CardContent className="p-6">
-                        <div className="text-2xl font-poppins font-bold text-primary mb-2">
-                          {milestone.year}
-                        </div>
-                        <h3 className="text-xl font-poppins font-semibold text-foreground mb-3">
-                          {milestone.title}
-                        </h3>
-                        <p className="text-muted-foreground">
-                          {milestone.description}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                  
-                  <div className="absolute left-0 md:left-1/2 w-8 h-8 bg-primary rounded-full border-4 border-background transform md:-translate-x-1/2 flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Team Section */}
-      <section className="section-padding bg-background">
+      <section className="section-padding bg-surface">
         <div className="container-custom">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
               Leadership Team
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Meet the experienced professionals driving innovation at FoneRoute
             </p>
           </div>
@@ -332,7 +252,7 @@ const About = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/contact">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-4">
+              <Button size="lg" variant='secondary' className="font-semibold px-8 py-4">
                 Get Started Today
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -340,8 +260,8 @@ const About = () => {
             <Link to="/solutions">
               <Button 
                 size="lg" 
-                variant="outline" 
-                className="text-white border-white hover:bg-white hover:text-primary px-8 py-4"
+                variant='outline'
+                className="font-semibold py-4"
               >
                 Explore Solutions
               </Button>

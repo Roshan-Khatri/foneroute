@@ -1,3 +1,4 @@
+
 // --- SANITY CMS INTEGRATION HOOKS ---
 
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
@@ -12,6 +13,7 @@ import {
   siteSettingsQuery,
   solutionBySlugQuery,
   allFeaturesQuery,
+  allIndustriesQuery,
 } from '@/sanity/queries';
 import { getSanityClient, isSanityConfigured } from '@/sanity/client';
 import { getSanityStatus } from '@/sanity/env';
@@ -21,18 +23,39 @@ import type {
   Page,
   Post,
   SiteSettings,
+  Industry,
 } from '@/sanity/types';
+import { sanityFetch } from '@/lib/sanity';
 
-// --- Helper function to fetch from Sanity ---
-async function fetchSanity<T>(query: string, params?: Record<string, any>): Promise<T> {
-  try {
-    const client = getSanityClient();
-    const result = await client.fetch<T>(query, params || {});
-    return result;
-  } catch (error) {
-    console.error('Sanity fetch failed:', error);
-    throw error; // Re-throw to let react-query handle it
+// --- Generic Content Fetcher ---
+export function useSanityContent<T>(docType: string): UseQueryResult<T, Error> {
+  const { isConfigured } = getSanityStatus();
+  let query: string;
+  
+  switch(docType) {
+    case 'industry':
+      query = allIndustriesQuery;
+      break;
+    case 'feature':
+      query = allFeaturesQuery;
+      break;
+    case 'solution':
+      query = allSolutionsQuery;
+      break;
+    case 'post':
+      query = allPostsQuery;
+      break;
+    default:
+      throw new Error(`Unsupported document type: ${docType}`);
   }
+
+  return useQuery<T>({
+    queryKey: ['sanity', docType],
+    queryFn: () => sanityFetch<T>(query),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    retry: isConfigured ? 1 : false,
+    enabled: isConfigured,
+  });
 }
 
 
@@ -64,7 +87,7 @@ export function useSiteSettings(): UseQueryResult<SiteSettings | null, Error> {
   const { isConfigured } = getSanityStatus();
   return useQuery<SiteSettings | null>({
     queryKey: ['sanity', 'siteSettings'],
-    queryFn: () => fetchSanity<SiteSettings | null>(siteSettingsQuery),
+    queryFn: () => sanityFetch<SiteSettings | null>(siteSettingsQuery),
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: isConfigured ? 1 : false,
     enabled: isConfigured,
@@ -77,7 +100,7 @@ export function useFeaturedFeatures(): UseQueryResult<Feature[], Error> {
   const { isConfigured } = getSanityStatus();
   return useQuery<Feature[]>({
     queryKey: ['sanity', 'featuredFeatures'],
-    queryFn: () => fetchSanity<Feature[]>(featuredFeaturesQuery),
+    queryFn: () => sanityFetch<Feature[]>(featuredFeaturesQuery),
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: isConfigured ? 1 : false,
     enabled: isConfigured,
@@ -90,7 +113,7 @@ export function useFeaturedSolutions(): UseQueryResult<Solution[], Error> {
   const { isConfigured } = getSanityStatus();
   return useQuery<Solution[]>({
     queryKey: ['sanity', 'featuredSolutions'],
-    queryFn: () => fetchSanity<Solution[]>(featuredSolutionsQuery),
+    queryFn: () => sanityFetch<Solution[]>(featuredSolutionsQuery),
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: isConfigured ? 1 : false,
     enabled: isConfigured,
@@ -103,7 +126,7 @@ export function useFeatures(): UseQueryResult<Feature[], Error> {
   const { isConfigured } = getSanityStatus();
   return useQuery<Feature[]>({
     queryKey: ['sanity', 'features'],
-    queryFn: () => fetchSanity<Feature[]>(allFeaturesQuery),
+    queryFn: () => sanityFetch<Feature[]>(allFeaturesQuery),
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: isConfigured ? 1 : false,
     enabled: isConfigured,
@@ -116,7 +139,7 @@ export function useSolutions(): UseQueryResult<Solution[], Error> {
   const { isConfigured } = getSanityStatus();
   return useQuery<Solution[]>({
     queryKey: ['sanity', 'solutions'],
-    queryFn: () => fetchSanity<Solution[]>(allSolutionsQuery),
+    queryFn: () => sanityFetch<Solution[]>(allSolutionsQuery),
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: isConfigured ? 1 : false,
     enabled: isConfigured,
@@ -129,7 +152,7 @@ export function usePageBySlug(slug: string): UseQueryResult<Page | null, Error> 
   const { isConfigured } = getSanityStatus();
   return useQuery<Page | null>({
     queryKey: ['sanity', 'page', slug],
-    queryFn: () => fetchSanity<Page | null>(pageBySlugQuery, { slug }),
+    queryFn: () => sanityFetch<Page | null>(pageBySlugQuery, { slug }),
     enabled: isConfigured && !!slug,
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: isConfigured ? 1 : false,
@@ -141,7 +164,7 @@ export function useFeatureBySlug(slug: string): UseQueryResult<Feature | null, E
   const { isConfigured } = getSanityStatus();
   return useQuery<Feature | null>({
     queryKey: ['sanity', 'feature', slug],
-    queryFn: () => fetchSanity<Feature | null>(featureBySlugQuery, { slug }),
+    queryFn: () => sanityFetch<Feature | null>(featureBySlugQuery, { slug }),
     enabled: isConfigured && !!slug,
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: isConfigured ? 1 : false,
@@ -153,7 +176,7 @@ export function useSolutionBySlug(slug: string): UseQueryResult<Solution | null,
   const { isConfigured } = getSanityStatus();
   return useQuery<Solution | null>({
     queryKey: ['sanity', 'solution', slug],
-    queryFn: () => fetchSanity<Solution | null>(solutionBySlugQuery, { slug }),
+    queryFn: () => sanityFetch<Solution | null>(solutionBySlugQuery, { slug }),
     enabled: isConfigured && !!slug,
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: isConfigured ? 1 : false,
@@ -167,7 +190,7 @@ export function usePosts(): UseQueryResult<Post[], Error> {
   const { isConfigured } = getSanityStatus();
   return useQuery<Post[]>({
     queryKey: ['sanity', 'posts'],
-    queryFn: () => fetchSanity<Post[]>(allPostsQuery),
+    queryFn: () => sanityFetch<Post[]>(allPostsQuery),
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: isConfigured ? 1 : false,
     enabled: isConfigured,
@@ -179,7 +202,7 @@ export function usePostBySlug(slug: string): UseQueryResult<Post | null, Error> 
   const { isConfigured } = getSanityStatus();
   return useQuery<Post | null>({
     queryKey: ['sanity', 'post', slug],
-    queryFn: () => fetchSanity<Post | null>(postBySlugQuery, { slug }),
+    queryFn: () => sanityFetch<Post | null>(postBySlugQuery, { slug }),
     enabled: isConfigured && !!slug,
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: isConfigured ? 1 : false,

@@ -19,21 +19,20 @@ function createMockClient(): ReturnType<typeof createClient> {
   }) as any;
 }
 
-let _client: ReturnType<typeof createClient> | undefined;
 
 export function getSanityClient(): ReturnType<typeof createClient> {
-  if (_client) return _client;
   const config = getSanityConfig();
   if (!config) {
-    _client = createMockClient();
-    return _client;
+    // Return a new mock client each time to avoid caching issues during development
+    return createMockClient();
   }
-  _client = createClient(config);
-  return _client;
+  // Return a new real client each time
+  return createClient(config);
 }
 
 export const isSanityConfigured = isConfigured;
 
+// This proxy is still useful for convenience in other parts of the app
 const client = new Proxy({} as ReturnType<typeof createClient>, {
   get(_t, prop, receiver) {
     const inst = getSanityClient();
