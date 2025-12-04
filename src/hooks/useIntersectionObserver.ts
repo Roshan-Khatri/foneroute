@@ -1,43 +1,40 @@
-import { useState, useEffect, RefObject } from 'react';
+
+import { useEffect, useState, useRef } from 'react';
 
 interface IntersectionObserverOptions {
   threshold?: number | number[];
   root?: Element | null;
   rootMargin?: string;
+  triggerOnce?: boolean;
 }
 
-function useIntersectionObserver(
-  ref: RefObject<Element>,
-  options: IntersectionObserverOptions = { threshold: 0.1 }
-): boolean {
-  const [isIntersecting, setIntersecting] = useState(false);
+export const useIntersectionObserver = (
+  options: IntersectionObserverOptions = { threshold: 0.1, triggerOnce: true }
+) => {
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const ref = useRef<any>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIntersecting(true);
-          if (ref.current) {
-            observer.unobserve(ref.current);
-          }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsIntersecting(true);
+        if (options.triggerOnce) {
+          observer.disconnect();
         }
-      },
-      options
-    );
+      }
+    }, options);
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [ref, options]);
 
-  return isIntersecting;
-}
-
-export default useIntersectionObserver;
+  return [ref, isIntersecting];
+};

@@ -1,235 +1,114 @@
 
-import { useMemo, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Card, CardContent } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
+import { ArrowRight, Zap, Shield, BarChart, Heart, Scale, Building, Globe, MessageSquare, Users, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import PageHeader from '@/components/layout/PageHeader';
-import {
-  Phone, Mail, MapPin, MessageSquare
-} from 'lucide-react';
-import { useSolutions, useSiteSettings } from '@/hooks/useSanityContent';
-import type { Solution } from '@/sanity/types';
-import PortableText from '@/components/PortableText';
-import { ContactForm } from '@/components/ContactForm';
-import { ContactInfo } from '@/components/ContactInfo';
-import { solutionSlugs, fallbackData, labelMap } from '@/content/solutions';
+import SolutionsByIndustry from '@/components/SolutionsByIndustry';
+import { useSanityContent } from '@/hooks/useSanityContent';
+import type { Industry } from '@/sanity/types';
+import MainLayout from '@/components/layout/MainLayout';
 import SolutionsSkeleton from './solutions/SolutionsSkeleton';
-import AnimatedSection from '@/components/layout/AnimatedSection';
-import ScrollSpySidebar from '@/components/layout/ScrollSpySidebar';
-import { useScrollSpy } from '@/hooks/useScrollSpy';
-import { useIsMobile } from '@/hooks/use-mobile';
 
-function Solutions() {
-  const { data: allSolutions, isLoading: solutionsLoading, isError: solutionsError } = useSolutions();
-  const { data: siteSettings, isLoading: settingsLoading, isError: settingsError } = useSiteSettings();
-  const location = useLocation();
-  const isMobile = useIsMobile();
+const tailoredSolutions = [
+    { title: 'Cloud Communications', description: 'Flexible and scalable cloud telephony for modern businesses.' },
+    { title: 'Customer Engagement Platforms', description: 'Deliver exceptional customer service with our integrated contact center solutions.' },
+    { title: 'Unified Messaging', description: 'Combine communication with integrated voice, video, and text functionality.' },
+    { title: 'AI-Powered Analytics', description: 'Gain actionable insights from your communication data to improve performance.' },
+    { title: 'Mobile Workforce Solutions', description: 'Keep your team connected and productive, no matter where they are.' },
+    { title: 'Network Security & Compliance', description: 'Ensure secure communications and meet regulatory requirements with ease.' },
+];
 
-  const availableSolutions = useMemo(() => {
-    return solutionSlugs.filter(slug =>
-      (allSolutions?.some(s => s.slug?.current === slug)) || fallbackData[slug]
-    );
-  }, [allSolutions]);
+const whyChooseUsItems = [
+  {
+    icon: <TrendingUp className="h-8 w-8 text-primary" />,
+    title: 'Blazing Fast Performance',
+    description: 'Our infrastructure is optimized for speed, ensuring a seamless experience for your users.',
+  },
+  {
+    icon: <Shield className="h-8 w-8 text-primary" />,
+    title: 'Rock-Solid Security',
+    description: 'We take security seriously. Your data is protected with the latest encryption and security protocols.',
+  },
+  {
+    icon: <BarChart className="h-8 w-8 text-primary" />,
+    title: 'Actionable Analytics',
+    description: 'Gain valuable insights into your operations with our comprehensive analytics and reporting tools.',
+  },
+];
 
-  const sectionIds = useMemo(() => availableSolutions, [availableSolutions]);
-  const { activeId, setActiveId } = useScrollSpy(sectionIds, { rootMargin: '0px 0px -40% 0px' });
+const Solutions = () => {
+  const { data: industries, isLoading, isError } = useSanityContent<Industry[]>('industry');
 
-  useEffect(() => {
-    const hash = location.hash.replace('#', '');
-    if (hash && sectionIds.includes(hash)) {
-      const element = document.getElementById(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        setActiveId(hash);
-      }
-    }
-  }, [location.hash, sectionIds, setActiveId]);
-
-  if (solutionsError) console.warn('Failed to load solutions from CMS', solutionsError);
-  if (settingsError) console.warn('Failed to load site settings from CMS', settingsError);
-
-  const getSolutionData = (slug: string): Partial<Solution> | null => {
-    const solutionFromCMS = allSolutions?.find(s => s.slug?.current === slug);
-    if (solutionFromCMS) return solutionFromCMS;
-    if (fallbackData[slug]) return fallbackData[slug];
-    return null;
-  };
-
-  const offices = useMemo(() => {
-    if (!siteSettings?.officeLocations?.length) {
-      return [
-        { city: 'New York', address: '123 Business Ave, Suite 100', phone: '+1 (555) 123-4567', hours: 'Mon-Fri: 9:00 AM - 6:00 PM EST' },
-        { city: 'San Francisco', address: '456 Tech Street, Floor 15', phone: '+1 (555) 987-6543', hours: 'Mon-Fri: 9:00 AM - 6:00 PM PST' },
-        { city: 'London', address: '789 Communication Blvd', phone: '+44 20 1234 5678', hours: 'Mon-Fri: 9:00 AM - 5:00 PM GMT' }
-      ];
-    }
-    return siteSettings.officeLocations.map(office => ({
-      city: office.city || '',
-      address: office.address || '',
-      phone: office.phone || '',
-      hours: office.hours || '',
-    }));
-  }, [siteSettings]);
-
-  const primaryOffice = offices[0];
-
-  const contactInfo = useMemo(() => [
-    { icon: Phone, title: 'Sales', details: siteSettings?.primaryPhone || primaryOffice?.phone || '+1 (555) 123-4567', description: 'Speak with our sales team' },
-    { icon: MessageSquare, title: siteSettings?.supportPhone ? 'Support' : 'Support Email', details: siteSettings?.supportPhone || siteSettings?.supportEmail || '+1 (555) 123-4568', description: siteSettings?.supportPhone ? '24/7 technical support' : 'Contact our support team by email' },
-    { icon: Mail, title: 'Email', details: siteSettings?.primaryEmail || 'info@foneroute.com', description: 'General inquiries' },
-    { icon: MapPin, title: 'Address', details: primaryOffice?.address || '123 Business Ave, Tech City, TC 12345', description: 'Visit our headquarters' },
-  ], [siteSettings, primaryOffice]);
-  
-  const faqs = useMemo(() => [
-    { question: "How quickly can we get started?", answer: "Most implementations can begin within 24-48 hours of contract signing, with full deployment typically completed within 1-2 weeks." },
-    { question: "Do you offer 24/7 support?", answer: "Yes, we provide round-the-clock technical support and customer service to ensure your communications never go down." },
-    { question: "Can you integrate with our existing systems?", answer: "Absolutely. Our solutions integrate with most CRM, helpdesk, and business applications through APIs and pre-built connectors." },
-    { question: "What's included in the setup?", answer: "We provide complete setup, configuration, training, and ongoing support. No hidden fees or additional charges for standard implementation." }
-  ], []);
-
-  const sidebarNavItems = availableSolutions.map(slug => ({
-    to: slug,
-    label: getSolutionData(slug)?.title || labelMap[slug] || 'Unknown Solution'
-  }));
-
-  if (solutionsLoading || settingsLoading) {
+  if (isLoading) {
     return <SolutionsSkeleton />;
   }
 
+  if (isError) {
+    return <div>Error loading page.</div>;
+  }
+
   return (
-    <div>
-      <PageHeader
-        title="Our Solutions"
-        subtitle="Comprehensive telecommunications solutions designed to transform your business communications and drive growth"
-      />
-      <div className="container-custom grid grid-cols-1 lg:grid-cols-4 gap-8 py-8">
-        <aside className={`lg:col-span-1 lg:sticky self-start ${isMobile ? 'top-[60px]' : 'top-24'}`}>
-          <ScrollSpySidebar items={sidebarNavItems} activeId={activeId} />
-        </aside>
+    <MainLayout>
+      <div className="container-custom py-16">
+        <div className="text-left mb-16">
+          <h1 className="text-5xl font-bold tracking-tight">Our Solutions</h1>
+        </div>
 
-        <main className="lg:col-span-3 space-y-16">
-          {availableSolutions.map((slug, index) => {
-            const s = getSolutionData(slug);
-            if (!s) return null;
+        <section id="tailored-solutions" className="mb-24">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold tracking-tight mb-4">Tailored Solutions for Your Business</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              We offer a comprehensive portfolio of solutions designed to optimize your operations, enhance customer engagement, and drive growth. Find the perfect fit for your specific business requirements.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {tailoredSolutions.map((solution, index) => (
+              <Card key={index} className="transform transition-transform duration-300 hover:scale-105 hover:shadow-lg flex flex-col justify-center items-center text-center p-8">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-semibold">{solution.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{solution.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
 
-            return (
-              <AnimatedSection key={slug} id={slug} animation="fade-in-up" delay={`${index * 100}ms`}>
-                <div className="max-w-4xl mx-auto mb-12">
-                  <h2 className="text-3xl font-bold mb-4">{s.title}</h2>
-                  <PortableText value={s.longDescription ?? []} className="prose prose-lg max-w-none" />
-                </div>
+        <SolutionsByIndustry industries={industries || []} />
 
-                <div className="section-padding bg-surface rounded-lg">
-                  <div className="container-custom">
-                    <h3 className="text-3xl font-bold text-center mb-8">Features</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {(s.features ?? []).map((f, i) => (
-                        <Card key={i} className="card-professional card-hover">
-                          <CardContent className="p-6 font-semibold text-foreground">{f}</CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
+        <section id="why-choose-us" className="py-24">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold tracking-tight mb-4">Why Choose Us?</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Our platform is more than just a collection of features. It's a commitment to your success. Here's what sets us apart.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+            {whyChooseUsItems.map((item, index) => (
+              <div key={index} className="flex flex-col items-center">
+                <div className="bg-primary/10 p-4 rounded-full mb-6">
+                  {item.icon}
                 </div>
-
-                <div className="section-padding">
-                  <div className="container-custom max-w-3xl">
-                    <h3 className="text-2xl font-bold mb-4">Business Benefits</h3>
-                    <ul className="list-disc pl-6 text-lg space-y-2">
-                      {(s.benefits ?? []).map((b, i) => <li key={i}>{b}</li>)}
-                    </ul>
-                  </div>
-                </div>
-                
-                {s.relatedSolutions && s.relatedSolutions.length > 0 && (
-                  <div className="section-padding bg-background">
-                    <div className="container-custom">
-                      <h3 className="text-2xl font-bold mb-4">Related Solutions</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {s.relatedSolutions
-                          .filter(rel => rel.slug && availableSolutions.includes(rel.slug.current))
-                          .map((rel, i) => (
-                            <a key={i} href={`#${rel.slug.current}`} className="block">
-                              <Card className="card-professional card-hover">
-                                <CardContent className="p-4 font-semibold text-primary">{rel.title}</CardContent>
-                              </Card>
-                            </a>
-                          ))}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </AnimatedSection>
-            );
-          })}
-          
-          <AnimatedSection id="contact" animation="fade-in-up">
-            <div className="section-padding bg-surface rounded-lg">
-              <div className="container-custom">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                  <ContactForm solution="general" />
-                  <ContactInfo contactInfo={contactInfo} businessHours={[]} supportHours={""} holidayMessage={""} />
-                </div>
+                <h3 className="text-2xl font-semibold mb-4">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
               </div>
-            </div>
-          </AnimatedSection>
+            ))}
+          </div>
+        </section>
 
-          <AnimatedSection id="faq" animation="fade-in-up">
-            <div className="section-padding">
-              <div className="container-custom">
-                <div className="text-center mb-12">
-                  <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">Frequently Asked Questions</h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                  {faqs.map((faq, index) => (
-                    <Card key={index} className="card-professional">
-                      <CardContent className="p-6">
-                        <h3 className="font-poppins font-semibold text-foreground mb-3">{faq.question}</h3>
-                        <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection id="industries" animation="fade-in-up">
-            <div className="section-padding bg-background">
-              <div className="container-custom">
-                <div className="text-center mb-12">
-                  <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-                    Solutions by Industry
-                  </h2>
-                  <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-                    Our telecommunications solutions are tailored to meet the unique requirements of different industries
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                  {['Startups', 'Small Business', 'Enterprise', 'Healthcare', 'Finance', 'Education'].map((industry) => (
-                    <Link key={industry} to={`/industries/${industry.toLowerCase().replace(' ', '-')}`}>
-                      <Card className="card-professional card-hover text-center py-6">
-                        <CardContent className="p-4">
-                          <h4 className="font-medium text-foreground">{industry}</h4>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  ))}
-                </div>
-                <div className="text-center mt-8">
-                  <Link to="/industries">
-                    <Button variant="outline" size="lg" className="btn-secondary">
-                      View All Industries
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </AnimatedSection>
-        </main>
+        <section id="cta" className="text-center py-24 bg-surface rounded-lg">
+          <h2 className="text-4xl font-bold tracking-tight mb-4">Ready to Transform Your Business Communications?</h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+            Get started with a free consultation and discover how our solutions can drive your business forward.
+          </p>
+          <Button asChild size="lg" variant="default">
+            <Link to="/contact">Explore Solutions</Link>
+          </Button>
+        </section>
       </div>
-    </div>
+    </MainLayout>
   );
-}
+};
 
 export default Solutions;

@@ -29,7 +29,7 @@ export const featuredFeaturesQuery = `*[_type == "feature" && featured == true] 
 
 // Industries
 export const allIndustriesQuery = `*[_type == "industry"] | order(order asc, title asc){
-  _id, title, slug, description, longDescription, industryType, category, heroImage, challenges, solutions[]{title, slug}, successStories, industryStats, metaTitle, metaDescription, ogImage, featured, order, showInNavigation, complianceRequirements, certifications
+  _id, title, slug, description, longDescription, industryType, category, heroImage, challenges, solutions[]->{_id, title, slug, description, category->{title}, heroImage, featured, order}, successStories, industryStats, metaTitle, metaDescription, ogImage, featured, order, showInNavigation, complianceRequirements, certifications
 }`;
 
 // Site Settings

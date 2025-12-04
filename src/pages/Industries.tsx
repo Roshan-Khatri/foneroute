@@ -62,21 +62,20 @@ const Industries = () => {
 		<section className="py-12">
 			<div className="container-custom grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{mappedIndustries.map(ind => (
-					<Card key={ind.title} className="card-professional card-hover">
-						<CardContent className="p-4 flex flex-col items-center">
-							<ind.icon size={32} className="mb-2 text-primary"/>
-							<h3 className="text-xl font-bold mb-1">{ind.title}</h3>
-							<p className="mb-2 text-muted-foreground text-center text-base">{ind.description}</p>
-							<ul className="mb-2 text-sm">
-								{(ind.solutions || []).map(s => (
-									<li key={s.slug.current} className="flex items-center gap-2 text-green-700"><Shield size={14}/>{s.title}</li>
-								))}
-							</ul>
-                <Button asChild className="mt-2">
-                  <Link to="/solutions">Learn More</Link>
-                </Button>
-						</CardContent>
-					</Card>
+          <Link to={`/industries/${ind.slug.current}`} key={ind.title}>
+            <Card className="card-professional card-hover h-full">
+              <CardContent className="p-4 flex flex-col items-center">
+                <ind.icon size={32} className="mb-2 text-primary"/>
+                <h3 className="text-xl font-bold mb-1">{ind.title}</h3>
+                <p className="mb-2 text-muted-foreground text-center text-base">{ind.description}</p>
+                <ul className="mb-2 text-sm">
+                  {(ind.solutions || []).map(s => (
+                    <li key={s.slug.current} className="flex items-center gap-2 text-green-700"><Shield size={14}/>{s.title}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </Link>
 				))}
 			</div>
 		</section>

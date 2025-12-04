@@ -1,7 +1,7 @@
 
 import { ReactNode } from 'react';
-import Navbar from './Navbar';
-import MergedFooter from './MergedFooter';
+import NewNavbar from './NewNavbar';
+import Footer from './Footer';
 import { SEO } from './SEO';
 import { useSiteSettings } from '@/hooks/useSanityContent';
 
@@ -65,7 +65,7 @@ const MainLayout = ({ children, seo }: MainLayoutProps) => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
       <SEO
         title={seo?.title}
         description={seo?.description}
@@ -80,11 +80,11 @@ const MainLayout = ({ children, seo }: MainLayoutProps) => {
             : 'The site is currently under maintenance.'}
         </div>
       )}
-      <Navbar />
+      <NewNavbar />
       <main className="flex-1 pt-16">
         {children}
       </main>
-      <MergedFooter />
+      <Footer />
     </div>
   );
 };

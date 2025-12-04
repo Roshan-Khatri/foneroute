@@ -83,8 +83,8 @@ const AllFeatures = () => {
       <section className="section-padding bg-surface" style={{ scrollSnapAlign: 'start' }}>
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuresItems.map((feature, index) => (
-              <Link to={feature.href} key={index} className="card-hover-parent">
+            {featuresItems.map((feature) => (
+              <Link to={feature.href} key={feature.href} className="card-hover-parent">
                 <Card className="h-full card-professional card-hover">
                   <CardHeader>
                     <CardTitle>{feature.title}</CardTitle>
@@ -112,8 +112,8 @@ const AllFeatures = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            {highlightItems.map((item, index) => (
-              <div key={index}>
+            {highlightItems.map((item) => (
+              <div key={item.title}>
                 <div className="inline-block bg-primary-light p-4 rounded-full mb-4">
                   {item.icon}
                 </div>
