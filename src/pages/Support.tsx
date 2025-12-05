@@ -1,11 +1,12 @@
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Search, UserCircle, Wrench } from 'lucide-react';
+import { Mail, Search, UserCircle, Wrench, Loader } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { useDebounce } from '@/hooks/useDebounce';
 
 const faqs = [
   {
@@ -49,10 +50,13 @@ const helpCategories = [
 
 const Support = () => {
     const [searchTerm, setSearchTerm] = useState('');
+    const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
     const filteredFaqs = faqs.filter(faq =>
-        faq.question.toLowerCase().includes(searchTerm.toLowerCase())
+        faq.question.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
     );
+
+    const isSearching = searchTerm !== debouncedSearchTerm;
 
     return (
         <div className="bg-background text-foreground">
@@ -71,7 +75,7 @@ const Support = () => {
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground" />
+                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground" />
                     </div>
                 </div>
             </section>
@@ -99,20 +103,28 @@ const Support = () => {
             </section>
 
             {/* FAQ Search Results */}
-            {(searchTerm && filteredFaqs.length > 0) && (
+            {(debouncedSearchTerm) && (
                 <section className="py-16 bg-muted/30">
                     <div className="container-custom max-w-3xl">
                         <h2 className="text-3xl font-bold mb-8 text-center">
                             Search Results
                         </h2>
-                        <Accordion type="single" collapsible className="w-full">
-                          {filteredFaqs.map((faq, index) => (
-                            <AccordionItem value={`item-${index}`} key={index}>
-                              <AccordionTrigger>{faq.question}</AccordionTrigger>
-                              <AccordionContent>{faq.answer}</AccordionContent>
-                            </AccordionItem>
-                          ))}
-                        </Accordion>
+                        {isSearching ? (
+                            <div className="flex justify-center items-center">
+                                <Loader className="animate-spin h-8 w-8 text-primary" />
+                            </div>
+                        ) : filteredFaqs.length > 0 ? (
+                            <Accordion type="single" collapsible className="w-full">
+                            {filteredFaqs.map((faq, index) => (
+                                <AccordionItem value={`item-${index}`} key={index}>
+                                <AccordionTrigger>{faq.question}</AccordionTrigger>
+                                <AccordionContent>{faq.answer}</AccordionContent>
+                                </AccordionItem>
+                            ))}
+                            </Accordion>
+                        ) : (
+                            <p className="text-center text-muted-foreground">No results found for "{debouncedSearchTerm}"</p>
+                        )}
                     </div>
                 </section>
             )}

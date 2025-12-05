@@ -1,4 +1,10 @@
 
+export const industriesData = [
+  { title: "Healthcare", description: "HIPAA-compliant solutions for patient communication and support." },
+  { title: "Finance", description: "Secure and reliable communications for financial institutions." },
+  { title: "E-commerce", description: "Scale your customer service during peak shopping seasons." },
+];
+
 export const solutionsData = [
   {
     title: 'Auto Dialer',

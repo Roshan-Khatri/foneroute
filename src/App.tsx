@@ -1,29 +1,23 @@
 
 import { Routes, Route } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
-import NewNavbar from '@/components/layout/NewNavbar';
-import Footer from '@/components/layout/Footer';
 import Home from '@/pages/Home';
 import Solutions from '@/pages/Solutions';
-import NotFound from '@/pages/NotFound';
-import MainLayout from '@/components/layout/MainLayout';
+import Solution from '@/pages/solutions/Solution';
+import Header from '@/components/layout/NewNavbar';
+import Footer from '@/components/layout/Footer';
 
-const App = () => {
+function App() {
   return (
-    <div className="bg-background text-foreground flex flex-col min-h-screen">
-      <NewNavbar />
-      <main className="flex-grow">
-        <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<MainLayout><Home /></MainLayout>} />
-            <Route path="/solutions" element={<MainLayout><Solutions /></MainLayout>} />
-            <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
-          </Routes>
-        </AnimatePresence>
-      </main>
+    <div className="flex flex-col min-h-screen pt-16">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/solutions" element={<Solutions />} />
+        <Route path="/solutions/:slug" element={<Solution />} />
+      </Routes>
       <Footer />
     </div>
   );
-};
+}
 
 export default App;

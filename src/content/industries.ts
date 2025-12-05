@@ -1,20 +1,23 @@
+
+import { Briefcase, Landmark, ShoppingCart, Heart, Scale, Building, Zap, MessageSquare, Globe, Users, Home, Gavel } from 'lucide-react';
+
 // Industry content types and constants
 export type Industry = {
-  name: string;
+  title: string;
+  slug: { current: string };
   icon: any;
   description: string;
   solutions: { title: string; slug: { current: string } }[];
   metrics: string;
-  slug: { current: string };
   challenges?: string[];
   longDescription?: any[];
 };
 
 export const industries: Industry[] = [
   {
-    name: 'Healthcare',
+    title: 'Healthcare',
     slug: { current: 'healthcare' },
-    icon: undefined, // Set icon in page
+    icon: Heart,
     description: 'Secure, compliant communications for hospitals, clinics, and providers.',
     solutions: [
       { title: 'Contact Center', slug: { current: 'contact-center' } },
@@ -28,27 +31,11 @@ export const industries: Industry[] = [
         'Managing high call volumes for appointments and inquiries',
         'Coordinating communication across multiple departments',
     ],
-    longDescription: [
-        {
-          _key: 'desc1',
-          _type: 'block',
-          children: [
-            {
-              _key: 'desc1-child1',
-              _type: 'span',
-              marks: [],
-              text: 'In the fast-paced and critical environment of healthcare, communication is key. FoneRoute provides a suite of HIPAA-compliant tools designed to streamline communication between providers, patients, and administrative staff, ensuring that sensitive information remains secure while improving the quality of care.',
-            },
-          ],
-          markDefs: [],
-          style: 'normal',
-        },
-    ]
   },
   {
-    name: 'Finance',
+    title: 'Finance',
     slug: { current: 'finance' },
-    icon: undefined,
+    icon: Scale,
     description: 'Reliable, secure telecom for banks, fintech, and insurance.',
     solutions: [
       { title: 'Call Recording', slug: { current: 'call-recording' } },
@@ -62,27 +49,11 @@ export const industries: Industry[] = [
         'Providing high-quality, documented customer interactions',
         'Integrating communication with financial software',
     ],
-    longDescription: [
-        {
-          _key: 'desc1',
-          _type: 'block',
-          children: [
-            {
-              _key: 'desc1-child1',
-              _type: 'span',
-              marks: [],
-              text: 'The financial services industry demands the highest levels of security and reliability. FoneRoute offers solutions that are PCI DSS ready, providing secure call recording, real-time fraud detection, and detailed analytics to help financial institutions meet compliance requirements and protect their customers.',
-            },
-          ],
-          markDefs: [],
-          style: 'normal',
-        },
-    ]
   },
   {
-    name: 'Education',
+    title: 'Education',
     slug: { current: 'education' },
-    icon: undefined,
+    icon: Building,
     description: 'Flexible solutions for schools, universities, and e-learning.',
     solutions: [
       { title: 'Virtual Classrooms', slug: { current: 'virtual-classrooms' } },
@@ -96,27 +67,11 @@ export const industries: Industry[] = [
         'Managing communications between faculty, students, and parents',
         'Scaling resources for fluctuating enrollment',
     ],
-     longDescription: [
-        {
-          _key: 'desc1',
-          _type: 'block',
-          children: [
-            {
-              _key: 'desc1-child1',
-              _type: 'span',
-              marks: [],
-              text: 'From K-12 to higher education, effective communication is essential for learning. FoneRoute offers scalable and FERPA-compliant solutions that support virtual classrooms, streamline parent notifications, and provide a reliable communication infrastructure for educational institutions of all sizes.',
-            },
-          ],
-          markDefs: [],
-          style: 'normal',
-        },
-    ]
   },
   {
-    name: 'Technology',
+    title: 'Technology',
     slug: { current: 'technology' },
-    icon: undefined,
+    icon: Zap,
     description: 'Agile communications for tech companies and startups.',
     solutions: [
         { title: 'API Integrations', slug: { current: 'api-integrations' } },
@@ -130,27 +85,11 @@ export const industries: Industry[] = [
         'Providing global support for a distributed user base',
         'Maintaining high uptime and service reliability',
     ],
-    longDescription: [
-        {
-          _key: 'desc1',
-          _type: 'block',
-          children: [
-            {
-              _key: 'desc1-child1',
-              _type: 'span',
-              marks: [],
-              text: 'The technology sector moves fast, and communication tools need to keep up. FoneRoute\'s developer-friendly APIs, global number availability, and scalable infrastructure are designed for the agility that tech companies and startups need to innovate and grow.',
-            },
-          ],
-          markDefs: [],
-          style: 'normal',
-        },
-    ]
   },
   {
-    name: 'Retail',
+    title: 'Retail',
     slug: { current: 'retail' },
-    icon: undefined,
+    icon: ShoppingCart,
     description: 'Omnichannel solutions for stores and e-commerce.',
     solutions: [
       { title: 'Contact Center', slug: { current: 'contact-center' } },
@@ -160,9 +99,9 @@ export const industries: Industry[] = [
     metrics: 'Omnichannel, Scalable',
   },
   {
-    name: 'Manufacturing',
+    title: 'Manufacturing',
     slug: { current: 'manufacturing' },
-    icon: undefined,
+    icon: Globe,
     description: 'Robust telecom for logistics, supply chain, and production.',
     solutions: [
       { title: 'Unified Communications', slug: { current: 'unified-communications' } },
@@ -171,27 +110,40 @@ export const industries: Industry[] = [
     ],
     metrics: 'Reliable, Secure',
   },
-];
-export const challenges: string[] = [
-  'Data security & compliance',
-  'Scalability for growth',
-  'Omnichannel customer engagement',
-  'Integration with business systems',
-  'Real-time analytics & reporting',
-  'Cost control & efficiency',
-];
-export type SuccessStory = { industry: string; story: string };
-export const successStories: SuccessStory[] = [
   {
-    industry: 'Healthcare',
-    story: 'A hospital reduced missed appointments by 30% using automated reminders.',
+    title: 'Hospitality',
+    slug: { current: 'hospitality' },
+    icon: Users,
+    description: 'Enhance guest experiences with seamless communication solutions.',
+    solutions: [
+      { title: 'Cloud PBX', slug: { current: 'cloud-pbx' } },
+      { title: 'Call-back service', slug: { current: 'call-back-service' } },
+      { title: 'Voicemail to email', slug: { current: 'voicemail-to-email' } },
+    ],
+    metrics: 'Reliable, Secure',
   },
   {
-    industry: 'Retail',
-    story: 'An e-commerce brand increased customer satisfaction by 25% with omnichannel support.',
+    title: 'Real Estate',
+    slug: { current: 'real-estate' },
+    icon: Home,
+    description: 'Stay connected with clients and agents on the go.',
+    solutions: [
+      { title: 'Predictive Dialer', slug: { current: 'predictive-dialer' } },
+      { title: 'Call recording', slug: { current: 'call-recording' } },
+      { title: 'Call forwarding', slug: { current: 'call-forwarding' } },
+    ],
+    metrics: 'Reliable, Secure',
   },
   {
-    industry: 'Finance',
-    story: 'A bank improved fraud detection with real-time call analytics.',
+    title: 'Legal',
+    slug: { current: 'legal' },
+    icon: Gavel,
+    description: 'Confidential and compliant communication for law firms.',
+    solutions: [
+      { title: 'Call recording', slug: { current: 'call-recording' } },
+      { title: 'Call tracking', slug: { current: 'call-tracking' } },
+      { title: 'Voicemail to email', slug: { current: 'voicemail-to-email' } },
+    ],
+    metrics: 'Reliable, Secure',
   },
 ];

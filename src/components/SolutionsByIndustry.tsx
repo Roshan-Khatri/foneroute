@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Users, Heart, Scale, Building, Zap, MessageSquare, Globe } from 'lucide-react';
+import { Users, Heart, Scale, Building, Zap, MessageSquare, Globe, Home, Gavel } from 'lucide-react';
 import type { Industry } from '@/sanity/types';
 
 const iconMap: { [key: string]: any } = {
@@ -13,6 +13,8 @@ const iconMap: { [key: string]: any } = {
   Retail: MessageSquare,
   Manufacturing: Globe,
   Hospitality: Users,
+  'Real Estate': Home,
+  Legal: Gavel,
 };
 
 interface SolutionsByIndustryProps {
@@ -64,7 +66,7 @@ const SolutionsByIndustry = ({ industries }: SolutionsByIndustryProps) => {
                 </CardContent>
                 <CardFooter className="justify-center p-8 pt-0">
                   <Button asChild variant="default">
-                    <Link to={`/industries/${industry.slug.current}`}>View All Solutions</Link>
+                    <Link to={`/industries/${industry.slug.current}`}>Explore Solution</Link>
                   </Button>
                 </CardFooter>
               </Card>
