@@ -28,7 +28,7 @@ function IndustryPage() {
           <div className="space-y-4">
             {industry.solutions.map((solution) => (
               <Link key={solution.slug.current} to={`/solutions/${solution.slug.current}`}>
-                <Card className="hover:shadow-lg transition-shadow">
+                <Card className="card-hover-animation">
                   <CardHeader>
                     <CardTitle>{solution.title}</CardTitle>
                   </CardHeader>
@@ -39,7 +39,7 @@ function IndustryPage() {
         </div>
         <div>
           <h2 className="text-2xl font-bold mb-4">Key Information</h2>
-          <Card>
+          <Card className="card-hover-animation">
             <CardContent className="pt-6">
               <div className="space-y-4">
                 {industry.metrics && (

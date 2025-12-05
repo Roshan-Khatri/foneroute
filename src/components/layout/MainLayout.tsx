@@ -1,7 +1,5 @@
 
 import { ReactNode } from 'react';
-import NewNavbar from './NewNavbar';
-import Footer from './Footer';
 import { SEO } from './SEO';
 import { useSiteSettings } from '@/hooks/useSanityContent';
 
@@ -80,11 +78,9 @@ const MainLayout = ({ children, seo }: MainLayoutProps) => {
             : 'The site is currently under maintenance.'}
         </div>
       )}
-      <NewNavbar />
       <main className="flex-1 pt-16">
         {children}
       </main>
-      <Footer />
     </div>
   );
 };

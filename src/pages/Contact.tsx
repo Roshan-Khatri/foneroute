@@ -217,7 +217,7 @@ const Contact = () => {
                 answer: "We provide complete setup, configuration, training, and ongoing support. No hidden fees or additional charges for standard implementation."
               }
             ].map((faq, index) => (
-              <Card key={index} className="card-professional card-hover">
+              <Card key={index} className="card-professional card-hover-animation">
                 <CardContent className="p-6">
                   <h3 className="font-poppins font-semibold text-foreground mb-3">
                     {faq.question}

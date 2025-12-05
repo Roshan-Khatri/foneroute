@@ -85,4 +85,18 @@
   .prose-professional {
     @apply text-lg leading-relaxed;
   }
+  .card-hover-animation {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .card-hover-animation:hover {
+    @apply transform scale-105 shadow-xl;
+  }
+
+  .card-hover {
+    @apply transition-transform duration-300 ease-in-out;
+  }
+  .card-hover:hover {
+    @apply transform -translate-y-2;
+  }
 }

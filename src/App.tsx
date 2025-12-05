@@ -6,6 +6,7 @@ import Footer from '@/components/layout/Footer';
 import Home from '@/pages/Home';
 import Solutions from '@/pages/Solutions';
 import NotFound from '@/pages/NotFound';
+import MainLayout from '@/components/layout/MainLayout';
 
 const App = () => {
   return (
@@ -14,9 +15,9 @@ const App = () => {
       <main className="flex-grow">
         <AnimatePresence mode="wait">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/solutions" element={<Solutions />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<MainLayout><Home /></MainLayout>} />
+            <Route path="/solutions" element={<MainLayout><Solutions /></MainLayout>} />
+            <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
           </Routes>
         </AnimatePresence>
       </main>

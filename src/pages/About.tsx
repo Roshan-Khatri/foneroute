@@ -149,7 +149,7 @@ const About = () => {
             </div>
 
             <div className="space-y-6">
-              <Card className="card-professional p-8">
+              <Card className="card-professional p-8 card-hover-animation">
                 <Award className="h-12 w-12 text-primary mb-4" />
                 <h3 className="text-xl font-poppins font-semibold text-foreground mb-3">
                   Industry Recognition
@@ -160,7 +160,7 @@ const About = () => {
                 </p>
               </Card>
               
-              <Card className="card-professional p-8">
+              <Card className="card-professional p-8 card-hover-animation">
                 <Target className="h-12 w-12 text-accent mb-4" />
                 <h3 className="text-xl font-poppins font-semibold text-foreground mb-3">
                   Customer-Centric Focus
@@ -189,7 +189,7 @@ const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {values.map((value, index) => (
-              <Card key={index} className="card-professional card-hover">
+              <Card key={index} className="card-professional card-hover-animation">
                 <CardContent className="p-8">
                   <value.icon className="h-12 w-12 text-primary mb-4" />
                   <h3 className="text-xl font-poppins font-semibold text-foreground mb-3">
@@ -219,7 +219,7 @@ const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {team.map((member, index) => (
-              <Card key={index} className="card-professional">
+              <Card key={index} className="card-professional card-hover-animation">
                 <CardContent className="p-8">
                   <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mb-4">
                     <Users className="h-8 w-8 text-primary" />
@@ -230,7 +230,7 @@ const About = () => {
                   <div className="text-primary font-medium mb-3">
                     {member.role}
                   </div>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-muted-foreground leading-.relaxed">
                     {member.description}
                   </p>
                 </CardContent>

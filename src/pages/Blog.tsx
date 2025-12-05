@@ -43,7 +43,7 @@ const Blog = () => {
 
       {/* Main Platform Section */}
       <section className="text-center py-12">
-        <div className="border rounded-lg p-8 max-w-4xl mx-auto">
+        <div className="border rounded-lg p-8 max-w-4xl mx-auto card-hover-animation">
           <h2 className="text-4xl font-bold mb-4">The reliable business communications platform</h2>
           <p className="text-lg mb-6">A single platform for contact center, voice, video, and chat.</p>
           <button className="bg-gray-800 text-white px-8 py-3 rounded-full font-semibold">Learn More</button>
@@ -96,15 +96,15 @@ const Blog = () => {
       <section className="py-12">
         <h2 className="text-4xl font-bold text-center mb-8">Explore product innovations</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="border rounded-lg p-6 transform hover:scale-105 transition-transform">
+          <div className="border rounded-lg p-6 card-hover-animation">
             <div className="w-full h-40 bg-gray-300 rounded-md mb-4"></div>
             <h3 className="text-2xl font-bold">Contact Center Reimagined</h3>
           </div>
-          <div className="border rounded-lg p-6 transform hover:scale-105 transition-transform">
+          <div className="border rounded-lg p-6 card-hover-animation">
             <div className="w-full h-40 bg-gray-300 rounded-md mb-4"></div>
             <h3 className="text-2xl font-bold">Introducing AI for Everyone</h3>
           </div>
-          <div className="border rounded-lg p-6 transform hover:scale-105 transition-transform">
+          <div className="border rounded-lg p-6 card-hover-animation">
             <div className="w-full h-40 bg-gray-300 rounded-md mb-4"></div>
             <h3 className="text-2xl font-bold">Connect from Anywhere</h3>
           </div>
@@ -136,15 +136,15 @@ const Blog = () => {
       <section className="py-16">
         <h2 className="text-4xl font-bold text-center mb-8">The leader in AI communications</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="border rounded-lg p-6 transform hover:scale-105 transition-transform">
+          <div className="border rounded-lg p-6 card-hover-animation">
             <div className="w-full h-40 bg-gray-300 rounded-md mb-4"></div>
             <h3 className="text-2xl font-bold">Unify your communications</h3>
           </div>
-          <div className="border rounded-lg p-6 transform hover:scale-105 transition-transform">
+          <div className="border rounded-lg p-6 card-hover-animation">
             <div className="w-full h-40 bg-gray-300 rounded-md mb-4"></div>
             <h3 className="text-2xl font-bold">Lower costs with a single platform</h3>
           </div>
-          <div className="border rounded-lg p-6 transform hover:scale-105 transition-transform">
+          <div className={border rounded-lg p-6 card-hover-animation">
             <div className="w-full h-40 bg-gray-300 rounded-md mb-4"></div>
             <h3 className="text-2xl font-bold">Support your hybrid work strategy</h3>
           </div>

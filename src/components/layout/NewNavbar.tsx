@@ -19,6 +19,23 @@ const NewNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const { data: siteSettings } = useSiteSettings();
+  const [activePath, setActivePath] = useState(window.location.pathname);
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setActivePath(window.location.pathname);
+    };
+    window.addEventListener('popstate', handleLocationChange);
+    const originalPushState = history.pushState;
+    history.pushState = function(...args) {
+      originalPushState.apply(this, args);
+      handleLocationChange();
+    };
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      history.pushState = originalPushState;
+    };
+  }, []);
 
   const logoImg = siteSettings?.logoImage ? urlFor(siteSettings.logoImage).url() : null;
   const siteName = siteSettings?.siteName || 'Foneroute';
@@ -48,14 +65,13 @@ const NewNavbar = () => {
     { title: 'About', href: '/about' },
   ];
 
-  const getNavItemClasses = (path: string, isDropdown: boolean = false) => {
-    const isActive = isDropdown
-      ? navItems.find(item => item.title === path)?.dropdown?.some(subItem => window.location.pathname === subItem.href)
-      : window.location.pathname === path;
-
+  const getNavItemClasses = (href: string) => {
+    const isActive = href === '/' ? activePath === href : activePath.startsWith(href);
     return cn(
-      'nav-link group',
-      isActive ? 'text-primary dark:text-white' : 'text-foreground/90',
+      'nav-link group transition-colors',
+      isActive
+        ? 'font-bold text-foreground hover:text-foreground'
+        : 'text-foreground/90 hover:text-foreground'
     );
   };
   
@@ -72,7 +88,7 @@ const NewNavbar = () => {
           <div className="flex items-center">
             <a href="/" className="flex items-center space-x-2">
               {logoImg ? (
-                <img src={logoImg} alt={siteName} className="h-8 w-8 object-contain" />
+                <img src={logoImg} alt={siteName} className="h-8 w-8 object-contain card-hover-animation" />
               ) : (
                 <Phone className="h-8 w-8 text-primary" />
               )}
@@ -94,7 +110,7 @@ const NewNavbar = () => {
                     ) : (
                       <>
                         <NavigationMenuTrigger 
-                          className={cn(getNavItemClasses(item.title, true), 'bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent')}
+                          className={cn(getNavItemClasses(item.href), 'bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent')}
                           onMouseEnter={() => setOpenDropdown(item.title)}
                           onMouseLeave={() => setOpenDropdown(null)}
                         >

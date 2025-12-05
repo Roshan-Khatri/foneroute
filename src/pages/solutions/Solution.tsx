@@ -30,7 +30,7 @@ const Solution = () => {
           <h2 className="text-3xl font-bold mb-8 text-center">{title}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {items.map((item, index) => (
-              <div key={index} className="p-6 bg-surface rounded-lg shadow-lg transform hover:-translate-y-1 transition-transform duration-300">
+              <div key={index} className="p-6 bg-surface rounded-lg shadow-lg card-hover-animation">
                 <h3 className="text-xl font-semibold mb-2 text-foreground">{item.title}</h3>
                 <p className="text-muted-foreground">{item.description}</p>
               </div>

@@ -1,9 +1,10 @@
 
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Maximize, TrendingUp, Zap, Heart, Bolt, Shield, DollarSign, BarChart2, Users, Briefcase, Landmark, ShoppingCart, Star, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const Home = () => {
@@ -94,7 +95,7 @@ const Home = () => {
                     <div className="relative h-full flex items-center justify-center">
                         <AnimatePresence mode="wait">
                             <motion.div key={currentSlide} initial="hidden" animate="visible" exit="exit" variants={imageVariants} transition={{ duration: 0.5, delay: 0.2 }} className="w-full h-full">
-                                <img src={currentHero.image.src} alt={currentHero.image.alt} className="object-contain w-full h-[500px]" />
+                                <img src={currentHero.image.src} alt={currentHero.image.alt} className="object-contain w-full h-[500px] card-hover-animation" />
                             </motion.div>
                         </AnimatePresence>
                     </div>
@@ -111,7 +112,7 @@ const Home = () => {
                     <div className="grid md:grid-cols-3 gap-8">
                         {coreSolutions.map((solution, i) => (
                             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <Card className="bg-background shadow-lg hover-lift h-full text-center">
+                                <Card className="bg-background shadow-lg h-full text-center card-hover-animation">
                                     <CardHeader>
                                         <div className="mx-auto bg-primary text-primary-foreground p-3 rounded-full w-fit mb-4"><solution.icon className="h-6 w-6" /></div>
                                         <CardTitle className="font-poppins">{solution.title}</CardTitle>
@@ -132,7 +133,7 @@ const Home = () => {
                     <div className="grid md:grid-cols-3 gap-8">
                         {whyChooseUs.map((item, i) => (
                             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <Card className="bg-transparent border-0 shadow-none text-center">
+                                <Card className="bg-transparent border-0 shadow-none text-center card-hover-animation">
                                   <CardHeader>
                                       <div className="mx-auto text-primary w-fit mb-4"><item.icon className="h-10 w-10" /></div>
                                       <CardTitle className="font-poppins text-xl">{item.title}</CardTitle>
@@ -162,7 +163,7 @@ const Home = () => {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                             {provenResults.map((result, i) => (
                                 <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.15 }}>
-                                    <Card className="bg-background shadow-lg h-full">
+                                    <Card className="bg-background shadow-lg h-full card-hover-animation">
                                         <CardContent className="pt-6">
                                             <p className="text-4xl font-bold text-primary">{result.stat}</p>
                                             <p className="text-muted-foreground mt-2">{result.description}</p>
@@ -183,7 +184,7 @@ const Home = () => {
                     <div className="grid md:grid-cols-3 gap-8">
                         {values.map((item, i) => (
                             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <Card className="bg-transparent border-0 shadow-none text-center">
+                                <Card className="bg-transparent border-0 shadow-none text-center card-hover-animation">
                                   <CardHeader>
                                       <div className="mx-auto text-primary w-fit mb-4"><item.icon className="h-10 w-10" /></div>
                                       <CardTitle className="font-poppins text-xl">{item.title}</CardTitle>
@@ -204,17 +205,24 @@ const Home = () => {
                     <div className="grid md:grid-cols-3 gap-8">
                         {industries && industries.map((item, i) => (
                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <Card className="bg-background shadow-lg hover-lift h-full text-center">
+                                <Card className="bg-background shadow-lg h-full text-center card-hover-animation">
                                     <CardHeader>
                                         <div className="mx-auto bg-primary text-primary-foreground p-3 rounded-full w-fit mb-4"><item.icon className="h-6 w-6" /></div>
                                         <CardTitle className="font-poppins">{item.title}</CardTitle>
                                     </CardHeader>
                                     <CardContent><p className="text-muted-foreground">{item.description}</p></CardContent>
+                                    <CardFooter>
+                                        <a href={item.link} className="w-full">
+                                            <Button variant="outline" className="w-full">Explore Solution</Button>
+                                        </a>
+                                    </CardFooter>
                                 </Card>
                             </motion.div>
                         ))}
                     </div>
-                    <Button variant="outline" className="mt-12">View All Industries</Button>
+                    <Button asChild variant="outline" className="mt-12">
+                        <Link to="/solutions#industries">View All Industries</Link>
+                    </Button>
                 </div>
             </section>
             
@@ -226,7 +234,7 @@ const Home = () => {
                     <div className="grid md:grid-cols-3 gap-8">
                         {testimonials.map((item, i) => (
                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <Card className="bg-background shadow-lg h-full text-left">
+                                <Card className="bg-background shadow-lg h-full text-left card-hover-animation">
                                     <CardHeader>
                                         <div className="flex text-primary">
                                             {[...Array(item.rating)].map((_, j) => <Star key={j} className="h-5 w-5 fill-current" />)}
@@ -249,7 +257,7 @@ const Home = () => {
                 <div className="container-custom text-center">
                     <h2 className="text-3xl font-poppins font-bold mb-4">Feature Comparison</h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto mb-12">Find the perfect plan that fits the scale and needs of your business.</p>
-                    <Card>
+                    <Card className="card-hover-animation">
                         <table className="w-full">
                             <thead>
                                 <tr className="border-b">
@@ -269,12 +277,21 @@ const Home = () => {
                                     </tr>
                                 ))}
                             </tbody>
+                            <tfoot>
+                                <tr className="border-t">
+                                    <td className="p-4"></td>
+                                    <td className="p-4 text-center">
+                                        <Button>Choose Solo</Button>
+                                    </td>
+                                    <td className="p-4 text-center">
+                                        <Button>Choose Pro</Button>
+                                    </td>
+                                    <td className="p-4 text-center">
+                                        <Button>Choose Enterprise</Button>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
-                        <div className="p-4 flex justify-around">
-                            <Button>Choose Solo</Button>
-                            <Button>Choose Pro</Button>
-                            <Button>Choose Enterprise</Button>
-                        </div>
                     </Card>
                 </div>
             </section>

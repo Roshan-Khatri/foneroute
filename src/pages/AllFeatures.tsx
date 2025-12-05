@@ -85,7 +85,7 @@ const AllFeatures = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuresItems.map((feature) => (
               <Link to={feature.href} key={feature.href} className="card-hover-parent">
-                <Card className="h-full card-professional card-hover">
+                <Card className="h-full card-professional card-hover-animation">
                   <CardHeader>
                     <CardTitle>{feature.title}</CardTitle>
                   </CardHeader>

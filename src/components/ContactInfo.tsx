@@ -44,7 +44,7 @@ export const ContactInfo = ({ contactInfo, businessHours, supportHours, holidayM
         </div>
       </div>
 
-      <Card className="card-professional">
+      <Card className="card-professional card-hover">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Clock className="h-5 w-5 text-primary" />

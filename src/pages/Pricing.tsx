@@ -1,80 +1,85 @@
 
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { CheckCircle } from "lucide-react";
+import { Check, Minus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { useSanityContent } from "@/hooks/useSanityContent";
-import { PricingPlan } from "@/sanity/types";
-
-import PricingSkeleton from "./PricingSkeleton";
 import { PageHeader } from "@/components/layout/PageHeader";
 
+const features = [
+  { name: 'Call Recording', solo: true, pro: true, enterprise: true },
+  { name: 'CRM Integration', solo: false, pro: true, enterprise: true },
+  { name: 'Predictive Dialing', solo: false, pro: true, enterprise: true },
+  { name: 'Advanced Analytics', solo: false, pro: false, enterprise: true },
+];
+
 export default function Pricing() {
-  const { data: plans, isLoading, error } = useSanityContent<PricingPlan[]>("*[_type == 'pricingPlan']");
-
-  if (isLoading) return <PricingSkeleton />;
-  if (error) return <div>Error: {error.message}</div>;
-
   return (
     <>
       <Helmet>
-        <title>Pricing Plans</title>
+        <title>Feature Comparison</title>
         <meta
           name="description"
-          content="Choose the best plan for your business needs."
+          content="Find the perfect plan that fits the scale and needs of your business."
         />
       </Helmet>
       <main>
         <PageHeader
-          title="Pricing Plans"
-          description="Choose the best plan for your business needs."
+          title="Feature Comparison"
+          description="Find the perfect plan that fits the scale and needs of your business."
         />
 
-        {/* Pricing Section */}
-        <section className="section-padding">
+        {/* Pricing Table Section */}
+        <section className="py-16 sm:py-20">
           <div className="container-custom">
             <div className="max-w-7xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {plans?.map((plan, index) => (
-                  <div
-                    key={index}
-                    className="card-professional flex flex-col transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                  >
-                    <div className="p-8">
-                      <h3 className="text-2xl font-bold font-poppins text-foreground mb-4">
-                        {plan.name}
-                      </h3>
-                      <p className="text-muted-foreground mb-6">
-                        {plan.description}
-                      </p>
-                      <div className="flex items-baseline mb-6">
-                        <span className="text-4xl font-extrabold font-poppins text-foreground">
-                          ${plan.price}
-                        </span>
-                        <span className="ml-2 text-lg text-muted-foreground">
-                          / {plan.priceUnit}
-                        </span>
-                      </div>
-                      <ul className="space-y-4">
-                        {plan.features?.map((feature, fIndex) => (
-                          <li
-                            key={fIndex}
-                            className="flex items-center space-x-3"
-                          >
-                            <CheckCircle className="h-5 w-5 text-black flex-shrink-0" />
-                            <span className="text-foreground">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="p-8 pt-0 mt-auto">
-                      <Button asChild className="w-full text-lg bg-black text-white hover:bg-gray-800">
-                        <Link to="/contact">Get Started</Link>
-                      </Button>
-                    </div>
-                  </div>
-                ))}
+              <div className="border rounded-lg overflow-x-auto card-hover-animation">
+                <table className="w-full table-fixed">
+                  <thead>
+                    <tr className="bg-white dark:bg-background">
+                      <th className="p-4 text-left font-bold text-lg w-[34%]">Feature</th>
+                      <th className="p-4 text-center font-bold text-lg w-[22%]">Solo</th>
+                      <th className="p-4 text-center font-bold text-lg w-[22%]">Pro</th>
+                      <th className="p-4 text-center font-bold text-lg w-[22%]">Enterprise</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {features.map((feature, index) => (
+                      <tr key={index} className="border-t">
+                        <td className="p-4 font-medium">{feature.name}</td>
+                        <td className="p-4 text-center">
+                          {feature.solo ? <Check className="h-6 w-6 text-primary mx-auto" /> : <Minus className="h-6 w-6 text-muted-foreground mx-auto" />}
+                        </td>
+                        <td className="p-4 text-center">
+                          {feature.pro ? <Check className="h-6 w-6 text-primary mx-auto" /> : <Minus className="h-6 w-6 text-muted-foreground mx-auto" />} 
+                        </td>
+                        <td className="p-4 text-center">
+                          {feature.enterprise ? <Check className="h-6 w-6 text-primary mx-auto" /> : <Minus className="h-6 w-6 text-muted-foreground mx-auto" />}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr className="border-t">
+                        <td className="p-4"></td>
+                        <td className="p-4 text-center">
+                            <Button asChild className="w-full bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+                                <Link to="/contact?plan=solo">Choose Solo</Link>
+                            </Button>
+                        </td>
+                        <td className="p-4 text-center">
+                            <Button asChild className="w-full bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+                                <Link to="/contact?plan=pro">Choose Pro</Link>
+                            </Button>
+                        </td>
+                        <td className="p-4 text-center">
+                            <Button asChild className="w-full bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+                                <Link to="/contact?plan=enterprise">Choose Enterprise</Link>
+                            </Button>
+                        </td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
             </div>
           </div>
