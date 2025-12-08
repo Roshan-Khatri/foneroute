@@ -1,9 +1,7 @@
 
-import { useState, useEffect, RefObject } from 'react';
+import { useState, useEffect } from 'react';
 
-interface ScrollSpyOptions extends IntersectionObserverInit {
-  // No additional options needed for now, but can be extended
-}
+type ScrollSpyOptions = IntersectionObserverInit;
 
 export function useScrollSpy(
   sectionIds: string[],

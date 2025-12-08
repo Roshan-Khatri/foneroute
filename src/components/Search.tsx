@@ -1,3 +1,4 @@
+
 import { FC, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X } from 'lucide-react';
@@ -49,6 +50,13 @@ const allSearchableItems = [
     ...featuresItems.map(item => ({...item, type: 'feature'}))
   ];
 
+  interface SearchResult {
+    title: string;
+    href: string;
+    description?: string;
+    type: string;
+  }
+
 interface SearchComponentProps {
     onResultClick?: () => void;
 }
@@ -56,7 +64,7 @@ interface SearchComponentProps {
 const SearchComponent: FC<SearchComponentProps> = ({ onResultClick }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState<any[]>([]);
+    const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
     const searchContainerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();

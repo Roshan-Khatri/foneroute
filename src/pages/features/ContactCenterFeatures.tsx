@@ -26,7 +26,7 @@ const ContactCenterFeatures = () => {
   return (
     <div>
       <PageHeader
-        title="Contact Center Features"
+        title="Contact Center"
         subtitle="Our Contact Center solution is a suite of powerful tools. Explore the categories below to learn more about each feature set."
         breadcrumb="Home / Features / Contact Center"
       />

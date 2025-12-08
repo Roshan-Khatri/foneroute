@@ -1,8 +1,10 @@
+
 import React from 'react';
 import Solution from './Solution';
+import { Solution as SolutionType } from '@/types/solution';
 
 const PowerDialer = () => {
-  const solution = {
+  const solution: SolutionType = {
     title: 'Power Dialer',
     slug: { current: 'power-dialer' },
     hero: {
@@ -34,7 +36,7 @@ const PowerDialer = () => {
       { title: 'Auto Dialer', slug: { current: 'auto-dialer' } },
       { title: 'Contact Center', slug: { current: 'contact-center' } },
     ],
-  } as any;
+  };
 
   return <Solution solution={solution} />;
 };

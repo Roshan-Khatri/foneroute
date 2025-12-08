@@ -1,8 +1,10 @@
+
 import React from 'react';
 import Solution from './Solution';
+import { Solution as SolutionType } from '@/types/solution';
 
 const UnifiedCommunications = () => {
-  const solution = {
+  const solution: SolutionType = {
     title: 'Unified Communications',
     slug: { current: 'unified-communications' },
     hero: {
@@ -34,7 +36,7 @@ const UnifiedCommunications = () => {
       { title: 'Cloud PBX', slug: { current: 'cloud-pbx' } },
       { title: 'Contact Center', slug: { current: 'contact-center' } },
     ],
-  } as any;
+  };
 
   return <Solution solution={solution} />;
 };

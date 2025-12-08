@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import PageHeader from '@/components/layout/PageHeader';
 import {
@@ -10,6 +11,7 @@ import { useSiteSettings } from '@/hooks/useSanityContent';
 import { ContactForm } from '@/components/ContactForm';
 import { ContactInfo } from '@/components/ContactInfo';
 import ContactSkeleton from './ContactSkeleton';
+import { motion } from 'framer-motion';
 
 const Contact = () => {
   const { data: siteSettings, isLoading: settingsLoading, isError: settingsError } = useSiteSettings();
@@ -170,35 +172,37 @@ const Contact = () => {
       />
 
       {/* Contact Form Section */}
-      <section className="section-padding bg-background">
+      <section className="py-12 md:py-16 bg-background">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
+            <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <ContactForm />
-            </div>
-            <ContactInfo 
-              contactInfo={contactInfo} 
-              businessHours={businessHours} 
-              supportHours={supportHours} 
-              holidayMessage={holidayMessage} 
-            />
+            </motion.div>
+            <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+              <ContactInfo 
+                contactInfo={contactInfo} 
+                businessHours={businessHours} 
+                supportHours={supportHours} 
+                holidayMessage={holidayMessage} 
+              />
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="section-padding bg-surface">
+      <section className="py-12 md:py-16 bg-secondary/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-foreground mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
               Quick answers to common questions about our services and getting started
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
             {[
               {
                 question: "How quickly can we get started?",
@@ -217,16 +221,18 @@ const Contact = () => {
                 answer: "We provide complete setup, configuration, training, and ongoing support. No hidden fees or additional charges for standard implementation."
               }
             ].map((faq, index) => (
-              <Card key={index} className="card-professional card-hover-animation">
-                <CardContent className="p-6">
-                  <h3 className="font-poppins font-semibold text-foreground mb-3">
-                    {faq.question}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </CardContent>
-              </Card>
+              <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
+                <Card className="card-professional card-hover-animation h-full">
+                  <CardContent className="p-6">
+                    <h3 className="font-poppins font-semibold text-foreground mb-3 text-base md:text-lg">
+                      {faq.question}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>

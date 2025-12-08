@@ -1,148 +1,276 @@
-
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Search, UserCircle, Wrench, Loader } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import PageHeader from '@/components/layout/PageHeader';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { useDebounce } from '@/hooks/useDebounce';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Link } from 'react-router-dom';
 
 const faqs = [
   {
-    question: "What is FoneRoute?",
-    answer: "FoneRoute is a leading provider of cloud-based communication solutions, including contact centers, auto dialers, and unified communications platforms."
+    question: "What is your return policy?",
+    answer: "You can return any item within 30 days of purchase for a full refund. Please see our returns page for more details.",
   },
   {
-    question: "How can I get started?",
-    answer: "You can get started by signing up for a free trial on our website or by contacting our sales team for a personalized demo."
+    question: "How do I track my order?",
+    answer: "Once your order has shipped, you will receive an email with a tracking number. You can use this number to track your order on the carrier's website.",
   },
   {
-    question: "What are your support hours?",
-    answer: "Our support team is available 24/7 to assist you with any issues or questions you may have. You can reach us by phone, email, or live chat."
-  },
-  {
-    question: "Do you offer international numbers?",
-    answer: "Yes, FoneRoute provides international numbers in over 100 countries, allowing you to establish a local presence anywhere in the world."
+    question: "Do you offer international shipping?",
+    answer: "Yes, we ship to most countries worldwide. Shipping costs and delivery times vary depending on the destination.",
   },
 ];
 
-const helpCategories = [
-    {
-        icon: <UserCircle size={48} className="text-primary" />,
-        title: 'Account & Subscription',
-        description: 'Manage profile, billing, login help',
-        link: '/contact?topic=account',
-    },
-    {
-        icon: <Wrench size={48} className="text-primary" />,
-        title: 'Technical Support',
-        description: 'Troubleshooting, product issues, setup guides',
-        link: '/contact?topic=tech-support',
-    },
-    {
-        icon: <Mail size={48} className="text-primary" />,
-        title: 'Contact Us',
-        description: 'Live support, email support, business inquiries',
-        link: '/contact',
-    },
+const guides = [
+  {
+    title: "Account Setup",
+    description: "Learn how to create and set up your account in a few easy steps.",
+    link: "#",
+  },
+  {
+    title: "Product Configuration",
+    description: "Follow our guide to configure the product to meet your needs.",
+    link: "#",
+  },
+  {
+    title: "Troubleshooting Tips",
+    description: "Find solutions to common issues and keep things running smoothly.",
+    link: "#",
+  },
+];
+
+const resources = [
+  {
+    title: "Documentation",
+    description: "Browse our detailed documentation to find answers to your questions.",
+    link: "#",
+  },
+  {
+    title: "Community Forums",
+    description: "Connect with other users and get help from the community.",
+    link: "#",
+  },
+  {
+    title: "Blog",
+    description: "Read our latest articles and stay up-to-date with our products.",
+    link: "#",
+  },
+];
+
+const securityInfo = [
+  {
+    title: "Data Encryption",
+    description: "All your communications—voice, video, and messages—are protected with end-to-end and in-transit encryption using industry-standard protocols.",
+    link: "#",
+  },
+  {
+    title: "Compliance Certifications",
+    description: "We adhere to major global privacy and security standards, including GDPR, HIPAA, and SOC 2, to ensure your data is handled responsibly.",
+    link: "#",
+  },
+  {
+    title: "Secure Infrastructure",
+    description: "Our platform is built on a resilient and secure infrastructure with regular security audits and threat monitoring to prevent unauthorized access.",
+    link: "#",
+  },
 ];
 
 const Support = () => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  return (
+    <div>
+      <PageHeader
+        title="Support"
+        subtitle="Get help with our products and services."
+        breadcrumb="Home / Support"
+      />
 
-    const filteredFaqs = faqs.filter(faq =>
-        faq.question.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-    );
-
-    const isSearching = searchTerm !== debouncedSearchTerm;
-
-    return (
-        <div className="bg-background text-foreground">
-            {/* Hero Section */}
-            <section className="py-20 text-center bg-background">
-                <div className="container-custom">
-                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Support Center</h1>
-                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-                        We’re here to help you with anything — explore solutions or contact our team.
-                    </p>
-                    <div className="relative max-w-lg mx-auto">
-                        <Input
-                            type="search"
-                            placeholder="Search FAQs..."
-                            className="pl-12 pr-4 py-3 text-lg"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground" />
-                    </div>
-                </div>
-            </section>
-
-            {/* Help Categories Section */}
-            <section className="py-16">
-                <div className="container-custom">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {helpCategories.map((category, index) => (
-                            <Card key={index} className="text-center card-hover-animation">
-                                <CardHeader>
-                                    <div className="flex justify-center mb-4">{category.icon}</div>
-                                    <CardTitle>{category.title}</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-muted-foreground mb-6">{category.description}</p>
-                                    <Button asChild variant="outline">
-                                        <Link to={category.link}>Get Help</Link>
-                                    </Button>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* FAQ Search Results */}
-            {(debouncedSearchTerm) && (
-                <section className="py-16 bg-muted/30">
-                    <div className="container-custom max-w-3xl">
-                        <h2 className="text-3xl font-bold mb-8 text-center">
-                            Search Results
-                        </h2>
-                        {isSearching ? (
-                            <div className="flex justify-center items-center">
-                                <Loader className="animate-spin h-8 w-8 text-primary" />
-                            </div>
-                        ) : filteredFaqs.length > 0 ? (
-                            <Accordion type="single" collapsible className="w-full">
-                            {filteredFaqs.map((faq, index) => (
-                                <AccordionItem value={`item-${index}`} key={index}>
-                                <AccordionTrigger>{faq.question}</AccordionTrigger>
-                                <AccordionContent>{faq.answer}</AccordionContent>
-                                </AccordionItem>
-                            ))}
-                            </Accordion>
-                        ) : (
-                            <p className="text-center text-muted-foreground">No results found for "{debouncedSearchTerm}"</p>
-                        )}
-                    </div>
-                </section>
-            )}
-
-            {/* "Need More Help?" Section */}
-            <section className="py-20 text-center">
-                <div className="container-custom">
-                    <h2 className="text-3xl font-bold mb-4">Need More Help?</h2>
-                    <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-                        Our support team is just a click away. Get in touch with us for personalized assistance.
-                    </p>
-                    <Button asChild size="lg">
-                        <Link to="/contact">Talk to Support</Link>
-                    </Button>
-                </div>
-            </section>
+      <section className="section-padding bg-surface">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
+              Contact Support
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Can't find the answer you're looking for? Fill out the form below to get in touch with our support team.
+            </p>
+          </div>
+          <form className="max-w-xl mx-auto">
+            <div className="grid grid-cols-1 gap-6">
+              <div>
+                <Label htmlFor="name">Name</Label>
+                <Input type="text" id="name" placeholder="Enter your name" />
+              </div>
+              <div>
+                <Label htmlFor="email">Email</Label>
+                <Input type="email" id="email" placeholder="Enter your email" />
+              </div>
+              <div>
+                <Label htmlFor="message">Message</Label>
+                <Textarea id="message" placeholder="Enter your message" />
+              </div>
+              <div className="text-center">
+                <Button type="submit">Submit</Button>
+              </div>
+            </div>
+          </form>
         </div>
-    );
+      </section>
+
+      <section className="section-padding bg-background">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
+              Getting Started Guides
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Explore our guides to get started with our products and services.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {guides.map((guide, index) => (
+              <div className="bg-surface rounded-lg shadow-lg p-6" key={index}>
+                <h3 className="text-xl font-bold mb-3">{guide.title}</h3>
+                <p className="text-muted-foreground mb-4">{guide.description}</p>
+                <Button asChild variant="link" className="p-0 h-auto">
+                  <Link to={guide.link}>Read More</Link>
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-surface">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Here are some of our most frequently asked questions.
+            </p>
+          </div>
+          <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
+            {faqs.map((faq, index) => (
+              <AccordionItem value={`item-${index}`} key={index}>
+                <AccordionTrigger>{faq.question}</AccordionTrigger>
+                <AccordionContent>{faq.answer}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      <section className="section-padding bg-background">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
+              Helpful Resources
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Check out these resources for more information and support.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {resources.map((resource, index) => (
+              <div className="bg-surface rounded-lg shadow-lg p-6" key={index}>
+                <h3 className="text-xl font-bold mb-3">{resource.title}</h3>
+                <p className="text-muted-foreground mb-4">{resource.description}</p>
+                <Button asChild variant="link" className="p-0 h-auto">
+                  <Link to={resource.link}>Learn More</Link>
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-surface">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
+              Security & Compliance
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Learn about our commitment to protecting your data and privacy.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {securityInfo.map((item, index) => (
+              <div className="bg-surface rounded-lg shadow-lg p-6" key={index}>
+                <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                <p className="text-muted-foreground mb-4">{item.description}</p>
+                <Button asChild variant="link" className="p-0 h-auto">
+                  <Link to={item.link}>Learn More</Link>
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-background">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
+              System Status
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Check the current status of our services.
+            </p>
+          </div>
+          <div className="flex items-center justify-center">
+            <div className="w-4 h-4 bg-green-500 rounded-full mr-3"></div>
+            <p className="text-lg">All systems operational</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-surface">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
+              Live Chat
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Need immediate assistance? Chat with a support agent now.
+            </p>
+          </div>
+          <div className="text-center">
+            <Button size="lg">Start Live Chat</Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-background">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
+              Submit a Feature Request
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Have a great idea for a new feature? Let us know!
+            </p>
+          </div>
+          <form className="max-w-xl mx-auto">
+            <div className="grid grid-cols-1 gap-6">
+              <div>
+                <Label htmlFor="feature-title">Feature Title</Label>
+                <Input type="text" id="feature-title" placeholder="Enter a title for your feature request" />
+              </div>
+              <div>
+                <Label htmlFor="feature-description">Description</Label>
+                <Textarea id="feature-description" placeholder="Describe your feature request in detail" />
+              </div>
+              <div className="text-center">
+                <Button type="submit">Submit Request</Button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  );
 };
 
 export default Support;

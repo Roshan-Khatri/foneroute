@@ -14,7 +14,6 @@ const SmoothScrollLink = forwardRef<HTMLAnchorElement, SmoothScrollLinkProps>(
       const toStr = typeof to === 'string' ? to : to.pathname || '';
       const isHashLink = toStr.startsWith('#');
 
-      // If it's a hash link, perform smooth scroll and prevent the default jump.
       if (isHashLink) {
         e.preventDefault();
         const targetId = toStr.substring(1);
@@ -28,17 +27,13 @@ const SmoothScrollLink = forwardRef<HTMLAnchorElement, SmoothScrollLinkProps>(
         }
       }
       
-      // For standard links, we do nothing here. The parent <Link> component
-      // will handle the navigation. The problematic `window.scrollTo` is removed.
-
-      // We still pass the onClick event through for the navigation components to work.
       if (onClick) {
         onClick(e);
       }
     };
 
     return (
-      <Link to={to} onClick={handleClick} ref={ref} {...props}>
+      <Link to={to} onClick={handleClick} reloadDocument ref={ref} {...props}>
         {children}
       </Link>
     );

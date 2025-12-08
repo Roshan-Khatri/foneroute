@@ -1,271 +1,129 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+
 import PageHeader from '@/components/layout/PageHeader';
-import { Link } from 'react-router-dom';
-import { 
-  Users, 
-  Award, 
-  Target, 
-  Heart, 
-  Shield, 
-  Zap,
-  CheckCircle,
-  ArrowRight
-} from 'lucide-react';
-import { usePageBySlug, useSanityStatus } from '../hooks/useSanityContent';
-import AllPagesSkeleton from './AllPagesSkeleton';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CheckCircle, Briefcase, Users, Heart, Star, Zap, Award, BarChart } from "lucide-react";
+import { motion } from 'framer-motion';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const About = () => {
-  // Demonstrate Sanity content loading by slug
-  const { data: page, error, isLoading } = usePageBySlug('about');
-  const sanityStatus = useSanityStatus();
+  const teamMembers = [
+    { name: "John Doe", role: "CEO & Founder", image: "/avatars/01.png" },
+    { name: "Jane Smith", role: "Chief Technology Officer", image: "/avatars/02.png" },
+    { name: "Peter Jones", role: "Head of Sales", image: "/avatars/03.png" },
+    { name: "Emily Williams", role: "Lead Developer", image: "/avatars/04.png" },
+    { name: "Michael Brown", role: "Marketing Director", image: "/avatars/05.png" },
+    { name: "Jessica Davis", role: "Customer Support Lead", image: "/avatars/06.png" },
+  ];
 
-  // Dev-only banner for missing Sanity config
-  const showDevBanner = import.meta.env.DEV && !sanityStatus.isConfigured;
-
-  // Static fallback content
-  const stats = [
-    { number: '10+', label: 'Years Experience' },
-    { number: '5000+', label: 'Happy Customers' },
-    { number: '99.9%', label: 'Uptime Guarantee' },
-    { number: '24/7', label: 'Expert Support' }
+  const commitment = [
+    {
+      icon: Zap,
+      title: "Innovation",
+      description: "We are committed to continuous innovation, leveraging the latest technologies to provide cutting-edge solutions.",
+    },
+    {
+      icon: Award,
+      title: "Quality",
+      description: "We uphold the highest standards of quality in our products and services, ensuring reliability and excellence.",
+    },
+    {
+      icon: BarChart,
+      title: "Customer Satisfaction",
+      description: "Our customers are at the heart of everything we do. We are dedicated to ensuring their success and satisfaction.",
+    },
   ];
 
   const values = [
-    {
-      icon: Shield,
-      title: 'Reliability',
-      description: 'We deliver consistent, dependable telecommunications solutions with industry-leading uptime and performance standards.'
-    },
-    {
-      icon: Zap,
-      title: 'Innovation',
-      description: 'Continuously advancing our technology stack to provide cutting-edge solutions that keep our clients ahead of the competition.'
-    },
-    {
-      icon: Heart,
-      title: 'Customer Success',
-      description: 'Your success is our priority. We go above and beyond to ensure our solutions drive measurable business results.'
-    },
-    {
-      icon: Users,
-      title: 'Partnership',
-      description: 'We believe in building long-term partnerships, working closely with clients to understand and meet their unique needs.'
-    }
+    { icon: Heart, title: "Customer-First", description: "We are deeply committed to understanding and meeting our customers' needs." },
+    { icon: Star, title: "Excellence", description: "We foster a culture of creativity and continuous improvement." },
+    { icon: Users, title: "Integrity", description: "We operate with transparency and honesty in every interaction." },
   ];
-
-  const team = [
-    {
-      name: 'Sarah Johnson',
-      role: 'CEO & Founder',
-      description: '15+ years in telecommunications with a vision to democratize enterprise communication tools.'
-    },
-    {
-      name: 'Michael Chen',
-      role: 'CTO',
-      description: 'Former telecom engineer with expertise in cloud infrastructure and scalable communication systems.'
-    },
-    {
-      name: 'Emily Rodriguez',
-      role: 'VP of Customer Success',
-      description: 'Dedicated to ensuring every client maximizes value from our telecommunications solutions.'
-    },
-    {
-      name: 'David Kim',
-      role: 'VP of Engineering',
-      description: 'Leading our technical team in developing robust, innovative communication platforms.'
-    }
-  ];
-
-  if (isLoading) return <AllPagesSkeleton />;
-  if (error) return <div>Error loading page: {error.message}</div>;
-
-  // When Sanity has content, it will be used. Otherwise, the static content below is used.
-  const pageTitle = page?.title || "About FoneRoute";
-  const pageSubtitle = page?.excerpt || "Empowering businesses worldwide with innovative telecommunications solutions that drive growth, enhance productivity, and transform customer experiences.";
 
   return (
     <div>
-      {showDevBanner && (
-        <div style={{ background: '#fffbe6', color: '#ad8a00', padding: '1rem', marginBottom: '1rem', borderRadius: '6px', border: '1px solid #ffe58f' }}>
-          <strong>Sanity CMS is not fully configured.</strong><br />
-          Missing: {sanityStatus.missing?.join(', ') || 'unknown'}<br />
-          To enable live editing, set up your environment variables as described in <code>.env.example</code> and <code>src/sanity/env.ts</code>.
-        </div>
-      )}
-      
       <PageHeader
-        title={pageTitle}
-        subtitle={pageSubtitle}
-        breadcrumb="Home / About"
+        title="About Our Company"
+        subtitle="Innovators in business communication, dedicated to your success."
       />
 
-      {/* Stats Section */}
-      <section className="section-padding bg-background">
+      <section className="py-12 md:py-16">
         <div className="container-custom">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl font-poppins font-bold text-primary mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-muted-foreground font-medium">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Mission Section */}
-      <section className="section-padding bg-surface">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-6">
-                Our Mission
-              </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                At FoneRoute, we're passionate about breaking down communication barriers 
-                that hold businesses back. Our mission is to provide enterprise-grade 
-                telecommunications solutions that are accessible, reliable, and powerful 
-                enough to scale with your ambitions.
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+              <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Our Mission & Vision</h2>
+              <p className="text-muted-foreground mb-6 text-base md:text-lg leading-relaxed">
+                Our mission is to empower businesses with seamless, intelligent, and reliable communication solutions that foster growth and build lasting customer relationships. We envision a world where every business, regardless of size, can leverage cutting-edge technology to connect with their customers effortlessly and effectively.
               </p>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                We believe that every business, regardless of size, deserves access to 
-                world-class communication tools. That's why we've built our platform 
-                to be both sophisticated and simple, powerful yet intuitive.
-              </p>
-              
-              <div className="space-y-3">
-                {['Democratize enterprise communications', 'Drive measurable business results', 'Provide exceptional customer support'].map((item, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
-                    <span className="text-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <Card className="card-professional p-8 card-hover-animation">
-                <Award className="h-12 w-12 text-primary mb-4" />
-                <h3 className="text-xl font-poppins font-semibold text-foreground mb-3">
-                  Industry Recognition
-                </h3>
-                <p className="text-muted-foreground">
-                  Recognized as a leading telecommunications provider with multiple 
-                  industry awards for innovation and customer satisfaction.
-                </p>
-              </Card>
-              
-              <Card className="card-professional p-8 card-hover-animation">
-                <Target className="h-12 w-12 text-accent mb-4" />
-                <h3 className="text-xl font-poppins font-semibold text-foreground mb-3">
-                  Customer-Centric Focus
-                </h3>
-                <p className="text-muted-foreground">
-                  Every decision we make is guided by our commitment to delivering 
-                  exceptional value and outcomes for our customers.
-                </p>
-              </Card>
-            </div>
+              <ul className="space-y-4">
+                <li className="flex items-center gap-3 text-muted-foreground"><CheckCircle className="h-5 w-5 text-primary flex-shrink-0" /><span>Innovative Technology</span></li>
+                <li className="flex items-center gap-3 text-muted-foreground"><CheckCircle className="h-5 w-5 text-primary flex-shrink-0" /><span>Customer-Centric Approach</span></li>
+                <li className="flex items-center gap-3 text-muted-foreground"><CheckCircle className="h-5 w-5 text-primary flex-shrink-0" /><span>Commitment to Excellence</span></li>
+              </ul>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
+              <img src="/about-us-image.png" alt="Our Team" className="rounded-lg shadow-lg w-full h-auto card-hover-animation" />
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="section-padding bg-background">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              Our Values
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              The principles that guide everything we do and shape how we serve our customers
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {values.map((value, index) => (
-              <Card key={index} className="card-professional card-hover-animation">
-                <CardContent className="p-8">
-                  <value.icon className="h-12 w-12 text-primary mb-4" />
-                  <h3 className="text-xl font-poppins font-semibold text-foreground mb-3">
-                    {value.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {value.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="section-padding bg-surface">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              Leadership Team
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Meet the experienced professionals driving innovation at FoneRoute
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {team.map((member, index) => (
-              <Card key={index} className="card-professional card-hover-animation">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mb-4">
-                    <Users className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-poppins font-semibold text-foreground mb-1">
-                    {member.name}
-                  </h3>
-                  <div className="text-primary font-medium mb-3">
-                    {member.role}
-                  </div>
-                  <p className="text-muted-foreground leading-.relaxed">
-                    {member.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="section-padding bg-gradient-hero">
+      <section className="py-12 md:py-16 bg-secondary/30">
         <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-poppins font-bold text-white mb-6">
-            Ready to Join Our Success Story?
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Discover how FoneRoute can transform your business communications 
-            and help you achieve your growth objectives.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact">
-              <Button size="lg" variant='secondary' className="font-semibold px-8 py-4">
-                Get Started Today
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link to="/solutions">
-              <Button 
-                size="lg" 
-                variant='outline'
-                className="font-semibold py-4"
-              >
-                Explore Solutions
-              </Button>
-            </Link>
+          <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Our Core Values</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">The principles that guide our mission and define our character.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {values.map((item, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+                <Card className="bg-transparent border-0 shadow-none text-center card-hover-animation">
+                  <CardHeader>
+                    <div className="mx-auto text-primary w-fit mb-4"><item.icon className="h-10 w-10" /></div>
+                    <CardTitle className="font-poppins text-xl">{item.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent><p className="text-muted-foreground">{item.description}</p></CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 md:py-16">
+        <div className="container-custom text-center">
+        <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Our Commitment</h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">Our commitment to excellence, innovation, and customer satisfaction.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {commitment.map((item, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+                <Card className="bg-transparent border-0 shadow-none text-center card-hover-animation">
+                  <CardHeader>
+                    <div className="mx-auto text-primary w-fit mb-4"><item.icon className="h-10 w-10" /></div>
+                    <CardTitle className="font-poppins text-xl">{item.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent><p className="text-muted-foreground">{item.description}</p></CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 md:py-16 bg-secondary/30">
+        <div className="container-custom text-center">
+          <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Meet Our Team</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">The talented individuals driving our company forward.</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
+            {teamMembers.map((member, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+                <div className="text-center">
+                  <Avatar className="h-24 w-24 mx-auto mb-4 shadow-md card-hover-animation">
+                    <AvatarImage src={member.image} alt={member.name} />
+                    <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <h3 className="font-semibold text-foreground">{member.name}</h3>
+                  <p className="text-sm text-primary">{member.role}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

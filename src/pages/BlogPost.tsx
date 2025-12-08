@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import sanityClient from '../sanity/client';
 import { useParams } from 'react-router-dom';
-import BlockContent from '@sanity/block-content-to-react';
+import { PortableText } from '@portabletext/react';
 
 const BlogPost = () => {
   const [post, setPost] = useState(null);
@@ -37,7 +36,7 @@ const BlogPost = () => {
         <p className="text-gray-700 mb-8">By {post.author} on {new Date(post.publishedAt).toLocaleDateString()}</p>
         <img src={post.mainImage} alt={post.title} className="w-full h-96 object-cover rounded-lg mb-8 card-hover-animation" />
         <div className="prose lg:prose-xl max-w-none">
-          <BlockContent blocks={post.body} />
+          <PortableText value={post.body} />
         </div>
       </article>
     </div>

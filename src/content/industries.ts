@@ -1,16 +1,17 @@
 
-import { Briefcase, Landmark, ShoppingCart, Heart, Scale, Building, Zap, MessageSquare, Globe, Users, Home, Gavel } from 'lucide-react';
+import { Briefcase, Landmark, ShoppingCart, Heart, Scale, Building, Zap, MessageSquare, Globe, Users, Home, Gavel, LucideIcon } from 'lucide-react';
+import type { Block } from 'sanity';
 
 // Industry content types and constants
 export type Industry = {
   title: string;
   slug: { current: string };
-  icon: any;
+  icon: LucideIcon;
   description: string;
   solutions: { title: string; slug: { current: string } }[];
   metrics: string;
   challenges?: string[];
-  longDescription?: any[];
+  longDescription?: Block[];
 };
 
 export const industries: Industry[] = [

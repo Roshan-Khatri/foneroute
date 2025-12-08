@@ -1,6 +1,8 @@
+
 import { Helmet } from 'react-helmet-async';
 import { useSiteSettings } from '@/hooks/useSanityContent';
 import { urlFor } from '@/sanity/image';
+import type { Image } from 'sanity';
 
 export interface SEOProps {
   title?: string;
@@ -9,7 +11,7 @@ export interface SEOProps {
   favicon?: string;
 }
 
-function getImageUrl(image: any): string {
+function getImageUrl(image: string | Image | undefined): string {
   if (!image) return '';
   if (typeof image === 'string') return image;
   try {

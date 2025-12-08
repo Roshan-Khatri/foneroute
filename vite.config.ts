@@ -16,4 +16,10 @@ export default defineConfig({
   },
   // Add the base configuration here
   base: './',
+  server: {
+    hmr: {
+        port: 9000,
+        clientPort: 9000,
+    }
+  }
 });

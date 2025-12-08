@@ -36,7 +36,7 @@ export const solutionsData = [
     relatedSolutions: [
       { title: 'Power Dialer', slug: { current: 'power-dialer' } },
       { title: 'Predictive Dialer', slug: { current: 'predictive-dialer' } },
-      { title: 'Contact Center', slug: { current: 'contact-center' } },
+      { title: 'Contact center', slug: { current: 'contact-center' } },
     ],
   },
   {
@@ -69,11 +69,11 @@ export const solutionsData = [
     ],
     relatedSolutions: [
       { title: 'Unified Communications', slug: { current: 'unified-communications' } },
-      { title: 'Contact Center', slug: { current: 'contact-center' } },
+      { title: 'Contact center', slug: { current: 'contact-center' } },
     ],
   },
   {
-    title: 'Contact Center Solution',
+    title: 'Contact center',
     slug: { current: 'contact-center' },
     hero: {
       title: 'Deliver Exceptional Customer Service with Our Contact Center Solution',
@@ -120,7 +120,7 @@ export const solutionsData = [
     relatedSolutions: [
       { title: 'Predictive Dialer', slug: { current: 'predictive-dialer' } },
       { title: 'Auto Dialer', slug: { current: 'auto-dialer' } },
-      { title: 'Contact Center', slug: { current: 'contact-center' } },
+      { title: 'Contact center', slug: { current: 'contact-center' } },
     ],
   },
   {
@@ -154,7 +154,7 @@ export const solutionsData = [
     relatedSolutions: [
       { title: 'Power Dialer', slug: { current: 'power-dialer' } },
       { title: 'Auto Dialer', slug: { current: 'auto-dialer' } },
-      { title: 'Contact Center', slug: { current: 'contact-center' } },
+      { title: 'Contact center', slug: { current: 'contact-center' } },
     ],
   },
   {
@@ -187,7 +187,7 @@ export const solutionsData = [
     ],
     relatedSolutions: [
       { title: 'Cloud PBX', slug: { current: 'cloud-pbx' } },
-      { title: 'Contact Center', slug: { current: 'contact-center' } },
+      { title: 'Contact center', slug: { current: 'contact-center' } },
     ],
   },
 ];

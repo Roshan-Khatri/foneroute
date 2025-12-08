@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X, Phone, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,6 +14,8 @@ import { urlFor } from '@/sanity/image';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '../ThemeToggle';
 import CustomSearch from '../search/CustomSearch';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const NewNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,6 +38,17 @@ const NewNavbar = () => {
       history.pushState = originalPushState;
     };
   }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   const logoImg = siteSettings?.logoImage ? urlFor(siteSettings.logoImage).url() : null;
   const siteName = siteSettings?.siteName || 'Foneroute';
@@ -77,7 +90,7 @@ const NewNavbar = () => {
   
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
-        <div className="py-2">
+        <div className="py-2 xxs:hidden sm:block">
             <div className="container-custom flex justify-end items-center text-sm">
                 <span className="mr-4">🇬🇧 +44 800 123 4567</span>
                 <span>🇺🇸 +1 800 987 6543</span>
@@ -86,16 +99,16 @@ const NewNavbar = () => {
       <div className="container-custom">
         <div className="flex items-center h-16">
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2">
+            <Link to="/" reloadDocument className="flex items-center space-x-2">
               {logoImg ? (
                 <img src={logoImg} alt={siteName} className="h-8 w-8 object-contain card-hover-animation" />
               ) : (
                 <Phone className="h-8 w-8 text-primary" />
               )}
-              <span className="font-poppins font-bold text-xl text-foreground">
+              <span className="font-poppins font-bold text-xl text-foreground xxs:hidden sm:block">
                 {siteName}
               </span>
-            </a>
+            </Link>
           </div>
 
           <div className="hidden lg:flex items-center ml-6">
@@ -104,21 +117,22 @@ const NewNavbar = () => {
                 {navItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
                     {item.href && !item.dropdown ? (
-                      <a href={item.href} className={getNavItemClasses(item.href)}>
+                      <Link to={item.href} reloadDocument className={getNavItemClasses(item.href)}>
                         {item.title}
-                      </a>
+                      </Link>
                     ) : (
                       <>
                         <NavigationMenuTrigger 
-                          className={cn(getNavItemClasses(item.href), 'bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent')}
+                          onClick={() => item.href && window.location.assign(item.href)}
+                          className="text-sm font-medium bg-transparent hover:bg-surface-hover focus:bg-surface-hover data-[state=open]:bg-surface-hover"
                           onMouseEnter={() => setOpenDropdown(item.title)}
                           onMouseLeave={() => setOpenDropdown(null)}
                         >
-                          <a href={item.href || '#'}>{item.title}</a>
+                          {item.title}
                         </NavigationMenuTrigger>
                         <NavigationMenuContent 
                           className={cn(
-                            "rounded-lg shadow-lg bg-white dark:bg-background border-none",
+                            "rounded-lg shadow-lg bg-background border-none",
                             openDropdown === item.title ? 'animate-dropdown-in' : 'animate-dropdown-out'
                           )}
                         >
@@ -127,15 +141,16 @@ const NewNavbar = () => {
                               <li key={subItem.href} 
                                   className="dropdown-item-staggered"
                                   style={{ animationDelay: `${index * 40}ms` }}>
-                                <a
-                                  href={subItem.href}
-                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-transparent focus:bg-transparent"
+                                <Link
+                                  to={subItem.href}
+                                  reloadDocument
+                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors"
                                 >
                                   <div className="text-sm font-medium leading-none text-foreground">{subItem.title}</div>
                                   <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                     {subItem.description}
                                   </p>
-                                </a>
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -151,11 +166,11 @@ const NewNavbar = () => {
           <div className="hidden lg:flex items-center space-x-2 ml-auto">
             <CustomSearch />
             <ThemeToggle />
-            <a href="/contact-sales">
+            <Link to="/contact-sales" reloadDocument>
               <Button variant="hero" size="sm">
                 {ctaText}
               </Button>
-            </a>
+            </Link>
           </div>
 
           <div className="lg:hidden ml-auto">
@@ -167,13 +182,63 @@ const NewNavbar = () => {
             </button>
           </div>
         </div>
-
-        {isOpen && (
-          <div className="lg:hidden py-4 border-t border-border">
-            {/* Mobile menu content remains the same */}
-          </div>
-        )}
       </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="lg:hidden overflow-y-auto"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: '100vh', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <div className="container-custom py-4">
+              <ul className="flex flex-col gap-y-2">
+                {navItems.map((item) => (
+                  <li key={item.title}>
+                    {!item.dropdown ? (
+                      <Link to={item.href} reloadDocument onClick={() => setIsOpen(false)} className={cn(getNavItemClasses(item.href), "block py-3 text-lg")}>
+                        {item.title}
+                      </Link>
+                    ) : (
+                      <Collapsible>
+                        <CollapsibleTrigger className={cn(getNavItemClasses(item.href), "flex items-center justify-between w-full py-3 text-lg group")}>
+                          <span onClick={(e) => { e.preventDefault(); if (item.href) window.location.assign(item.href); }}>{item.title}</span>
+                          <ChevronDown className="h-5 w-5 transition-transform group-data-[state=open]:rotate-180" />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="pt-2">
+                          <ul className="pl-4 border-l border-border ml-2 flex flex-col gap-y-1">
+                            {item.dropdown.map((subItem) => (
+                              <li key={subItem.href}>
+                                <Link to={subItem.href} reloadDocument onClick={() => setIsOpen(false)} className="block py-2 text-muted-foreground hover:text-foreground transition-colors">
+                                  {subItem.title}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </CollapsibleContent>
+                      </Collapsible>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 pt-6 border-t border-border flex flex-col gap-y-4">
+                  <CustomSearch />
+                  <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground">Switch Theme</span>
+                      <ThemeToggle />
+                  </div>
+                  <Link to="/contact-sales" reloadDocument onClick={() => setIsOpen(false)}>
+                    <Button variant="hero" size="sm" className="w-full h-11">
+                      {ctaText}
+                    </Button>
+                  </Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

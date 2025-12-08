@@ -4,20 +4,46 @@ import { Link } from "react-router-dom";
 import { Check, Minus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { PageHeader } from "@/components/layout/PageHeader";
+import PageHeader from "@/components/layout/PageHeader";
+
+const tiers = [
+  {
+    name: 'Solo',
+    href: '/contact?plan=solo',
+    priceMonthly: 23,
+    description: 'For individuals and small teams just getting started.',
+    buttonText: 'Choose Solo',
+  },
+  {
+    name: 'Pro',
+    href: '/contact?plan=pro',
+    priceMonthly: 45,
+    description: 'For growing businesses that need more power and support.',
+    buttonText: 'Choose Pro',
+  },
+  {
+    name: 'Enterprise',
+    href: '/contact?plan=enterprise',
+    priceMonthly: 75,
+    description: 'For large organizations with advanced needs.',
+    buttonText: 'Choose Enterprise',
+  },
+];
 
 const features = [
   { name: 'Call Recording', solo: true, pro: true, enterprise: true },
   { name: 'CRM Integration', solo: false, pro: true, enterprise: true },
   { name: 'Predictive Dialing', solo: false, pro: true, enterprise: true },
   { name: 'Advanced Analytics', solo: false, pro: false, enterprise: true },
+  { name: 'Priority Support', solo: false, pro: false, enterprise: true },
+  { name: 'Custom Onboarding', solo: false, pro: false, enterprise: true },
 ];
 
 export default function Pricing() {
   return (
     <>
       <Helmet>
-        <title>Feature Comparison</title>
+        <title>Pricing Plans</title>
         <meta
           name="description"
           content="Find the perfect plan that fits the scale and needs of your business."
@@ -25,15 +51,37 @@ export default function Pricing() {
       </Helmet>
       <main>
         <PageHeader
-          title="Feature Comparison"
-          description="Find the perfect plan that fits the scale and needs of your business."
+          title="Flexible pricing for teams of all sizes"
+          description="Find the perfect plan that fits the scale and needs of your business. All plans include a 14-day free trial."
         />
 
-        {/* Pricing Table Section */}
+        {/* Pricing Tiers Section */}
         <section className="py-16 sm:py-20">
           <div className="container-custom">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {tiers.map((tier) => (
+                <div key={tier.name} className="border rounded-lg p-8 flex flex-col card-hover-animation">
+                  <h3 className="text-2xl font-bold">{tier.name}</h3>
+                  <p className="mt-4 text-muted-foreground">{tier.description}</p>
+                  <div className="mt-6">
+                    <span className="text-4xl font-bold">${tier.priceMonthly}</span>
+                    <span className="text-base font-medium text-muted-foreground">/month</span>
+                  </div>
+                  <Button asChild className="mt-8 w-full bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+                    <Link to={tier.href}>{tier.buttonText}</Link>
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Feature Comparison Section */}
+        <section className="pb-16 sm:pb-20">
+          <div className="container-custom">
+            <h2 className="text-3xl font-bold text-center mb-10">Feature Comparison</h2>
             <div className="max-w-7xl mx-auto">
-              <div className="border rounded-lg overflow-x-auto card-hover-animation">
+              <div className="border rounded-lg overflow-x-auto">
                 <table className="w-full table-fixed">
                   <thead>
                     <tr className="bg-white dark:bg-background">

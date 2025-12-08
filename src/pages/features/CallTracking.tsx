@@ -1,6 +1,7 @@
 import React from 'react';
 import PageHeader from '@/components/layout/PageHeader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const cardVariants = {
@@ -91,31 +92,111 @@ const CallTracking: React.FC = () => {
         animate="visible"
         variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
       >
-        <div className="container-custom grid grid-cols-1 md:grid-cols-2 gap-8">
-          <motion.div variants={cardVariants}>
-            <Card>
-              <CardHeader>
-                <CardTitle>Real-Time Reporting</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Monitor your call data in real-time with our intuitive dashboard. Keep track of call volumes, peak times, and other key metrics to make immediate adjustments to your campaigns.
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-          <motion.div variants={cardVariants}>
-            <Card>
-              <CardHeader>
-                <CardTitle>IVR & Call Routing</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Set up interactive voice response (IVR) menus to direct callers to the right department or agent. Our flexible call routing ensures a seamless customer experience and improves efficiency.
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold">Unlock Granular Insights with Call Tracking</h2>
+            <p className="text-muted-foreground mt-2">
+              Go beyond basic call counting and understand the entire customer journey.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <motion.div variants={cardVariants}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Dynamic Number Insertion</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Automatically display unique phone numbers to visitors from different traffic sources, such as Google Ads, Facebook, or organic search.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+            <motion.div variants={cardVariants}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Campaign-Level Tracking</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Assign unique numbers to your marketing campaigns to measure their effectiveness and make data-driven decisions.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+            <motion.div variants={cardVariants}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Real-Time Reporting</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Access real-time data on call volume, duration, and other key metrics to monitor your campaign performance.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        className="section-padding"
+        initial="hidden"
+        animate="visible"
+        variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+      >
+        <div className="container-custom">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold">Key Features of Our Call Tracking Solution</h2>
+              <p className="text-muted-foreground mt-2">
+                Everything you need to optimize your inbound calls.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="flex items-start space-x-4 p-4 rounded-lg hover:bg-surface-hover">
+                    <CheckCircle className="text-green-500 w-6 h-6 mt-1 flex-shrink-0" />
+                    <div>
+                        <h3 className="font-semibold text-lg">Comprehensive Analytics</h3>
+                        <p className="text-muted-foreground">Get detailed insights into call performance and customer behavior.</p>
+                    </div>
+                </div>
+                <div className="flex items-start space-x-4 p-4 rounded-lg hover:bg-surface-hover">
+                    <CheckCircle className="text-green-500 w-6 h-6 mt-1 flex-shrink-0" />
+                    <div>
+                        <h3 className="font-semibold text-lg">Seamless Integration</h3>
+                        <p className="text-muted-foreground">Integrate with your existing CRM and marketing automation tools.</p>
+                    </div>
+                </div>
+                <div className="flex items-start space-x-4 p-4 rounded-lg hover:bg-surface-hover">
+                    <CheckCircle className="text-green-500 w-6 h-6 mt-1 flex-shrink-0" />
+                    <div>
+                        <h3 className="font-semibold text-lg">Enhanced Customer Profiles</h3>
+                        <p className="text-muted-foreground">Build rich customer profiles with call data and purchase history.</p>
+                    </div>
+                </div>
+                 <div className="flex items-start space-x-4 p-4 rounded-lg hover:bg-surface-hover">
+                    <CheckCircle className="text-green-500 w-6 h-6 mt-1 flex-shrink-0" />
+                    <div>
+                        <h3 className="font-semibold text-lg">IVR & Call Routing</h3>
+                        <p className="text-muted-foreground">Set up interactive voice response (IVR) menus to direct callers to the right department or agent. Our flexible call routing ensures a seamless customer experience and improves efficiency.</p>
+                    </div>
+                </div>
+                 <div className="flex items-start space-x-4 p-4 rounded-lg hover:bg-surface-hover">
+                    <CheckCircle className="text-green-500 w-6 h-6 mt-1 flex-shrink-0" />
+                    <div>
+                        <h3 className="font-semibold text-lg">Call Recording</h3>
+                        <p className="text-muted-foreground">Record and analyze call conversations to uncover valuable customer insights. Use this data to improve sales scripts, identify training opportunities, and enhance the overall customer experience.</p>
+                    </div>
+                </div>
+                 <div className="flex items-start space-x-4 p-4 rounded-lg hover:bg-surface-hover">
+                    <CheckCircle className="text-green-500 w-6 h-6 mt-1 flex-shrink-0" />
+                    <div>
+                        <h3 className="font-semibold text-lg">Spam Call Filtering</h3>
+                        <p className="text-muted-foreground">Protect your business from unwanted spam calls with our advanced filtering system.</p>
+                    </div>
+                </div>
+            </div>
         </div>
       </motion.section>
 

@@ -1,4 +1,6 @@
+
 import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
 
 interface PageHeaderProps {
   title: string;
@@ -9,23 +11,47 @@ interface PageHeaderProps {
 
 const PageHeader = ({ title, subtitle, breadcrumb, children }: PageHeaderProps) => {
   return (
-    <div className="bg-gradient-surface border-b border-border">
-      <div className="container-custom py-12 md:py-20">
+    <div className="bg-secondary/30 border-b border-border">
+      <div className="container-custom py-12 md:py-16">
         {breadcrumb && (
-          <nav className="mb-4">
+          <motion.nav 
+            className="mb-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <p className="text-sm text-muted-foreground">{breadcrumb}</p>
-          </nav>
+          </motion.nav>
         )}
         <div className="max-w-4xl">
-          <h1 className="font-poppins font-bold text-foreground mb-4 text-3xl md:text-5xl">
+          <motion.h1 
+            className="font-poppins font-bold text-foreground mb-4 text-3xl md:text-4xl lg:text-5xl"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             {title}
-          </h1>
+          </motion.h1>
           {subtitle && (
-            <p className="text-muted-foreground leading-relaxed mb-8 text-lg md:text-xl">
+            <motion.p 
+              className="text-muted-foreground leading-relaxed text-base md:text-lg lg:text-xl"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               {subtitle}
-            </p>
+            </motion.p>
           )}
-          {children}
+          {children && (
+            <motion.div 
+              className="mt-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              {children}
+            </motion.div>
+          )}
         </div>
       </div>
     </div>

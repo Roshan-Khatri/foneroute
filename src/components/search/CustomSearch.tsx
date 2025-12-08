@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 
 const allSearchableItems = [
@@ -19,9 +20,15 @@ const allSearchableItems = [
     { title: 'Contact Sales', href: '/contact-sales', description: 'Talk to our sales team.' }
 ];
 
+interface SearchResult {
+    title: string;
+    href: string;
+    description?: string;
+  }
+
 const CustomSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
   useEffect(() => {
     if (searchQuery.trim().length > 1) {

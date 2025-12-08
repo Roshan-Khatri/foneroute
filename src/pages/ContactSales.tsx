@@ -1,4 +1,4 @@
-import PageHeader from '@/components/layout/PageHeader';
+import PageHeader from '@/components/PageHeader';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useSiteSettings } from '@/hooks/useSanityContent';
 import { ContactForm } from '@/components/ContactForm';

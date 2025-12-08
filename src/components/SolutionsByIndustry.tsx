@@ -2,10 +2,10 @@
 import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Users, Heart, Scale, Building, Zap, MessageSquare, Globe, Home, Gavel } from 'lucide-react';
+import { Users, Heart, Scale, Building, Zap, MessageSquare, Globe, Home, Gavel, LucideIcon } from 'lucide-react';
 import type { Industry } from '@/sanity/types';
 
-const iconMap: { [key: string]: any } = {
+const iconMap: { [key: string]: LucideIcon } = {
   Healthcare: Heart,
   Finance: Scale,
   Education: Building,

@@ -8,7 +8,7 @@ export async function sanityFetch<T>({
   client = getSanityClient(),
 }: {
   query: string;
-  params?: Record<string, any>;
+  params?: Record<string, unknown>;
   client?: ReturnType<typeof getSanityClient>;
 }): Promise<T> {
   try {

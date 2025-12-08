@@ -123,42 +123,42 @@ const Home = () => {
         <>
             {/* Hero Section */}
             <section 
-                className="relative group overflow-hidden bg-background pt-10"
+                className="relative group overflow-hidden bg-background pt-20 sm:pt-10"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >
-                <div className="container-custom grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-5rem)]">
-                    <div className="z-10 text-left relative">
+                <div className="container-custom flex flex-col-reverse lg:grid lg:grid-cols-2 gap-8 md:gap-12 items-center min-h-[80vh] lg:min-h-[calc(100vh-8rem)]">
+                    <div className="z-10 text-center lg:text-left relative">
                         <AnimatePresence mode="wait">
                             <motion.div key={currentSlide} initial="hidden" animate="visible" exit="exit" variants={slideVariants} transition={{ duration: 0.5, ease: 'easeInOut' }}>
-                                <h1 className="text-4xl lg:text-5xl font-poppins font-bold text-foreground mb-6 leading-tight tracking-tighter">{currentHero.title}</h1>
-                                <p className="text-lg text-muted-foreground mb-8 max-w-lg">{currentHero.description}</p>
-                                <div className="flex items-center gap-4">
-                                    <a href={currentHero.ctaLink}><Button size="lg" variant="default">Request a Demo</Button></a>
-                                    <Button size="lg" variant="outline">Learn More</Button>
+                                <h1 className="text-4xl md:text-4xl lg:text-5xl font-poppins font-bold text-foreground mb-6 leading-tight tracking-tighter">{currentHero.title}</h1>
+                                <p className="text-lg md:text-lg text-muted-foreground mb-8 max-w-lg mx-auto lg:mx-0">{currentHero.description}</p>
+                                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                                    <a href={currentHero.ctaLink} className="w-full sm:w-auto"><Button size="lg" variant="default" className="w-full h-12 text-base">Request a Demo</Button></a>
+                                    <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 text-base">Learn More</Button>
                                 </div>
                             </motion.div>
                         </AnimatePresence>
-                        <Button variant="outline" size="icon" onClick={previousSlide} className="absolute top-1/2 -translate-y-1/2 -left-16 opacity-0 group-hover:opacity-100 transition-opacity hidden lg:inline-flex"><ChevronLeft className="h-4 w-4" /></Button>
+                        <Button variant="outline" size="icon" onClick={previousSlide} className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-16 opacity-0 group-hover:opacity-100 transition-opacity hidden lg:inline-flex"><ChevronLeft className="h-6 w-6" /></Button>
                     </div>
-                    <div className="relative h-full flex items-center justify-center">
+                    <div className="relative w-full h-full flex items-center justify-center">
                         <AnimatePresence mode="wait">
                             <motion.div key={currentSlide} initial="hidden" animate="visible" exit="exit" variants={imageVariants} transition={{ duration: 0.5, delay: 0.2 }} className="w-full h-full">
-                                <img src={currentHero.image.src} alt={currentHero.image.alt} className="object-contain w-full h-[500px] card-hover-animation" />
+                                <img src={currentHero.image.src} alt={currentHero.image.alt} className="object-contain w-full h-80 md:h-96 lg:h-[500px] card-hover-animation" />
                             </motion.div>
                         </AnimatePresence>
-                        <Button variant="outline" size="icon" onClick={nextSlide} className="absolute top-1/2 -translate-y-1/2 -right-16 opacity-0 group-hover:opacity-100 transition-opacity hidden lg:inline-flex"><ChevronRight className="h-4 w-4" /></Button>
+                        <Button variant="outline" size="icon" onClick={nextSlide} className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-16 opacity-0 group-hover:opacity-100 transition-opacity hidden lg:inline-flex"><ChevronRight className="h-6 w-6" /></Button>
                     </div>
                 </div>
-                <div className="lg:hidden absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4">
-                    <Button variant="outline" size="icon" onClick={previousSlide}><ChevronLeft className="h-4 w-4" /></Button>
-                    <Button variant="outline" size="icon" onClick={nextSlide}><ChevronRight className="h-4 w-4" /></Button>
+                <div className="lg:hidden absolute bottom-24 left-1/2 -translate-x-1/2 flex gap-4">
+                    <Button variant="outline" size="icon" onClick={previousSlide} className="h-12 w-12"><ChevronLeft className="h-6 w-6" /></Button>
+                    <Button variant="outline" size="icon" onClick={nextSlide} className="h-12 w-12"><ChevronRight className="h-6 w-6" /></Button>
                 </div>
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
                     {heroContent.map((_, i) => (
                         <button
                             key={i}
-                            className={`h-2 w-2 rounded-full transition-colors ${currentSlide === i ? 'bg-zinc-400' : 'bg-zinc-200'}`}
+                            className={`h-2 w-10 rounded-full transition-colors ${currentSlide === i ? 'bg-zinc-400' : 'bg-zinc-200'}`}
                             onClick={() => goToSlide(i)}
                         />
                     ))}
@@ -171,13 +171,13 @@ const Home = () => {
             </section>
 
             {/* Our Core Solutions */}
-            <section className="py-16 bg-secondary/30">
+            <section className="py-12 md:py-16 bg-secondary/30">
                 <div className="container-custom">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-poppins font-bold">Our Core Solutions</h2>
-                        <p className="text-muted-foreground mt-2">Explore our main services designed to elevate your business communication.</p>
+                    <div className="text-center mb-10 md:mb-12">
+                        <h2 className="text-2xl sm:text-3xl font-poppins font-bold">Our Core Solutions</h2>
+                        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Explore our main services designed to elevate your business communication.</p>
                     </div>
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         {coreSolutions.map((solution, i) => (
                             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
                                 <Card className="bg-background shadow-lg h-full text-center card-hover-animation">
@@ -194,13 +194,13 @@ const Home = () => {
             </section>
 
             {/* Key Features Section */}
-            <section className="py-16 bg-secondary/30">
+            <section className="py-12 md:py-16">
                 <div className="container-custom">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-poppins font-bold">Comprehensive Features for Every Need</h2>
+                    <div className="text-center mb-10 md:mb-12">
+                        <h2 className="text-2xl sm:text-3xl font-poppins font-bold">Comprehensive Features for Every Need</h2>
                         <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Our platform is packed with powerful features to enhance every aspect of your business communication.</p>
                     </div>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         {keyFeatures.map((feature, i) => (
                             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
                                 <Card className="bg-background shadow-lg h-full text-left card-hover-animation">
@@ -221,11 +221,11 @@ const Home = () => {
             </section>
 
             {/* Why Choose Us */}
-            <section className="py-16">
+            <section className="py-12 md:py-16 bg-secondary/30">
                 <div className="container-custom text-center">
-                    <h2 className="text-3xl font-poppins font-bold mb-4">Why Choose Us?</h2>
-                    <p className="text-muted-foreground max-w-2xl mx-auto mb-12">Discover the advantages of partnering with us for your communication needs.</p>
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Why Choose Us?</h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">Discover the advantages of partnering with us for your communication needs.</p>
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {whyChooseUs.map((item, i) => (
                             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
                                 <Card className="bg-transparent border-0 shadow-none text-center card-hover-animation">
@@ -242,41 +242,41 @@ const Home = () => {
             </section>
 
             {/* Proven Results */}
-            <section className="py-16 bg-secondary/30">
-                <div className="container-custom">
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h2 className="text-3xl font-poppins font-bold">Proven Results That Drive Success</h2>
-                            <p className="text-muted-foreground mt-4 mb-6">Our platform is designed to deliver measurable improvements to your key business metrics.</p>
-                            <ul className="space-y-4">
-                                <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-primary" /> Increased agent productivity by up to 300%</li>
-                                <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-primary" /> Reduced operational costs with cloud infrastructure</li>
-                                <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-primary" /> 99.9% uptime SLA for reliable service</li>
-                            </ul>
-                            <Button variant="default" className="mt-8">View Case Studies</Button>
+            <section className="py-12 md:py-16">
+                <div className="container-custom flex flex-col-reverse lg:grid lg:grid-cols-2 gap-12 items-center">
+                    <div className='text-center lg:text-left'>
+                        <h2 className="text-2xl sm:text-3xl font-poppins font-bold">Proven Results That Drive Success</h2>
+                        <p className="text-muted-foreground mt-4 mb-6">Our platform is designed to deliver measurable improvements to your key business metrics.</p>
+                        <ul className="space-y-4 inline-block text-left max-w-md">
+                            <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-primary flex-shrink-0" /> Increased agent productivity by up to 300%</li>
+                            <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-primary flex-shrink-0" /> Reduced operational costs with cloud infrastructure</li>
+                            <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-primary flex-shrink-0" /> 99.9% uptime SLA for reliable service</li>
+                        </ul>
+                        <div className="mt-8">
+                            <Button asChild variant="default" size="lg" className="h-12 text-base"><Link to="/case-studies">View Case Studies</Link></Button>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                            {provenResults.map((result, i) => (
-                                <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.15 }}>
-                                    <Card className="bg-background shadow-lg h-full card-hover-animation">
-                                        <CardContent className="pt-6">
-                                            <p className="text-4xl font-bold text-primary">{result.stat}</p>
-                                            <p className="text-muted-foreground mt-2">{result.description}</p>
-                                        </CardContent>
-                                    </Card>
-                                </motion.div>
-                            ))}
-                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 text-center">
+                        {provenResults.map((result, i) => (
+                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.15 }}>
+                                <Card className="bg-background shadow-lg h-full card-hover-animation">
+                                    <CardContent className="pt-6">
+                                        <p className="text-4xl font-bold text-primary">{result.stat}</p>
+                                        <p className="text-muted-foreground mt-2">{result.description}</p>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* Our Values */}
-            <section className="py-16">
+            <section className="py-12 md:py-16 bg-secondary/30">
                 <div className="container-custom text-center">
-                    <h2 className="text-3xl font-poppins font-bold mb-4">Our Values</h2>
-                    <p className="text-muted-foreground max-w-2xl mx-auto mb-12">The principles that guide our mission and define our character.</p>
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Our Values</h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">The principles that guide our mission and define our character.</p>
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {values.map((item, i) => (
                             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
                                 <Card className="bg-transparent border-0 shadow-none text-center card-hover-animation">
@@ -293,40 +293,40 @@ const Home = () => {
             </section>
 
             {/* Solutions by Industry */}
-            <section className="py-16 bg-secondary/30">
+            <section className="py-12 md:py-16">
                 <div className="container-custom text-center">
-                    <h2 className="text-3xl font-poppins font-bold mb-4">Solutions by Industry</h2>
-                    <p className="text-muted-foreground max-w-2xl mx-auto mb-12">We serve a wide range of industries with tailored communication solutions.</p>
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Solutions by Industry</h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">We serve a wide range of industries with tailored communication solutions.</p>
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         {industries && industries.map((item, i) => (
                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <Card className="bg-background shadow-lg h-full text-center card-hover-animation">
+                                <Card className="bg-background shadow-lg h-full text-center card-hover-animation flex flex-col">
                                     <CardHeader>
                                         <div className="mx-auto bg-primary text-primary-foreground p-3 rounded-full w-fit mb-4"><item.icon className="h-6 w-6" /></div>
                                         <CardTitle className="font-poppins">{item.title}</CardTitle>
                                     </CardHeader>
-                                    <CardContent><p className="text-muted-foreground">{item.description}</p></CardContent>
-                                    <CardFooter>
+                                    <CardContent className="flex-grow"><p className="text-muted-foreground">{item.description}</p></CardContent>
+                                    <CardFooter className="mt-auto">
                                         <a href={item.link} className="w-full">
-                                            <Button variant="outline" className="w-full">Explore Solution</Button>
+                                            <Button variant="outline" className="w-full h-11">Explore Solution</Button>
                                         </a>
                                     </CardFooter>
                                 </Card>
                             </motion.div>
                         ))}
                     </div>
-                    <Button asChild variant="outline" className="mt-12">
-                        <Link to="/solutions#industries">Explore Solutions</Link>
+                    <Button asChild variant="outline" className="mt-12 h-12 text-base">
+                        <Link to="/solutions#industries">Explore All Industries</Link>
                     </Button>
                 </div>
             </section>
             
             {/* Testimonials */}
-            <section className="py-16">
+            <section className="py-12 md:py-16 bg-secondary/30">
                 <div className="container-custom text-center">
-                    <h2 className="text-3xl font-poppins font-bold mb-4">What Our Customers Say</h2>
-                    <p className="text-muted-foreground max-w-2xl mx-auto mb-12">Real feedback from satisfied clients who trust our platform.</p>
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">What Our Customers Say</h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">Real feedback from satisfied clients who trust our platform.</p>
+                    <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
                         {testimonials.map((item, i) => (
                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
                                 <Card className="bg-background shadow-lg h-full text-left card-hover-animation">
@@ -348,77 +348,61 @@ const Home = () => {
             </section>
 
             {/* Feature Comparison */}
-            <section className="py-16 bg-secondary/30">
+            <section className="py-12 md:py-16">
                 <div className="container-custom text-center">
-                    <h2 className="text-3xl font-poppins font-bold mb-4">Feature Comparison</h2>
-                    <p className="text-muted-foreground max-w-2xl mx-auto mb-12">Find the perfect plan that fits the scale and needs of your business.</p>
-                    <Card className="card-hover-animation">
-                        <table className="w-full">
-                            <thead>
-                                <tr className="border-b">
-                                    <th className="p-4 text-left font-poppins">Feature</th>
-                                    <th className="p-4 font-poppins">Solo</th>
-                                    <th className="p-4 font-poppins">Pro</th>
-                                    <th className="p-4 font-poppins">Enterprise</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {featureComparison.map((item, i) => (
-                                    <tr key={i} className="border-b">
-                                        <td className="p-4 text-left">{item.feature}</td>
-                                        <td className="p-4">{item.solo ? <CheckCircle className="h-5 w-5 text-primary mx-auto" /> : '–'}</td>
-                                        <td className="p-4">{item.pro ? <CheckCircle className="h-5 w-5 text-primary mx-auto" /> : '–'}</td>
-                                        <td className="p-4">{item.enterprise ? <CheckCircle className="h-5 w-5 text-primary mx-auto" /> : '–'}</td>
+                    <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Feature Comparison</h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">Find the perfect plan that fits the scale and needs of your business.</p>
+                    <div className="overflow-x-auto rounded-lg border shadow-md card-hover-animation">
+                        <Card className="min-w-[600px]">
+                            <table className="w-full">
+                                <thead>
+                                    <tr className="border-b bg-secondary/50">
+                                        <th className="p-4 text-left font-poppins text-sm">Feature</th>
+                                        <th className="p-4 font-poppins text-sm">Solo</th>
+                                        <th className="p-4 font-poppins text-sm">Pro</th>
+                                        <th className="p-4 font-poppins text-sm">Enterprise</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                            <tfoot>
-                                <tr className="border-t">
-                                    <td className="p-4"></td>
-                                    <td className="p-4 text-center">
-                                        <Button>Choose Solo</Button>
-                                    </td>
-                                    <td className="p-4 text-center">
-                                        <Button>Choose Pro</Button>
-                                    </td>
-                                    <td className="p-4 text-center">
-                                        <Button>Choose Enterprise</Button>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </Card>
-                </div>
-            </section>
-
-            {/* Final CTA Section */}
-            <section className="py-20 bg-primary text-primary-foreground">
-                <div className="container-custom text-center">
-                    <h2 className="text-3xl font-poppins font-bold mb-4">Ready to Transform Your Business Communication?</h2>
-                    <p className="text-lg max-w-2xl mx-auto mb-8">
-                        Request a personalized demo today and discover how our platform can help you increase productivity, reduce costs, and deliver exceptional customer experiences.
-                    </p>
-                    <div className="flex justify-center gap-4">
-                        <Button size="lg" variant="secondary" asChild>
-                            <Link to="/contact">Request a Demo</Link>
-                        </Button>
-                        <Button size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground/10" asChild>
-                           <Link to="/solutions">Explore Features</Link>
-                        </Button>
+                                </thead>
+                                <tbody className="divide-y divide-border">
+                                    {featureComparison.map((item, i) => (
+                                        <tr key={i} className="hover:bg-secondary/30">
+                                            <td className="p-4 text-left text-sm">{item.feature}</td>
+                                            <td className="p-4">{item.solo ? <CheckCircle className="h-5 w-5 text-primary mx-auto" /> : '–'}</td>
+                                            <td className="p-4">{item.pro ? <CheckCircle className="h-5 w-5 text-primary mx-auto" /> : '–'}</td>
+                                            <td className="p-4">{item.enterprise ? <CheckCircle className="h-5 w-5 text-primary mx-auto" /> : '–'}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                                <tfoot>
+                                    <tr className="border-t bg-secondary/50">
+                                        <td className="p-4"></td>
+                                        <td className="p-4 text-center">
+                                            <Button size="sm" className="h-11 w-full max-w-[120px]">Choose Solo</Button>
+                                        </td>
+                                        <td className="p-4 text-center">
+                                            <Button size="sm" className="h-11 w-full max-w-[120px]">Choose Pro</Button>
+                                        </td>
+                                        <td className="p-4 text-center">
+                                            <Button size="sm" className="h-11 w-full max-w-[120px]">Choose Enterprise</Button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </Card>
                     </div>
                 </div>
             </section>
 
             {/* FAQ */}
-            <section className="py-16">
+            <section className="py-12 md:py-16 bg-secondary/30">
                 <div className="container-custom max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-poppins font-bold text-center mb-4">Frequently Asked Questions</h2>
-                    <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">Quick answers to common questions about our platform and services.</p>
-                    <Accordion type="single" collapsible>
+                    <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-center mb-4">Frequently Asked Questions</h2>
+                    <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-10 md:mb-12">Quick answers to common questions about our platform and services.</p>
+                    <Accordion type="single" collapsible className="w-full">
                         {faqs.map((faq, i) => (
                              <AccordionItem key={i} value={`item-${i}`}>
-                                <AccordionTrigger>{faq.question}</AccordionTrigger>
-                                <AccordionContent>{faq.answer}</AccordionContent>
+                                <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+                                <AccordionContent className="text-base">{faq.answer}</AccordionContent>
                             </AccordionItem>
                         ))}
                     </Accordion>
