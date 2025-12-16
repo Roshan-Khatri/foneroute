@@ -41,7 +41,7 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, Error
       if (isSanityError) {
         return (
           <div style={{ padding: 32, textAlign: 'center', fontFamily: 'sans-serif' }}>
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#c00' }}>
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--destructive)' }}>
               Sanity CMS Connection Error
             </h1>
             <p style={{ marginTop: 16, marginBottom: 16 }}>
@@ -50,8 +50,8 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, Error
             </p>
             <div
               style={{
-                background: '#f3f3f3',
-                border: '1px solid #ddd',
+                background: 'var(--muted)',
+                border: '1px solid var(--border)',
                 padding: 16,
                 borderRadius: 4,
                 textAlign: 'left',
@@ -76,19 +76,19 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, Error
             <div style={{ marginTop: 24 }}>
               <button
                 onClick={() => window.location.reload()}
-                style={{ padding: '8px 16px', marginRight: 12, cursor: 'pointer', border: '1px solid #ccc', borderRadius: 4 }}
+                style={{ padding: '8px 16px', marginRight: 12, cursor: 'pointer', border: '1px solid var(--border)', borderRadius: 4 }}
               >
                 Reload Page
               </button>
               <button
                 onClick={this.handleResetError}
-                style={{ padding: '8px 16px', cursor: 'pointer', background: '#007bff', color: 'white', border: 'none', borderRadius: 4 }}
+                style={{ padding: '8px 16px', cursor: 'pointer', background: 'var(--primary)', color: 'var(--primary-foreground)', border: 'none', borderRadius: 4 }}
               >
                 Continue with Demo Data
               </button>
             </div>
             {import.meta.env.DEV && (
-              <pre style={{ color: 'red', marginTop: 16, textAlign: 'left', background: '#fff0f0', padding: 8, borderRadius: 4, whiteSpace: 'pre-wrap' }}>
+              <pre style={{ color: 'var(--destructive-foreground)', marginTop: 16, textAlign: 'left', background: 'var(--destructive)', padding: 8, borderRadius: 4, whiteSpace: 'pre-wrap' }}>
                 <strong>Error Details:</strong>
                 <br />
                 {error.stack || error.message}
@@ -103,7 +103,7 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, Error
           <h1>Something went wrong.</h1>
           <p>We're sorry, but an unexpected error occurred.</p>
           {import.meta.env.DEV && this.state.error && (
-            <pre style={{ color: 'red', marginTop: 16 }}>{this.state.error.stack || this.state.error.message}</pre>
+            <pre style={{ color: 'var(--destructive)', marginTop: 16 }}>{this.state.error.stack || this.state.error.message}</pre>
           )}
           <button onClick={() => window.location.reload()} style={{ marginTop: 24 }}>
             Reload Page

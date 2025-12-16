@@ -2,11 +2,14 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, TrendingUp, Zap, Heart, Bolt, Shield, DollarSign, BarChart2, Users, Briefcase, Landmark, ShoppingCart, Star, CheckCircle, ChevronLeft, Phone, Mail, MessageSquare, Cog, LineChart, ShieldCheck } from 'lucide-react';
+import { ChevronRight, TrendingUp, Zap, Heart, Bolt, Shield, DollarSign, BarChart2, Users, CheckCircle, ChevronLeft, Phone, Mail, MessageSquare, Cog, LineChart, ShieldCheck, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Progress } from '@/components/ui/progress';
+import SolutionsByIndustry from '@/components/SolutionsByIndustry';
+import TopSolutions from '@/components/TopSolutions';
+import { SEO } from '@/components/layout/SEO';
 
 const Home = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -20,8 +23,8 @@ const Home = () => {
 
     const heroContent = [
         { title: "Intelligent Predictive Dialer", description: "Boost your outbound sales and marketing efforts with our AI-driven predictive dialer. Increase agent talk time, improve lead conversion rates, and ensure compliance with automated dialing regulations.", image: { src: "/hero-image.png", alt: "Predictive Dialer" }, ctaLink: "/contact" },
-        { title: "Advanced Contact Center Solutions", description: "Empower your support and sales teams with our state-of-the-art contact center technology. Handle interactions from all channels in a single, intuitive interface, and leverage AI-powered tools for exceptional service.", image: { src: "/contact-center-solution-image.png", alt: "Contact Center" }, ctaLink: "/solutions/contact-center" },
-        { title: "Cloud PBX System", description: "A flexible, scalable, and feature-rich cloud phone system for modern businesses.", image: { src: "/cloud-pbx-solution-image.png", alt: "Cloud PBX System" }, ctaLink: "/solutions/cloud-pbx" }
+        { title: "Advanced Contact Center Solutions", description: "Empower your support and sales teams with our state-of-the-art contact center technology. Handle interactions from all channels in a single, intuitive interface, and leverage AI-powered tools for exceptional service.", image: { src: "/contact-center-solution-image.png", alt: "Contact Center" }, ctaLink: "/contact" },
+        { title: "Cloud PBX System", description: "A flexible, scalable, and feature-rich cloud phone system for modern businesses.", image: { src: "/cloud-pbx-solution-image.png", alt: "Cloud PBX System" }, ctaLink: "/contact" }
     ];
 
     const startProgress = useCallback(() => {
@@ -58,12 +61,6 @@ const Home = () => {
         };
     }, [nextSlide, isPaused, startProgress]);
 
-    const coreSolutions = [
-        { icon: Zap, title: "Contact Center Solution", description: "A comprehensive solution for managing customer interactions across all channels.", link: "/solutions/contact-center" },
-        { icon: BarChart2, title: "Predictive Dialer", description: "Boost sales and marketing with our AI-driven predictive dialer.", link: "/solutions/predictive-dialer" },
-        { icon: Users, title: "Cloud PBX System", description: "A flexible, scalable, and feature-rich cloud phone system for modern businesses.", link: "/solutions/cloud-pbx" },
-    ];
-
     const whyChooseUs = [
       { icon: TrendingUp, title: "Increase Productivity", description: "See a significant boost in agent productivity and call connection rates." },
       { icon: DollarSign, title: "Reduce Costs", description: "Lower operational costs with our efficient, cloud-based infrastructure." },
@@ -82,12 +79,6 @@ const Home = () => {
         { icon: Shield, title: "Integrity", description: "We operate with transparency and honesty in every interaction." },
     ];
 
-    const industries = [
-        { icon: Briefcase, title: "Healthcare", description: "HIPAA-compliant solutions for patient communication and support.", link: "#" },
-        { icon: Landmark, title: "Finance", description: "Secure and reliable communications for financial institutions.", link: "#" },
-        { icon: ShoppingCart, title: "E-commerce", description: "Scale your customer service during peak shopping seasons.", link: "#" },
-    ];
-
     const testimonials = [
         { quote: "This is a testimonial quote. The service is great!", name: "John Doe", company: "Company Inc.", rating: 5 },
         { quote: "Fantastic experience with the team. Highly recommended.", name: "Jane Smith", company: "Solutions Corp.", rating: 5 },
@@ -102,7 +93,7 @@ const Home = () => {
     ];
 
     const faqs = [
-        { question: "What is a predictive dialer?", answer: "A predictive dialer is an automated telephone dialing system that enables call center agents to spend more time talking to prospects and less time waiting for calls to be answered." },
+        { question: "What is a predictive dialer?", answer: "A predictive dialer is an automated telephone dialing system that aenables call center agents to spend more time talking to prospects and less time waiting for calls to be answered." },
         { question: "How does your pricing work?", answer: "Our pricing is based on a per-user, per-month subscription model. We offer different tiers of service to fit your business needs." },
         { question: "Can I integrate with my existing CRM?", answer: "Yes, our platform integrates with most popular CRMs, including Salesforce, HubSpot, and Zoho." },
     ];
@@ -121,13 +112,18 @@ const Home = () => {
 
     return (
         <>
+            <SEO 
+                title="FoneRoute - Intelligent Communication Solutions for Modern Businesses" 
+                description="Elevate your business communication with FoneRoute's intelligent predictive dialer, advanced contact center solutions, and scalable cloud PBX systems. Boost productivity, reduce costs, and enhance customer satisfaction."
+                keywords={['predictive dialer', 'contact center', 'cloud pbx', 'business communication', 'sales dialer']}
+            />
             {/* Hero Section */}
             <section 
-                className="relative group overflow-hidden bg-background pt-20 sm:pt-10"
+                className="relative group overflow-hidden bg-background pt-40 sm:pt-28 pb-20"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >
-                <div className="container-custom flex flex-col-reverse lg:grid lg:grid-cols-2 gap-8 md:gap-12 items-center min-h-[80vh] lg:min-h-[calc(100vh-8rem)]">
+                 <div className="container-custom flex flex-col-reverse lg:grid lg:grid-cols-2 gap-8 md:gap-12 items-center min-h-[80vh] lg:min-h-[calc(100vh-8rem)]">
                     <div className="z-10 text-center lg:text-left relative">
                         <AnimatePresence mode="wait">
                             <motion.div key={currentSlide} initial="hidden" animate="visible" exit="exit" variants={slideVariants} transition={{ duration: 0.5, ease: 'easeInOut' }}>
@@ -139,7 +135,6 @@ const Home = () => {
                                 </div>
                             </motion.div>
                         </AnimatePresence>
-                        <Button variant="outline" size="icon" onClick={previousSlide} className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-16 opacity-0 group-hover:opacity-100 transition-opacity hidden lg:inline-flex"><ChevronLeft className="h-6 w-6" /></Button>
                     </div>
                     <div className="relative w-full h-full flex items-center justify-center">
                         <AnimatePresence mode="wait">
@@ -147,13 +142,16 @@ const Home = () => {
                                 <img src={currentHero.image.src} alt={currentHero.image.alt} className="object-contain w-full h-80 md:h-96 lg:h-[500px] card-hover-animation" />
                             </motion.div>
                         </AnimatePresence>
-                        <Button variant="outline" size="icon" onClick={nextSlide} className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-16 opacity-0 group-hover:opacity-100 transition-opacity hidden lg:inline-flex"><ChevronRight className="h-6 w-6" /></Button>
+                         {/* Responsive Navigation Buttons */}
+                        <Button variant="outline" size="icon" onClick={previousSlide} className="absolute top-1/2 -translate-y-1/2 left-2 md:left-4 h-10 w-10 md:h-12 md:w-12 opacity-80 hover:opacity-100 transition-opacity lg:hidden"><ChevronLeft className="h-6 w-6" /></Button>
+                        <Button variant="outline" size="icon" onClick={nextSlide} className="absolute top-1/2 -translate-y-1/2 right-2 md:right-4 h-10 w-10 md:h-12 md:w-12 opacity-80 hover:opacity-100 transition-opacity lg:hidden"><ChevronRight className="h-6 w-6" /></Button>
+                        
+                        {/* Desktop Navigation Buttons */}
+                        <Button variant="outline" size="icon" onClick={previousSlide} className="absolute top-1/2 -translate-y-1/2 -left-16 opacity-0 group-hover:opacity-100 transition-opacity hidden lg:inline-flex"><ChevronLeft className="h-6 w-6" /></Button>
+                        <Button variant="outline" size="icon" onClick={nextSlide} className="absolute top-1/2 -translate-y-1/2 -right-16 opacity-0 group-hover:opacity-100 transition-opacity hidden lg:inline-flex"><ChevronRight className="h-6 w-6" /></Button>
                     </div>
                 </div>
-                <div className="lg:hidden absolute bottom-24 left-1/2 -translate-x-1/2 flex gap-4">
-                    <Button variant="outline" size="icon" onClick={previousSlide} className="h-12 w-12"><ChevronLeft className="h-6 w-6" /></Button>
-                    <Button variant="outline" size="icon" onClick={nextSlide} className="h-12 w-12"><ChevronRight className="h-6 w-6" /></Button>
-                </div>
+
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
                     {heroContent.map((_, i) => (
                         <button
@@ -168,29 +166,6 @@ const Home = () => {
                     className="absolute bottom-0 left-0 w-full h-1 bg-zinc-200" 
                     indicatorClassName="bg-zinc-400"
                 />
-            </section>
-
-            {/* Our Core Solutions */}
-            <section className="py-12 md:py-16 bg-secondary/30">
-                <div className="container-custom">
-                    <div className="text-center mb-10 md:mb-12">
-                        <h2 className="text-2xl sm:text-3xl font-poppins font-bold">Our Core Solutions</h2>
-                        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Explore our main services designed to elevate your business communication.</p>
-                    </div>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                        {coreSolutions.map((solution, i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <Card className="bg-background shadow-lg h-full text-center card-hover-animation">
-                                    <CardHeader>
-                                        <div className="mx-auto bg-primary text-primary-foreground p-3 rounded-full w-fit mb-4"><solution.icon className="h-6 w-6" /></div>
-                                        <CardTitle className="font-poppins">{solution.title}</CardTitle>
-                                    </CardHeader>
-                                    <CardContent><p className="text-muted-foreground">{solution.description}</p></CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
             </section>
 
             {/* Key Features Section */}
@@ -221,7 +196,7 @@ const Home = () => {
             </section>
 
             {/* Why Choose Us */}
-            <section className="py-12 md:py-16 bg-secondary/30">
+            <section className="py-12 md:py-16 bg-secondary">
                 <div className="container-custom text-center">
                     <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Why Choose Us?</h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">Discover the advantages of partnering with us for your communication needs.</p>
@@ -261,7 +236,7 @@ const Home = () => {
                             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.15 }}>
                                 <Card className="bg-background shadow-lg h-full card-hover-animation">
                                     <CardContent className="pt-6">
-                                        <p className="text-4xl font-bold text-primary">{result.stat}</p>
+                                        <p className="text-4xl font-bold text-primary statistic-number">{result.stat}</p>
                                         <p className="text-muted-foreground mt-2">{result.description}</p>
                                     </CardContent>
                                 </Card>
@@ -272,7 +247,7 @@ const Home = () => {
             </section>
 
             {/* Our Values */}
-            <section className="py-12 md:py-16 bg-secondary/30">
+            <section className="py-12 md:py-16 bg-secondary">
                 <div className="container-custom text-center">
                     <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Our Values</h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">The principles that guide our mission and define our character.</p>
@@ -293,36 +268,13 @@ const Home = () => {
             </section>
 
             {/* Solutions by Industry */}
-            <section className="py-12 md:py-16">
-                <div className="container-custom text-center">
-                    <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Solutions by Industry</h2>
-                    <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">We serve a wide range of industries with tailored communication solutions.</p>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                        {industries && industries.map((item, i) => (
-                           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <Card className="bg-background shadow-lg h-full text-center card-hover-animation flex flex-col">
-                                    <CardHeader>
-                                        <div className="mx-auto bg-primary text-primary-foreground p-3 rounded-full w-fit mb-4"><item.icon className="h-6 w-6" /></div>
-                                        <CardTitle className="font-poppins">{item.title}</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="flex-grow"><p className="text-muted-foreground">{item.description}</p></CardContent>
-                                    <CardFooter className="mt-auto">
-                                        <a href={item.link} className="w-full">
-                                            <Button variant="outline" className="w-full h-11">Explore Solution</Button>
-                                        </a>
-                                    </CardFooter>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-                    <Button asChild variant="outline" className="mt-12 h-12 text-base">
-                        <Link to="/solutions#industries">Explore All Industries</Link>
-                    </Button>
-                </div>
-            </section>
+            <SolutionsByIndustry limit={3} />
             
+            {/* Top Solutions Section */}
+            <TopSolutions />
+
             {/* Testimonials */}
-            <section className="py-12 md:py-16 bg-secondary/30">
+            <section className="py-12 md:py-16 bg-secondary">
                 <div className="container-custom text-center">
                     <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">What Our Customers Say</h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12">Real feedback from satisfied clients who trust our platform.</p>
@@ -373,20 +325,6 @@ const Home = () => {
                                         </tr>
                                     ))}
                                 </tbody>
-                                <tfoot>
-                                    <tr className="border-t bg-secondary/50">
-                                        <td className="p-4"></td>
-                                        <td className="p-4 text-center">
-                                            <Button size="sm" className="h-11 w-full max-w-[120px]">Choose Solo</Button>
-                                        </td>
-                                        <td className="p-4 text-center">
-                                            <Button size="sm" className="h-11 w-full max-w-[120px]">Choose Pro</Button>
-                                        </td>
-                                        <td className="p-4 text-center">
-                                            <Button size="sm" className="h-11 w-full max-w-[120px]">Choose Enterprise</Button>
-                                        </td>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </Card>
                     </div>
@@ -394,7 +332,7 @@ const Home = () => {
             </section>
 
             {/* FAQ */}
-            <section className="py-12 md:py-16 bg-secondary/30">
+            <section className="py-12 md:py-16 bg-secondary">
                 <div className="container-custom max-w-3xl mx-auto">
                     <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-center mb-4">Frequently Asked Questions</h2>
                     <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-10 md:mb-12">Quick answers to common questions about our platform and services.</p>

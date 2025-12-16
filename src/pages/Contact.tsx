@@ -12,6 +12,7 @@ import { ContactForm } from '@/components/ContactForm';
 import { ContactInfo } from '@/components/ContactInfo';
 import ContactSkeleton from './ContactSkeleton';
 import { motion } from 'framer-motion';
+import { SEO } from '@/components/layout/SEO';
 
 const Contact = () => {
   const { data: siteSettings, isLoading: settingsLoading, isError: settingsError } = useSiteSettings();
@@ -165,10 +166,15 @@ const Contact = () => {
 
   return (
     <div>
+      <SEO 
+        title="Contact FoneRoute | Get in Touch with Our Experts"
+        description="Contact FoneRoute for sales, support, or general inquiries. Our team is ready to help you find the perfect communication solution for your business. Reach out today!"
+        keywords={['contact us', 'FoneRoute support', 'sales inquiries', 'business communication solutions', 'get in touch']}
+      />
       <PageHeader
         title="Contact Our Team"
         subtitle="Ready to transform your business communications? Get in touch with our experts to discuss your needs and discover the right solution for your organization."
-        breadcrumb="Home / Contact"
+        breadcrumb={{ links: [{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact' }] }}
       />
 
       {/* Contact Form Section */}
@@ -186,6 +192,38 @@ const Contact = () => {
                 holidayMessage={holidayMessage} 
               />
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Locations Section */}
+      <section className="py-12 md:py-16 bg-background">
+        <div className="container-custom">
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-foreground mb-4">
+              Our Locations
+            </h2>
+            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
+              Find our offices around the world.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+            {offices.map((office, index) => (
+              <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
+                <Card className="card-professional card-hover-animation h-full">
+                  <CardContent className="p-6">
+                    <h3 className="font-poppins font-semibold text-foreground mb-3 text-base md:text-lg">
+                      {office.city}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {office.address}<br />
+                      {office.phone}<br />
+                      {office.hours}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

@@ -1,58 +1,57 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
-
+@import "./light-mode.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 0 0% 0%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 0 0% 0%;
+    --background: 250 249 246;
+    --foreground: 36 36 36;
+    --header-background: 250 249 246;
+    --card: 250 249 246;
+    --card-foreground: 36 36 36;
+    --popover: 250 249 246;
+    --popover-foreground: 36 36 36;
+    --primary: 250 249 246;
+    --primary-foreground: 36 36 36;
+    --secondary: 250 249 246;
+    --secondary-foreground: 36 36 36;
+    --muted: 249 248 244;
+    --muted-foreground: 107 107 107;
+    --accent: 36 36 36;
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 36 36 36;
+    --input: 218 220 224;
+    --ring: 250 249 246;
     --radius: 0.5rem;
-    --surface: 0 0% 100%;
-    --surface-hover: 210 40% 96.1%;
+    --font-mono: monospace;
+    --font-sans: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-serif: gt-super, Georgia, Cambria, "Times New Roman", Times, serif;
   }
 
   .dark {
-    --background: 0 0% 13%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 13%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 13%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 10%;
-    --secondary: 0 0% 13%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 13%;
-    --muted-foreground: 0 0% 75%;
-    --accent: 0 0% 20%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 0 0% 98%;
-    --surface: 0 0% 13%;
-    --surface-hover: 0 0% 20%;
+    --background: 25 25 25;
+    --foreground: 255 255 255;
+    --header-background: 25 25 25;
+    --card: 25 25 25;
+    --card-foreground: 255 255 255;
+    --popover: 25 25 25;
+    --popover-foreground: 255 255 255;
+    --primary: 69 69 69;
+    --primary-foreground: 255 255 255;
+    --secondary: 17 17 17;
+    --secondary-foreground: 255 255 255;
+    --muted: 0 0 0;
+    --muted-foreground: 107 107 107;
+    --accent: 69 69 69;
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 36 36 36;
+    --input: 36 36 36;
+    --ring: 69 69 69;
   }
 }
 
@@ -65,38 +64,31 @@
   }
 }
 
-@layer utilities {
-  .container-custom {
-    @apply container mx-auto px-4 sm:px-6 lg:px-8;
-  }
-  .section-padding {
-    @apply py-12 md:py-12;
-  }
-  .bg-grid-pattern {
-    background-image: radial-gradient(circle, rgba(128, 128, 128, 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
-  }
-  .hover-lift {
-    @apply transition-transform duration-300 ease-in-out hover:-translate-y-1;
-  }
-  .card-professional {
-    @apply bg-card border border-border shadow-sm rounded-xl;
-  }
-  .prose-professional {
-    @apply text-lg leading-relaxed;
-  }
-  .card-hover-animation {
-    @apply transition-all duration-300 ease-in-out;
-  }
+.transition-colors {
+  transition: background-color 250ms, color 250ms;
+}
 
-  .card-hover-animation:hover {
-    @apply transform scale-105 shadow-xl;
-  }
+.section-padding {
+  @apply py-16 md:py-24;
+}
 
-  .card-hover {
-    @apply transition-transform duration-300 ease-in-out;
-  }
-  .card-hover:hover {
-    @apply transform -translate-y-2;
-  }
+.section-padding-sm {
+  @apply py-8 md:py-12;
+}
+
+.container-custom {
+  @apply container mx-auto px-4;
+}
+
+.card-hover-animation {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.card-hover-animation:hover {
+  @apply transform -translate-y-2 shadow-2xl;
+}
+
+.no-focus-ring:focus {
+    outline: none;
+    box-shadow: none;
 }

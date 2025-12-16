@@ -27,6 +27,7 @@ export default defineType({
     defineField({ name: 'metaTitle', title: 'Meta Title', type: 'string' }),
     defineField({ name: 'metaDescription', title: 'Meta Description', type: 'text' }),
     defineField({ name: 'ogImage', title: 'OG Image', type: 'image' }),
+    defineField({ name: 'sections', title: 'Page Sections', type: 'array', of: [{ type: 'block' }] }),
   ],
   preview: {
     select: {

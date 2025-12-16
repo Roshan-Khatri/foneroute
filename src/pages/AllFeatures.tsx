@@ -29,24 +29,6 @@ const featuresItems = [
     },
   ];
 
-const highlightItems = [
-  {
-    icon: <Zap className="h-8 w-8 text-primary" />,
-    title: 'Blazing Fast Performance',
-    description: 'Our infrastructure is optimized for speed, ensuring a seamless experience for your users.',
-  },
-  {
-    icon: <Shield className="h-8 w-8 text-primary" />,
-    title: 'Rock-Solid Security',
-    description: 'We take security seriously. Your data is protected with the latest encryption and security protocols.',
-  },
-  {
-    icon: <BarChart className="h-8 w-8 text-primary" />,
-    title: 'Actionable Analytics',
-    description: 'Gain valuable insights into your operations with our comprehensive analytics and reporting tools.',
-  },
-];
-
 const AllFeatures = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -103,28 +85,6 @@ const AllFeatures = () => {
         </div>
       </section>
       
-      <section className="section-padding bg-background" style={{ scrollSnapAlign: 'start' }}>
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Why Choose Us?</h2>
-            <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-              Our platform is more than just a collection of features. It's a commitment to your success. Here's what sets us apart.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            {highlightItems.map((item) => (
-              <div key={item.title}>
-                <div className="inline-block bg-primary-light p-4 rounded-full mb-4">
-                  {item.icon}
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
     </div>
   );
 };

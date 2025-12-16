@@ -1,86 +1,78 @@
 
-import { Link, useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { industries } from '@/content/industries';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle } from 'lucide-react';
-import NotFoundPage from '@/pages/NotFound';
+import { MainLayout } from '@/components/layout/MainLayout';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { CallToAction } from '@/components/layout/CallToAction';
+import { Check } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { SEO } from '@/components/layout/SEO';
 
-function IndustryPage() {
+export default function IndustryPage() {
   const { slug } = useParams();
-  const industry = industries.find((inst) => inst.slug?.current === slug);
+  const industry = industries.find((ind) => ind.slug === slug);
 
   if (!industry) {
-    return <NotFoundPage />;
+    return <Navigate to="/404" />;
   }
 
+  const { title, hero, overview, features, benefits } = industry;
+
   return (
-    <div className="container-custom py-16">
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold mb-4">{industry.name}</h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          {industry.description}
-        </p>
-      </div>
+    <MainLayout>
+      <SEO 
+        title={`${hero.title} | FoneRoute`}
+        description={hero.subtitle}
+        keywords={[title, 'business communications', ...benefits]}
+      />
+      <PageHeader
+        title={hero.title}
+        subtitle={hero.subtitle}
+        className="bg-gradient-to-r from-background to-secondary"
+      />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Our Solutions</h2>
-          <div className="space-y-4">
-            {industry.solutions.map((solution) => (
-              <Link key={solution.slug.current} to={`/solutions/${solution.slug.current}`}>
-                <Card className="card-hover-animation">
-                  <CardHeader>
-                    <CardTitle>{solution.title}</CardTitle>
-                  </CardHeader>
-                </Card>
-              </Link>
+      <section className="py-16 md:py-24">
+        <div className="container-custom">
+          {/* Overview Section */}
+          <div className="grid lg:grid-cols-3 gap-8 md:gap-12 items-center mb-16 md:mb-24">
+            <div className="lg:col-span-2">
+              <h2 className="text-2xl md:text-3xl font-bold font-poppins mb-4">A Communication Platform Built for {title}</h2>
+              <p className="text-muted-foreground text-lg">{overview}</p>
+            </div>
+            <div className="bg-secondary/50 p-8 rounded-lg">
+              <h3 className="text-xl font-bold font-poppins mb-4">Key Benefits</h3>
+              <ul className="space-y-3">
+                {benefits.map((benefit, index) => (
+                  <li key={index} className="flex items-start">
+                    <Check className="h-5 w-5 text-primary mr-3 mt-1 flex-shrink-0" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Features Section */}
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold font-poppins">Core Features for Your Industry</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <Card key={index} className="text-left card-hover-animation">
+                <CardHeader>
+                  <CardTitle className='font-poppins text-xl'>{feature.title}</CardTitle>
+                  <CardDescription className="pt-2">{feature.description}</CardDescription>
+                </CardHeader>
+              </Card>
             ))}
           </div>
         </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Key Information</h2>
-          <Card className="card-hover-animation">
-            <CardContent className="pt-6">
-              <div className="space-y-4">
-                {industry.metrics && (
-                  <div>
-                    <h3 className="font-semibold">Metrics</h3>
-                    <p className="text-muted-foreground">{industry.metrics}</p>
-                  </div>
-                )}
-                {industry.challenges && (
-                  <div>
-                    <h3 className="font-semibold">Challenges</h3>
-                    <ul className="space-y-2 mt-2">
-                      {industry.challenges.map((challenge) => (
-                        <li key={challenge} className="flex items-center">
-                          <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                          <span className="text-muted-foreground">{challenge}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+      </section>
 
-      {industry.longDescription && (
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold mb-4 text-center">Why FoneRoute for {industry.name}?</h2>
-          <div className="prose max-w-none">
-            {industry.longDescription.map((block, index) => (
-              <p key={index} className="text-muted-foreground leading-loose">
-                {block.children.map(child => child.text).join('')}
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
+      <CallToAction
+        title="Ready to Get Started?"
+        subtitle={`Learn how FoneRoute can transform communication in the ${title} sector.`}
+      />
+    </MainLayout>
   );
 }
-
-export default IndustryPage;

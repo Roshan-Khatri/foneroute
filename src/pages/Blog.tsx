@@ -1,200 +1,114 @@
 
-import { useState, useEffect } from 'react';
-import sanityClient from '../sanity/client';
-import { Link } from 'react-router-dom';
-import PageHeader from '@/components/layout/PageHeader';
-import { urlFor } from '@/sanity/image';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-
-interface Post {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  mainImage: { asset: { _ref: string } };
-  author: { name:string };
-  publishedAt: string;
-  excerpt: string;
-}
+import { motion } from "framer-motion";
 
 const Blog = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const query = `*[_type == "post"] | order(publishedAt desc) {
-        _id,
-        title,
-        slug,
-        mainImage {
-          asset->{
-            _id,
-            url
-          }
-        },
-        author->{
-          name
-        },
-        publishedAt,
-        "excerpt": array::join(string::split(pt::text(body), "")[0..200], "") + "..."
-      }`;
-      try {
-        setLoading(true);
-        const result = await sanityClient.fetch(query);
-        setPosts(result);
-      } catch (error) {
-        console.error('Failed to fetch posts:', error);
-        setError('Failed to load blog posts. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
-  const featuredPost = posts[0];
-  const recentPosts = posts.slice(1, 5);
-
-  // Artificially increase the number of articles for display purposes
-  const allArticles = posts.length > 1 ? Array.from({ length: 4 }, () => posts.slice(1)).flat() : [];
-
   return (
-    <>
-      <main>
-        <PageHeader
-          title="From the Blog"
-          description="Insights, trends, and stories from the world of communication."
-        />
-<section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800">
-          <div className="container-custom text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-4">
-              Welcome to Our Blog
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Here you'll find the latest industry news, expert insights, and practical tips to help you get the most out of our communication solutions. Whether you're a seasoned pro or just getting started, our blog is your go-to resource for all things communication.
-            </p>
-          </div>
-        </section>
-        {featuredPost && (
-          <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800">
-            <div className="container-custom">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className="lg:order-2">
-                  {featuredPost.mainImage && (
-                    <Link to={`/blog/${featuredPost.slug.current}`}>
-                      <img 
-                        src={urlFor(featuredPost.mainImage).width(800).height(600).url()} 
-                        alt={featuredPost.title} 
-                        className="rounded-lg shadow-lg"
-                      />
-                    </Link>
-                  )}
-                </div>
-                <div className="lg:order-1">
-                  <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                    <Link to={`/blog/${featuredPost.slug.current}`}>{featuredPost.title}</Link>
-                  </h2>
-                  <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">{featuredPost.excerpt}</p>
-                  <div className="mt-6">
-                    <Link 
-                      to={`/blog/${featuredPost.slug.current}`} 
-                      className="text-base font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500"
-                    >
-                      Read full story <span aria-hidden="true">→</span>
-                    </Link>
-                  </div>
-                </div>
+    <div className="bg-background text-foreground min-h-screen">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <motion.section
+          className="text-center py-20"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">Blog</h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            Welcome to our blog. Here you will find the latest news, updates, and best practices.
+          </p>
+        </motion.section>
+
+        <motion.section
+          className="py-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6 text-center">Tech Spotlight</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                <h3 className="text-xl font-bold mb-4">The Rise of AI in Communication</h3>
+                <p className="text-muted-foreground">Artificial intelligence is revolutionizing the way we communicate. From AI-powered chatbots to predictive analytics, AI is enabling businesses to provide more personalized and efficient customer experiences.</p>
+              </div>
+              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                <h3 className="text-xl font-bold mb-4">The Future of 5G</h3>
+                <p className="text-muted-foreground">5G is the next generation of wireless technology, promising faster speeds, lower latency, and greater capacity. This will unlock new possibilities for businesses, from enhanced mobile broadband to mission-critical communications.</p>
               </div>
             </div>
-          </section>
-        )}
-
-        <section className="py-16 sm:py-20">
-          <div className="container-custom grid lg:grid-cols-3 gap-12">
-            <div className="lg:col-span-2">
-                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-2">
-                All Articles
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                Explore our full range of articles covering a wide variety of topics in the communication landscape.
-              </p>
-              {loading && <p className="text-center">Loading posts...</p>}
-              {error && <p className="text-center text-red-500">{error}</p>}
-              {!loading && !error && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                  {allArticles.map((post, index) => (
-                    <Link to={`/blog/${post.slug.current}`} key={`${post._id}-${index}`} className="flex flex-col border rounded-lg overflow-hidden card-hover-animation">
-                      {post.mainImage && (
-                        <img 
-                          src={urlFor(post.mainImage).width(500).height(300).url()} 
-                          alt={post.title} 
-                          className="w-full h-48 object-cover"
-                        />
-                      )}
-                      <div className="p-6 flex flex-col flex-grow">
-                        <h3 className="text-xl font-bold mb-2">{post.title}</h3>
-                        <p className="text-muted-foreground text-sm mb-3">
-                          By {post.author.name} on {new Date(post.publishedAt).toLocaleDateString()}
-                        </p>
-                        <p className="text-gray-600 dark:text-gray-300 text-sm flex-grow">{post.excerpt}</p>
-                        <div className="mt-4">
-                          <span className="text-base font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500">
-                            Read More <span aria-hidden="true">→</span>
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-              {allArticles.length === 0 && !loading && !error && (
-                <p className="text-center text-muted-foreground">No more articles found.</p>
-              )}
-            </div>
-
-            <aside className="space-y-8">
-              {/* Search Bar */}
-              <div>
-                <h3 className="text-xl font-semibold mb-4">Search</h3>
-                <div className="flex gap-2">
-                  <Input type="text" placeholder="Search articles..." />
-                  <Button>Search</Button>
-                </div>
-              </div>
-
-              {/* Categories */}
-              <div>
-                <h3 className="text-xl font-semibold mb-4">Categories</h3>
-                <ul className="space-y-2">
-                  <li><Link to="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-500">Technology</Link></li>
-                  <li><Link to="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-500">Business</Link></li>
-                  <li><Link to="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-500">Customer Service</Link></li>
-                  <li><Link to="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-500">Product Updates</Link></li>
-                </ul>
-              </div>
-
-              {/* Recent Posts */}
-              <div>
-                <h3 className="text-xl font-semibold mb-4">Recent Posts</h3>
-                <ul className="space-y-4">
-                  {recentPosts.map(post => (
-                    <li key={post._id}>
-                      <Link to={`/blog/${post.slug.current}`} className="font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500">
-                        {post.title}
-                      </Link>
-                      <p className="text-sm text-muted-foreground">{new Date(post.publishedAt).toLocaleDateString()}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </aside>
           </div>
-        </section>
+        </motion.section>
+
+        <motion.section
+          className="py-12 bg-muted dark:bg-[#191919] rounded-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">Case Studies</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-xl font-bold mb-4">How FoneRoute Helped a Startup Scale</h3>
+                <p className="text-muted-foreground">Read how a fast-growing startup leveraged FoneRoute's predictive dialer to triple their sales outreach and close more deals.</p>
+              </div>
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-xl font-bold mb-4">Enhancing Customer Support with Cloud PBX</h3>
+                <p className="text-muted-foreground">Learn how a mid-sized e-commerce company improved customer satisfaction by 40% after implementing FoneRoute's Cloud PBX system.</p>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section
+          className="py-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">From Our Customers</h2>
+            <div className="space-y-8">
+              <blockquote className="p-6 border-l-4 border-primary bg-card">
+                <p className="text-muted-foreground italic">"FoneRoute's platform has been a game-changer for our sales team. The predictive dialer is incredibly efficient, and the call analytics have provided us with invaluable insights."</p>
+                <cite className="mt-4 block font-bold not-italic">- John Doe, Head of Sales at Innovate Inc.</cite>
+              </blockquote>
+              <blockquote className="p-6 border-l-4 border-primary bg-card">
+                <p className="text-muted-foreground italic">"The support team at FoneRoute is top-notch. They are always responsive and go above and beyond to help us with any issues we encounter."</p>
+                <cite className="mt-4 block font-bold not-italic">- Jane Smith, Customer Support Manager at Acme Corp.</cite>
+              </blockquote>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section
+          className="py-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6 text-center">Recent Posts</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-xl font-bold mb-4">5 Ways to Improve Your Customer Service with a Cloud PBX</h3>
+                <p className="text-muted-foreground">Discover five practical ways a Cloud PBX system can help you enhance your customer service and build stronger customer relationships.</p>
+                <a href="#" className="text-primary hover:underline mt-4 inline-block">Read More</a>
+              </div>
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-xl font-bold mb-4">The Benefits of a Predictive Dialer for Your Sales Team</h3>
+                <p className="text-muted-foreground">Learn how a predictive dialer can boost your sales team's productivity, increase call connection rates, and drive revenue growth.</p>
+                <a href="#" className="text-primary hover:underline mt-4 inline-block">Read More</a>
+              </div>
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-xl font-bold mb-4">Why Your Business Needs a Toll-Free Number</h3>
+                <p className="text-muted-foreground">Find out how a toll-free number can enhance your brand image, improve customer accessibility, and increase sales inquiries.</p>
+                <a href="#" className="text-primary hover:underline mt-4 inline-block">Read More</a>
+              </div>
+            </div>
+          </div>
+        </motion.section>
       </main>
-    </>
+    </div>
   );
 };
 

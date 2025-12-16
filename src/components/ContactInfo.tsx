@@ -31,7 +31,7 @@ export const ContactInfo = ({ contactInfo, businessHours, supportHours, holidayM
         <div className="space-y-6">
           {contactInfo.map((info, index) => (
             <div key={index} className="flex items-start space-x-4">
-              <div className="p-3 bg-primary-light rounded-lg">
+              <div className="p-3 bg-primary/10 rounded-lg">
                 <info.icon className="h-6 w-6 text-primary" />
               </div>
               <div>
@@ -44,7 +44,7 @@ export const ContactInfo = ({ contactInfo, businessHours, supportHours, holidayM
         </div>
       </div>
 
-      <Card className="card-professional card-hover">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Clock className="h-5 w-5 text-primary" />
@@ -65,7 +65,7 @@ export const ContactInfo = ({ contactInfo, businessHours, supportHours, holidayM
                 <span className="text-accent font-medium">{supportHours}</span>
               </div>
               {holidayMessage && (
-                <div className="mt-2 text-warning text-xs font-semibold">{holidayMessage}</div>
+                <div className="mt-2 text-yellow-500 text-xs font-semibold">{holidayMessage}</div>
               )}
             </div>
           </div>

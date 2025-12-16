@@ -2,24 +2,37 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { aiAssistantApi } from './src/middleware/ai-assistant.js';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'ai-assistant-api',
+      configureServer(server) {
+        server.middlewares.use('/api/ai', aiAssistantApi);
+      }
+    }
+  ],
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
+    alias: [
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, 'src')
+      }
+    ]
   },
   build: {
     outDir: 'dist',
   },
-  // Add the base configuration here
-  base: './',
+  base: '/',
   server: {
+    host: '0.0.0.0',
+    port: 3000,
     hmr: {
-        port: 9000,
-        clientPort: 9000,
-    }
-  }
+        clientPort: 443,
+        protocol: 'wss',
+    },
+  },
 });

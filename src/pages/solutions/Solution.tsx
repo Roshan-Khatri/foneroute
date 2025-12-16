@@ -28,7 +28,7 @@ const Solution = () => {
       return null;
     }
     return (
-      <section id={title.toLowerCase().replace(/ /g, '-')} className="py-12 md:py-16 bg-background alternate-bg">
+      <section id={title.toLowerCase().replace(/ /g, '-')} className="py-12 md:py-16 bg-secondary">
         <div className="container-custom mx-auto px-4">
           <div className="text-center mb-10 md:mb-12">
             <h2 className="text-2xl sm:text-3xl font-poppins font-bold">{title}</h2>
@@ -82,7 +82,7 @@ const Solution = () => {
 
           {/* Related Solutions Section */}
           {solution.relatedSolutions && solution.relatedSolutions.length > 0 && (
-            <section id="related-solutions" className="py-12 md:py-16 bg-background alternate-bg">
+            <section id="related-solutions" className="py-12 md:py-16 bg-secondary">
               <div className="container-custom mx-auto px-4 text-center">
                 <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-8">Related Solutions</h2>
                 <div className="flex flex-wrap justify-center gap-4">

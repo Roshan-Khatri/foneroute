@@ -1,12 +1,11 @@
 
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Zap, BarChart2, Users, Phone, MessageSquare, Cog, LineChart, ShieldCheck } from 'lucide-react';
 import SolutionsByIndustry from '@/components/SolutionsByIndustry';
-import { Industry } from '@/sanity/types';
-import { industries } from '@/content/industries';
 
 const solutions = [
     { 
@@ -39,13 +38,24 @@ const features = [
 ];
 
 const Solutions = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.hash) {
+            const element = document.querySelector(location.hash);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [location]);
+
     return (
         <main className="flex-1">
             {/* Hero Section */}
-            <section className="bg-gray-100 py-20">
+            <section className="pt-28 pb-20 bg-secondary">
                 <div className="container-custom text-center">
-                    <h1 className="text-4xl lg:text-5xl font-poppins font-bold mb-4">Our Solutions</h1>
-                    <p className="text-xl max-w-3xl mx-auto">
+                    <h1 className="text-4xl lg:text-5xl font-poppins font-bold mb-4 text-foreground">Our Solutions</h1>
+                    <p className="text-xl max-w-3xl mx-auto text-muted-foreground">
                         A complete suite of communication tools designed to help your business grow.
                     </p>
                 </div>
@@ -80,7 +90,7 @@ const Solutions = () => {
             </section>
 
             {/* Solutions by Industry */}
-            <SolutionsByIndustry industries={industries as Industry[]} />
+            <SolutionsByIndustry />
 
             {/* All Features Section */}
             <section className="py-16 bg-background">
@@ -93,7 +103,7 @@ const Solutions = () => {
                     </div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {features.map((feature,i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * .1 }}>
                                 <Card className="bg-background shadow-lg h-full text-left card-hover-animation">
                                     <CardHeader className="flex flex-row items-center gap-4">
                                         <div className="bg-primary text-primary-foreground p-3 rounded-full">

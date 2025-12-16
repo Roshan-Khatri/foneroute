@@ -10,19 +10,19 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-primary-hover shadow-md hover:shadow-lg",
+          "bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:shadow-lg", // Adjusted hover to use existing primary/90
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm hover:shadow-md",
+          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 hover:shadow-md",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground shadow-sm hover:shadow-md",
+          "border border-input bg-background hover:bg-secondary hover:text-secondary-foreground shadow-sm hover:shadow-md",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm hover:shadow-md",
+          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:shadow-md",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         premium:
-          "bg-black text-white shadow-lg hover:shadow-xl",
+          "bg-foreground text-background shadow-lg hover:shadow-xl",
         "outline-secondary":
-          "border border-border bg-surface text-secondary-foreground hover:bg-surface-hover shadow-sm hover:shadow-md",
+          "border border-border bg-card text-muted-foreground hover:bg-accent hover:text-accent-foreground shadow-sm hover:shadow-md", // Assuming 'surface' maps to 'card' and 'surface-hover' maps to 'accent'
       },
       size: {
         default: "h-11 px-6",

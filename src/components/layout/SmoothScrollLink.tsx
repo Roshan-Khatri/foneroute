@@ -1,10 +1,9 @@
 
 import React, { ReactNode, forwardRef } from 'react';
-import { Link, LinkProps } from 'react-router-dom';
 
-interface SmoothScrollLinkProps extends LinkProps {
+interface SmoothScrollLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   children: ReactNode;
-  className?: string;
+  to: string | { pathname?: string };
 }
 
 const SmoothScrollLink = forwardRef<HTMLAnchorElement, SmoothScrollLinkProps>(
@@ -32,10 +31,12 @@ const SmoothScrollLink = forwardRef<HTMLAnchorElement, SmoothScrollLinkProps>(
       }
     };
 
+    const href = typeof to === 'string' ? to : to.pathname || '';
+
     return (
-      <Link to={to} onClick={handleClick} reloadDocument ref={ref} {...props}>
+      <a href={href} onClick={handleClick} ref={ref} {...props}>
         {children}
-      </Link>
+      </a>
     );
   }
 );

@@ -1,10 +1,16 @@
 
-import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Check, Minus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import PageHeader from "@/components/layout/PageHeader";
+import { SEO } from "@/components/layout/SEO";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const tiers = [
   {
@@ -39,20 +45,36 @@ const features = [
   { name: 'Custom Onboarding', solo: false, pro: false, enterprise: true },
 ];
 
+const faqs = [
+  {
+    question: "Can I change my plan later?",
+    answer:
+      "Absolutely. You can upgrade or downgrade your plan at any time to match your business needs. The changes will be reflected in your next billing cycle.",
+  },
+  {
+    question: "What payment methods do you accept?",
+    answer:
+      "We accept all major credit cards, including Visa, Mastercard, and American Express. For enterprise plans, we also support bank transfers.",
+  },
+  {
+    question: "Do you offer discounts for non-profits?",
+    answer:
+      "Yes, we offer special discounts for non-profit organizations. Please contact our sales team to learn more about our non-profit pricing.",
+  },
+];
+
 export default function Pricing() {
   return (
     <>
-      <Helmet>
-        <title>Pricing Plans</title>
-        <meta
-          name="description"
-          content="Find the perfect plan that fits the scale and needs of your business."
-        />
-      </Helmet>
+      <SEO 
+        title="FoneRoute Pricing | Plans for Every Business Size"
+        description="Explore FoneRoute's flexible pricing plans for our communication solutions. Find the perfect fit for your team, from individual use to large enterprises."
+        keywords={['pricing plans', 'business communication pricing', 'contact center cost', 'cloud pbx pricing']}
+      />
       <main>
         <PageHeader
-          title="Flexible pricing for teams of all sizes"
-          description="Find the perfect plan that fits the scale and needs of your business. All plans include a 14-day free trial."
+          title="Pricing"
+          description="Find the perfect plan that fits the scale and needs of your business."
         />
 
         {/* Pricing Tiers Section */}
@@ -60,11 +82,11 @@ export default function Pricing() {
           <div className="container-custom">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {tiers.map((tier) => (
-                <div key={tier.name} className="border rounded-lg p-8 flex flex-col card-hover-animation">
+                <div key={tier.name} className="border rounded-lg p-8 flex flex-col card-hover-animation pricing-table">
                   <h3 className="text-2xl font-bold">{tier.name}</h3>
                   <p className="mt-4 text-muted-foreground">{tier.description}</p>
                   <div className="mt-6">
-                    <span className="text-4xl font-bold">${tier.priceMonthly}</span>
+                    <span className="text-4xl font-bold"><span className="pricing-symbol">$</span><span className="number">{tier.priceMonthly}</span></span>
                     <span className="text-base font-medium text-muted-foreground">/month</span>
                   </div>
                   <Button asChild className="mt-8 w-full bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
@@ -96,13 +118,13 @@ export default function Pricing() {
                       <tr key={index} className="border-t">
                         <td className="p-4 font-medium">{feature.name}</td>
                         <td className="p-4 text-center">
-                          {feature.solo ? <Check className="h-6 w-6 text-primary mx-auto" /> : <Minus className="h-6 w-6 text-muted-foreground mx-auto" />}
+                          {feature.solo ? <Check className="h-6 w-6 text-primary mx-auto checkmark" /> : <Minus className="h-6 w-6 text-muted-foreground mx-auto" />}
                         </td>
                         <td className="p-4 text-center">
-                          {feature.pro ? <Check className="h-6 w-6 text-primary mx-auto" /> : <Minus className="h-6 w-6 text-muted-foreground mx-auto" />} 
+                          {feature.pro ? <Check className="h-6 w-6 text-primary mx-auto checkmark" /> : <Minus className="h-6 w-6 text-muted-foreground mx-auto" />} 
                         </td>
                         <td className="p-4 text-center">
-                          {feature.enterprise ? <Check className="h-6 w-6 text-primary mx-auto" /> : <Minus className="h-6 w-6 text-muted-foreground mx-auto" />}
+                          {feature.enterprise ? <Check className="h-6 w-6 text-primary mx-auto checkmark" /> : <Minus className="h-6 w-6 text-muted-foreground mx-auto" />}
                         </td>
                       </tr>
                     ))}
@@ -129,6 +151,23 @@ export default function Pricing() {
                   </tfoot>
                 </table>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQs Section */}
+        <section style={{backgroundColor: '#191919'}} className="py-16 sm:py-20">
+          <div className="container-custom">
+            <h2 className="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible>
+                {faqs.map((faq, index) => (
+                  <AccordionItem value={`item-${index}`} key={index}>
+                    <AccordionTrigger>{faq.question}</AccordionTrigger>
+                    <AccordionContent>{faq.answer}</AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
           </div>
         </section>

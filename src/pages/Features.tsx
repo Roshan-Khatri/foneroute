@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PortableText from '@/components/PortableText';
 import { ContactForm } from '@/components/ContactForm';
 import { ContactInfo } from '@/components/ContactInfo';
-import { Phone, MessageSquare, Mail } from 'lucide-react';
+import { PhoneCall, Headset, ShieldCheck, Users, BarChart3, Activity, Mail } from 'lucide-react';
 import AllPagesSkeleton from './AllPagesSkeleton';
 
 const featureSlugs = [
@@ -96,8 +96,8 @@ function Features() {
   };
   
   const contactInfo = [
-    { icon: Phone, title: 'Sales', details: siteSettings?.primaryPhone || '+1 (555) 123-4567', description: 'Speak with our sales team' },
-    { icon: MessageSquare, title: siteSettings?.supportPhone ? 'Support' : 'Support Email', details: siteSettings?.supportPhone || siteSettings?.supportEmail || '+1 (555) 123-4568', description: siteSettings?.supportPhone ? '24/7 technical support' : 'Contact our support team by email' },
+    { icon: PhoneCall, title: 'Sales', details: siteSettings?.primaryPhone || '+1 (555) 123-4567', description: 'Speak with our sales team' },
+    { icon: Headset, title: siteSettings?.supportPhone ? 'Support' : 'Support Email', details: siteSettings?.supportPhone || siteSettings?.supportEmail || '+1 (555) 123-4568', description: siteSettings?.supportPhone ? '24/7 technical support' : 'Contact our support team by email' },
     { icon: Mail, title: 'Email', details: siteSettings?.primaryEmail || 'info@foneroute.com', description: 'General inquiries' },
   ];
 
@@ -133,7 +133,7 @@ function Features() {
                         <h2 className="text-2xl font-bold mb-4">{f.title}</h2>
                         <PortableText value={f.longDescription ?? []} className="prose prose-lg" />
                       </div>
-                      <div className="lg:col-span-1 space-y-6">
+                      <div className="lg:col-span-1 space-y-6 feature-card">
                         <div>
                           <h3 className="text-xl font-semibold mb-3">Key Capabilities</h3>
                           <ul className="list-disc pl-5 space-y-2">

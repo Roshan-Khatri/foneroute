@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Briefcase, Users, Heart, Star, Zap, Award, BarChart } from "lucide-react";
 import { motion } from 'framer-motion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { SEO } from '@/components/layout/SEO';
 
 const About = () => {
   const teamMembers = [
@@ -40,7 +41,12 @@ const About = () => {
   ];
 
   return (
-    <div>
+    <div className="pt-24">
+      <SEO 
+        title="About FoneRoute | Our Mission, Vision, and Team"
+        description="Learn about FoneRoute's mission to empower businesses with intelligent communication solutions. Meet our dedicated team and discover our commitment to innovation, quality, and customer satisfaction."
+        keywords={['about us', 'company mission', 'business communication', 'our team', 'company values']}
+      />
       <PageHeader
         title="About Our Company"
         subtitle="Innovators in business communication, dedicated to your success."
@@ -61,7 +67,7 @@ const About = () => {
               </ul>
             </motion.div>
             <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
-              <img src="/about-us-image.png" alt="Our Team" className="rounded-lg shadow-lg w-full h-auto card-hover-animation" />
+              <img src="https://ik.imagekit.io/nb6cfzd7m/marvin-meyer-SYTO3xs06fU-unsplash.jpg" alt="A modern office environment with a team collaborating, representing FoneRoute's mission and vision." className="rounded-lg shadow-lg w-full h-auto" />
             </motion.div>
           </div>
         </div>
@@ -74,7 +80,7 @@ const About = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {values.map((item, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                <Card className="bg-transparent border-0 shadow-none text-center card-hover-animation">
+                <Card className="bg-transparent border-0 shadow-none text-center">
                   <CardHeader>
                     <div className="mx-auto text-primary w-fit mb-4"><item.icon className="h-10 w-10" /></div>
                     <CardTitle className="font-poppins text-xl">{item.title}</CardTitle>
@@ -94,7 +100,7 @@ const About = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {commitment.map((item, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                <Card className="bg-transparent border-0 shadow-none text-center card-hover-animation">
+                <Card className="bg-transparent border-0 shadow-none text-center">
                   <CardHeader>
                     <div className="mx-auto text-primary w-fit mb-4"><item.icon className="h-10 w-10" /></div>
                     <CardTitle className="font-poppins text-xl">{item.title}</CardTitle>
@@ -115,7 +121,7 @@ const About = () => {
             {teamMembers.map((member, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
                 <div className="text-center">
-                  <Avatar className="h-24 w-24 mx-auto mb-4 shadow-md card-hover-animation">
+                  <Avatar className="h-24 w-24 mx-auto mb-4 shadow-md">
                     <AvatarImage src={member.image} alt={member.name} />
                     <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
                   </Avatar>

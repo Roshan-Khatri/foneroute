@@ -1,69 +1,127 @@
 
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import PageHeader from "@/components/layout/PageHeader";
-
-const caseStudies = [
-  {
-    title: "Global Tech Inc. Increases Sales by 300%",
-    challenge: "Global Tech Inc. was facing a decline in their outbound sales effectiveness. Their agents were spending too much time on manual dialing and were not reaching enough qualified leads.",
-    solution: "We implemented our AI-powered Predictive Dialer, which automated the dialing process and used a smart algorithm to connect agents only to live prospects. This, combined with our CRM integration, provided agents with instant access to customer data.",
-    results: "Within three months, Global Tech Inc. saw a 300% increase in agent talk time, a 50% increase in lead conversion rates, and a significant boost in overall sales revenue. Agent morale also improved due to the reduction in tedious manual tasks.",
-    image: "/public/placeholder.svg",
-  },
-  {
-    title: "SupportPro Services Enhances Customer Satisfaction",
-    challenge: "SupportPro Services was struggling with long wait times and a fragmented customer support experience. They needed a unified platform to manage interactions across multiple channels.",
-    solution: "Our Contact Center Solution provided a unified agent desktop, bringing together voice, email, chat, and social media interactions. Intelligent call routing ensured customers were connected to the right agent every time.",
-    results: "SupportPro Services reduced their average customer wait time by 40% and improved their First Call Resolution (FCR) rate by 25%. Their Customer Satisfaction (CSAT) scores increased by 15 points.",
-    image: "/public/placeholder.svg",
-  },
-  {
-    title: "FinanceFast Corp. Achieves 99.9% Uptime and Compliance",
-    challenge: "As a financial institution, FinanceFast Corp. required a highly reliable and secure communication system that met strict regulatory compliance standards.",
-    solution: "We deployed our Cloud PBX System, which offers 99.9% uptime and includes advanced security features like end-to-end encryption and secure call recording. The system is fully compliant with financial industry regulations.",
-    results: "FinanceFast Corp. achieved and maintained 99.9% uptime, ensuring their critical communications were never interrupted. They also passed all their security audits with flying colors, giving them peace of mind and building trust with their clients.",
-    image: "/public/placeholder.svg",
-  },
-];
+import { Link } from "react-router-dom";
 
 const CaseStudies = () => {
   return (
-    <>
-      <PageHeader 
-        title="Customer Success Stories" 
-        subtitle="See how our solutions have helped businesses like yours achieve their goals." 
-      />
-      <div className="container-custom py-12 md:py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {caseStudies.map((study, index) => (
-            <Card key={index} className="flex flex-col">
-              <CardHeader>
-                <img src={study.image} alt={study.title} className="mb-4 rounded-md" />
-                <CardTitle>{study.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <div className="mb-4">
-                  <h3 className="font-semibold mb-2">Challenge</h3>
-                  <p className="text-muted-foreground">{study.challenge}</p>
-                </div>
-                <div className="mb-4">
-                  <h3 className="font-semibold mb-2">Solution</h3>
-                  <p className="text-muted-foreground">{study.solution}</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-2">Results</h3>
-                  <p className="text-muted-foreground">{study.results}</p>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline">Read Full Study</Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-      </div>
-    </>
+    <div className="bg-background text-foreground min-h-screen">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <motion.section
+          className="text-center py-20"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">Case Studies</h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            See how businesses like yours have succeeded with FoneRoute.
+          </p>
+        </motion.section>
+
+        <motion.section
+          className="py-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-xl font-bold mb-4">How FoneRoute Helped a Startup Scale</h3>
+                <p className="text-muted-foreground">Read how a fast-growing startup leveraged FoneRoute's predictive dialer to triple their sales outreach and close more deals.</p>
+              </div>
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-xl font-bold mb-4">Enhancing Customer Support with Cloud PBX</h3>
+                <p className="text-muted-foreground">Learn how a mid-sized e-commerce company improved customer satisfaction by 40% after implementing FoneRoute's Cloud PBX system.</p>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section
+          className="py-12 bg-muted dark:bg-[#191919] rounded-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">Customer Testimonials</h2>
+            <div className="space-y-8">
+              <blockquote className="p-6 border-l-4 border-primary bg-card">
+                <p className="text-muted-foreground italic">"FoneRoute's predictive dialer has been a game-changer for our sales team. We've seen a 3x increase in our call volume and a significant boost in our sales numbers."</p>
+                <cite className="mt-4 block font-bold not-italic">- John Doe, Head of Sales at Innovate Inc.</cite>
+              </blockquote>
+              <blockquote className="p-6 border-l-4 border-primary bg-card">
+                <p className="text-muted-foreground italic">"The Cloud PBX system from FoneRoute has revolutionized our customer support. Our customer satisfaction scores have improved by 40% since we implemented it."</p>
+                <cite className="mt-4 block font-bold not-italic">- Jane Smith, Customer Support Manager at Acme Corp.</cite>
+              </blockquote>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section
+          className="py-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">Results</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-4xl font-bold text-primary">3x</h3>
+                <p className="text-muted-foreground mt-2">Increase in Sales Outreach</p>
+              </div>
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-4xl font-bold text-primary">40%</h3>
+                <p className="text-muted-foreground mt-2">Improvement in Customer Satisfaction</p>
+              </div>
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-4xl font-bold text-primary">50%</h3>
+                <p className="text-muted-foreground mt-2">Reduction in Operational Costs</p>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section
+          className="py-12 bg-muted dark:bg-[#191919] rounded-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6 text-center">Challenges and Solutions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-xl font-bold mb-4">Challenge</h3>
+                <p className="text-muted-foreground">A startup was struggling to scale its sales outreach and was facing high operational costs.</p>
+              </div>
+              <div className="p-6 rounded-lg shadow-lg bg-card">
+                <h3 className="text-xl font-bold mb-4">Solution</h3>
+                <p className="text-muted-foreground">FoneRoute's predictive dialer automated the dialing process, allowing the sales team to connect with more prospects and reduce idle time.</p>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section
+          className="py-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">How to Get Started</h2>
+            <p className="text-muted-foreground mb-8">Ready to achieve similar results? Get in touch with our team to learn how FoneRoute can help your business.</p>
+            <Link to="/contact">
+              <Button size="lg">Contact Us</Button>
+            </Link>
+          </div>
+        </motion.section>
+      </main>
+    </div>
   );
 };
 

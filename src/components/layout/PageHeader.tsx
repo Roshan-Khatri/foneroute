@@ -1,56 +1,56 @@
 
 import { ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+
+interface BreadcrumbLink {
+  name: string;
+  url: string;
+}
 
 interface PageHeaderProps {
   title: string;
-  subtitle?: string;
-  breadcrumb?: string;
+  description?: string;
+  breadcrumb?: {
+    links: BreadcrumbLink[];
+  };
   children?: ReactNode;
 }
 
-const PageHeader = ({ title, subtitle, breadcrumb, children }: PageHeaderProps) => {
+const PageHeader = ({ title, description, breadcrumb, children }: PageHeaderProps) => {
   return (
-    <div className="bg-secondary/30 border-b border-border">
+    <div className="bg-secondary/30 border-b border-border pt-16">
       <div className="container-custom py-12 md:py-16">
-        {breadcrumb && (
-          <motion.nav 
-            className="mb-4"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <p className="text-sm text-muted-foreground">{breadcrumb}</p>
-          </motion.nav>
+        {breadcrumb && breadcrumb.links && Array.isArray(breadcrumb.links) && (
+          <nav className="mb-4">
+            <ol className="flex items-center space-x-2 text-sm text-muted-foreground">
+              {breadcrumb.links.map((link, index) => (
+                <li key={index} className="flex items-center space-x-2">
+                  {index > 0 && <span className="text-muted-foreground">/</span>}
+                  {index === breadcrumb.links.length - 1 ? (
+                    <span className="font-medium text-foreground">{link.name}</span>
+                  ) : (
+                    <Link to={link.url} className="hover:text-foreground">
+                      {link.name}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
         )}
         <div className="max-w-4xl">
-          <motion.h1 
-            className="font-poppins font-bold text-foreground mb-4 text-3xl md:text-4xl lg:text-5xl"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <h1 className="font-poppins font-bold text-foreground mb-4 text-3xl md:text-4xl lg:text-5xl">
             {title}
-          </motion.h1>
-          {subtitle && (
-            <motion.p 
-              className="text-muted-foreground leading-relaxed text-base md:text-lg lg:text-xl"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              {subtitle}
-            </motion.p>
+          </h1>
+          {description && (
+            <p className="text-muted-foreground leading-relaxed text-base md:text-lg lg:text-xl">
+              {description}
+            </p>
           )}
           {children && (
-            <motion.div 
-              className="mt-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
+            <div className="mt-8">
               {children}
-            </motion.div>
+            </div>
           )}
         </div>
       </div>

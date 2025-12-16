@@ -74,7 +74,7 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
                 value={formData.firstName}
                 onChange={(e) => handleInputChange('firstName', e.target.value)}
                 required
-                className="bg-surface border-input-border"
+                className="bg-background border-border"
               />
             </div>
             <div className="space-y-2">
@@ -85,7 +85,7 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
                 value={formData.lastName}
                 onChange={(e) => handleInputChange('lastName', e.target.value)}
                 required
-                className="bg-surface border-input-border"
+                className="bg-background border-border"
               />
             </div>
           </div>
@@ -100,7 +100,7 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 required
-                className="bg-surface border-input-border"
+                className="bg-background border-border"
               />
             </div>
             <div className="space-y-2">
@@ -110,7 +110,7 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
-                className="bg-surface border-input-border"
+                className="bg-background border-border"
               />
             </div>
           </div>
@@ -124,7 +124,7 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
                 type="text"
                 value={formData.company}
                 onChange={(e) => handleInputChange('company', e.target.value)}
-                className="bg-surface border-input-border"
+                className="bg-background border-border"
               />
             </div>
             <div className="space-y-2">
@@ -134,7 +134,7 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
                 type="text"
                 value={formData.jobTitle}
                 onChange={(e) => handleInputChange('jobTitle', e.target.value)}
-                className="bg-surface border-input-border"
+                className="bg-background border-border"
               />
             </div>
           </div>
@@ -143,7 +143,7 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
           <div className="space-y-2">
             <Label htmlFor="solution">Solution of Interest</Label>
             <Select value={formData.solution} onValueChange={(value) => handleInputChange('solution', value)}>
-              <SelectTrigger className="bg-surface border-input-border">
+              <SelectTrigger className="bg-background border-border">
                 <SelectValue placeholder="Select a solution" />
               </SelectTrigger>
               <SelectContent>
@@ -165,7 +165,7 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
               value={formData.message}
               onChange={(e) => handleInputChange('message', e.target.value)}
               placeholder="Tell us about your business needs and requirements..."
-              className="bg-surface border-input-border resize-none"
+              className="bg-background border-border resize-none"
             />
           </div>
 

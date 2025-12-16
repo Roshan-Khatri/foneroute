@@ -1,274 +1,140 @@
-import PageHeader from '@/components/layout/PageHeader';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Link } from 'react-router-dom';
 
-const faqs = [
-  {
-    question: "What is your return policy?",
-    answer: "You can return any item within 30 days of purchase for a full refund. Please see our returns page for more details.",
-  },
-  {
-    question: "How do I track my order?",
-    answer: "Once your order has shipped, you will receive an email with a tracking number. You can use this number to track your order on the carrier's website.",
-  },
-  {
-    question: "Do you offer international shipping?",
-    answer: "Yes, we ship to most countries worldwide. Shipping costs and delivery times vary depending on the destination.",
-  },
-];
-
-const guides = [
-  {
-    title: "Account Setup",
-    description: "Learn how to create and set up your account in a few easy steps.",
-    link: "#",
-  },
-  {
-    title: "Product Configuration",
-    description: "Follow our guide to configure the product to meet your needs.",
-    link: "#",
-  },
-  {
-    title: "Troubleshooting Tips",
-    description: "Find solutions to common issues and keep things running smoothly.",
-    link: "#",
-  },
-];
-
-const resources = [
-  {
-    title: "Documentation",
-    description: "Browse our detailed documentation to find answers to your questions.",
-    link: "#",
-  },
-  {
-    title: "Community Forums",
-    description: "Connect with other users and get help from the community.",
-    link: "#",
-  },
-  {
-    title: "Blog",
-    description: "Read our latest articles and stay up-to-date with our products.",
-    link: "#",
-  },
-];
-
-const securityInfo = [
-  {
-    title: "Data Encryption",
-    description: "All your communications—voice, video, and messages—are protected with end-to-end and in-transit encryption using industry-standard protocols.",
-    link: "#",
-  },
-  {
-    title: "Compliance Certifications",
-    description: "We adhere to major global privacy and security standards, including GDPR, HIPAA, and SOC 2, to ensure your data is handled responsibly.",
-    link: "#",
-  },
-  {
-    title: "Secure Infrastructure",
-    description: "Our platform is built on a resilient and secure infrastructure with regular security audits and threat monitoring to prevent unauthorized access.",
-    link: "#",
-  },
-];
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const Support = () => {
+  const faqs = [
+    {
+      question: "What is FoneRoute?",
+      answer: "FoneRoute is a comprehensive communication platform that offers a suite of tools to enhance business communications, including a predictive dialer, contact center solutions, and a cloud PBX system.",
+    },
+    {
+      question: "How can I get started?",
+      answer: "You can get started by requesting a demo or contacting our sales team. We offer a variety of plans to fit your business needs.",
+    },
+    {
+      question: "What kind of support do you offer?",
+      answer: "We offer 24/7 support through various channels, including phone, email, and live chat. Our dedicated support team is always ready to help you with any issues or questions.",
+    },
+  ];
+
   return (
-    <div>
-      <PageHeader
-        title="Support"
-        subtitle="Get help with our products and services."
-        breadcrumb="Home / Support"
-      />
+    <div className="bg-background text-foreground min-h-screen">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <motion.section
+          className="text-center py-20"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">Support</h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            Welcome to our support page. How can we help you today?
+          </p>
+        </motion.section>
 
-      <section className="section-padding bg-surface">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              Contact Support
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Can't find the answer you're looking for? Fill out the form below to get in touch with our support team.
-            </p>
+        <motion.section
+          className="py-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, i) => (
+                <AccordionItem key={i} value={`item-${i}`}>
+                  <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-base">{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
-          <form className="max-w-xl mx-auto">
-            <div className="grid grid-cols-1 gap-6">
-              <div>
-                <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name" placeholder="Enter your name" />
+        </motion.section>
+
+        <motion.section
+          className="py-12 bg-muted dark:bg-[#191919] rounded-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">Contact Support</h2>
+            <p className="text-muted-foreground mb-8">
+              Can't find the answer you're looking for? Our support team is here to help.
+            </p>
+            <Button size="lg" asChild>
+              <Link to="/contact">Contact Us</Link>
+            </Button>
+          </div>
+        </motion.section>
+
+        <motion.section
+          className="py-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6 text-center">Helpful Resources</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                <h3 className="text-xl font-bold mb-4">Knowledge Base</h3>
+                <p className="text-muted-foreground">Explore our comprehensive knowledge base for detailed guides and tutorials.</p>
               </div>
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email" placeholder="Enter your email" />
+              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                <h3 className="text-xl font-bold mb-4">Community Forums</h3>
+                <p className="text-muted-foreground">Join our community forums to connect with other users and share your experiences.</p>
               </div>
-              <div>
-                <Label htmlFor="message">Message</Label>
-                <Textarea id="message" placeholder="Enter your message" />
+              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                <h3 className="text-xl font-bold mb-4">Blog</h3>
+                <p className="text-muted-foreground">Read our blog for the latest news, updates, and best practices.</p>
               </div>
-              <div className="text-center">
-                <Button type="submit">Submit</Button>
+              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                <h3 className="text-xl font-bold mb-4">Video Tutorials</h3>
+                <p className="text-muted-foreground">Watch our video tutorials to learn how to use FoneRoute's features.</p>
               </div>
             </div>
-          </form>
-        </div>
-      </section>
+          </div>
+        </motion.section>
 
-      <section className="section-padding bg-background">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              Getting Started Guides
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Explore our guides to get started with our products and services.
+        <motion.section
+          className="py-12 bg-muted dark:bg-[#191919] rounded-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">System Status</h2>
+            <p className="text-muted-foreground mb-4">
+              All systems are currently operational.
             </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {guides.map((guide, index) => (
-              <div className="bg-surface rounded-lg shadow-lg p-6" key={index}>
-                <h3 className="text-xl font-bold mb-3">{guide.title}</h3>
-                <p className="text-muted-foreground mb-4">{guide.description}</p>
-                <Button asChild variant="link" className="p-0 h-auto">
-                  <Link to={guide.link}>Read More</Link>
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding bg-surface">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Here are some of our most frequently asked questions.
-            </p>
-          </div>
-          <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
-            {faqs.map((faq, index) => (
-              <AccordionItem value={`item-${index}`} key={index}>
-                <AccordionTrigger>{faq.question}</AccordionTrigger>
-                <AccordionContent>{faq.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
-
-      <section className="section-padding bg-background">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              Helpful Resources
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Check out these resources for more information and support.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {resources.map((resource, index) => (
-              <div className="bg-surface rounded-lg shadow-lg p-6" key={index}>
-                <h3 className="text-xl font-bold mb-3">{resource.title}</h3>
-                <p className="text-muted-foreground mb-4">{resource.description}</p>
-                <Button asChild variant="link" className="p-0 h-auto">
-                  <Link to={resource.link}>Learn More</Link>
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding bg-surface">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              Security & Compliance
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Learn about our commitment to protecting your data and privacy.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {securityInfo.map((item, index) => (
-              <div className="bg-surface rounded-lg shadow-lg p-6" key={index}>
-                <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                <p className="text-muted-foreground mb-4">{item.description}</p>
-                <Button asChild variant="link" className="p-0 h-auto">
-                  <Link to={item.link}>Learn More</Link>
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding bg-background">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              System Status
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Check the current status of our services.
-            </p>
-          </div>
-          <div className="flex items-center justify-center">
-            <div className="w-4 h-4 bg-green-500 rounded-full mr-3"></div>
-            <p className="text-lg">All systems operational</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding bg-surface">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              Live Chat
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Need immediate assistance? Chat with a support agent now.
-            </p>
-          </div>
-          <div className="text-center">
-            <Button size="lg">Start Live Chat</Button>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding bg-background">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-              Submit a Feature Request
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Have a great idea for a new feature? Let us know!
-            </p>
-          </div>
-          <form className="max-w-xl mx-auto">
-            <div className="grid grid-cols-1 gap-6">
-              <div>
-                <Label htmlFor="feature-title">Feature Title</Label>
-                <Input type="text" id="feature-title" placeholder="Enter a title for your feature request" />
-              </div>
-              <div>
-                <Label htmlFor="feature-description">Description</Label>
-                <Textarea id="feature-description" placeholder="Describe your feature request in detail" />
-              </div>
-              <div className="text-center">
-                <Button type="submit">Submit Request</Button>
-              </div>
+            <div className="flex justify-center items-center">
+                <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                <span>All Systems Operational</span>
             </div>
-          </form>
-        </div>
-      </section>
+          </div>
+        </motion.section>
+
+        <motion.section
+          className="py-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">Submit a Ticket</h2>
+            <p className="text-muted-foreground mb-8">
+              If you need further assistance, you can submit a support ticket.
+            </p>
+            <Button size="lg" asChild>
+              <Link to="/contact">Submit a Ticket</Link>
+            </Button>
+          </div>
+        </motion.section>
+      </main>
     </div>
   );
 };

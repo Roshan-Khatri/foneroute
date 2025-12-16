@@ -1,5 +1,4 @@
 
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { useSiteSettings } from '@/hooks/useSanityContent';
@@ -7,7 +6,7 @@ import { urlFor } from '@/sanity/image';
 
 const staticSolutionsLinks = [
   { title: 'Contact Center', href: '/solutions/contact-center' },
-  { title: 'Auto Dialer', href: '/solutions/auto-dialer' },
+  { title: 'Auto Dialer', href: '/solutions/contact-center/auto-dialer' },
   { title: 'Cloud PBX', href: '/solutions/cloud-pbx' },
   { title: 'Unified Communications', href: '/solutions/unified-communications' },
 ];
@@ -47,7 +46,7 @@ const Footer = () => {
   const address = primaryOffice?.address || '123 Business Ave, Tech City, TC 12345';
 
   return (
-    <footer className="bg-background border-t">
+    <footer className="bg-background border-t border-border">
       {/* CTA Section */}
       <div className="text-foreground py-16 sm:py-20 px-4 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Transform Your Business Communications?</h2>
@@ -55,11 +54,11 @@ const Footer = () => {
           Get started with a free consultation and discover how our solutions can drive your business forward.
         </p>
         <Button asChild size="lg" variant={'outline'} className="h-12 text-base px-8">
-          <Link to="/solutions">Explore Solutions</Link>
+          <a href="/solutions">Explore Solutions</a>
         </Button>
       </div>
 
-      <div className="container-custom border-t py-12 md:py-16">
+      <div className="container-custom border-t border-border py-12 md:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12 text-center sm:text-left">
           {/* Company Info & Contact */}
           <div className="sm:col-span-2 lg:col-span-2">
@@ -69,7 +68,7 @@ const Footer = () => {
               ) : (
                 <Phone className="h-8 w-8 text-primary" />
               )}
-              <span className="font-poppins font-bold text-xl">{siteName}</span>
+              <span className="font-poppins font-bold text-xl text-foreground">{siteName}</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-md leading-relaxed mx-auto sm:mx-0">
               {description}
@@ -96,9 +95,9 @@ const Footer = () => {
             <ul className="space-y-3">
               {solutionsLinks.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
                     {link.title}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -108,9 +107,9 @@ const Footer = () => {
             <ul className="space-y-3">
               {featuresLinks.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
                     {link.title}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -120,9 +119,9 @@ const Footer = () => {
             <ul className="space-y-3">
               {companyLinks.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
                     {link.title}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -131,12 +130,12 @@ const Footer = () => {
       </div>
       
       {/* Bottom Bar */}
-      <div className="container-custom border-t py-6">
+      <div className="container-custom border-t border-border py-6">
         <div className="flex flex-col-reverse sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
             <p className='text-center sm:text-left'>&copy; {currentYear} {siteName}. All rights reserved.</p>
             <div className="flex flex-wrap justify-center space-x-4">
                 {legalLinks.map(link => (
-                    <Link key={link.href} to={link.href} className="hover:text-primary transition-colors">{link.title}</Link>
+                    <a key={link.href} href={link.href} className="hover:text-foreground transition-colors">{link.title}</a>
                 ))}
             </div>
         </div>
