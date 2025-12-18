@@ -67,7 +67,7 @@ const TollFreePage = () => {
         description="Establish a professional presence and make it free for customers to reach you, no matter where they are. Our toll-free numbers are packed with features to enhance your business communications."
       />
 
-      <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800/20">
+      <section className="py-16 sm:py-20 bg-gray-50 dark:bg-transparent">
         <div className="container-custom">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Why Choose Our Toll-Free Numbers?</h2>
@@ -77,7 +77,7 @@ const TollFreePage = () => {
           </div>
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {benefits.map((benefit) => (
-              <div key={benefit.title} className="rounded-lg border bg-background p-6 shadow-sm card-hover-animation">
+              <div key={benefit.title} className="rounded-lg border bg-card p-6 shadow-sm card-hover-animation dark:bg-[#252525]">
                 <h3 className="text-xl font-bold">{benefit.title}</h3>
                 <p className="mt-2 text-muted-foreground">{benefit.description}</p>
               </div>

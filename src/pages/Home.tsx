@@ -22,9 +22,9 @@ const Home = () => {
     const imageVariants = { hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1 } };
 
     const heroContent = [
-        { title: "Intelligent Predictive Dialer", description: "Boost your outbound sales and marketing efforts with our AI-driven predictive dialer. Increase agent talk time, improve lead conversion rates, and ensure compliance with automated dialing regulations.", image: { src: "/hero-image.png", alt: "Predictive Dialer" }, ctaLink: "/contact" },
-        { title: "Advanced Contact Center Solutions", description: "Empower your support and sales teams with our state-of-the-art contact center technology. Handle interactions from all channels in a single, intuitive interface, and leverage AI-powered tools for exceptional service.", image: { src: "/contact-center-solution-image.png", alt: "Contact Center" }, ctaLink: "/contact" },
-        { title: "Cloud PBX System", description: "A flexible, scalable, and feature-rich cloud phone system for modern businesses.", image: { src: "/cloud-pbx-solution-image.png", alt: "Cloud PBX System" }, ctaLink: "/contact" }
+        { title: "Intelligent Predictive Dialer", description: "Boost your outbound sales and marketing efforts with our AI-driven predictive dialer. Increase agent talk time, improve lead conversion rates, and ensure compliance with automated dialing regulations.", image: { src: "/hero-image.png", alt: "Predictive Dialer" }, ctaLink: "/contact", ctaLinkLearnMore: "/solutions/predictive-dialer" },
+        { title: "Advanced Contact Center Solutions", description: "Empower your support and sales teams with our state-of-the-art contact center technology. Handle interactions from all channels in a single, intuitive interface, and leverage AI-powered tools for exceptional service.", image: { src: "/contact-center-solution-image.png", alt: "Contact Center" }, ctaLink: "/contact", ctaLinkLearnMore: "/solutions/contact-center" },
+        { title: "Cloud PBX System", description: "A flexible, scalable, and feature-rich cloud phone system for modern businesses.", image: { src: "/cloud-pbx-solution-image.png", alt: "Cloud PBX System" }, ctaLink: "/contact", ctaLinkLearnMore: "/solutions/cloud-pbx" }
     ];
 
     const startProgress = useCallback(() => {
@@ -130,8 +130,8 @@ const Home = () => {
                                 <h1 className="text-4xl md:text-4xl lg:text-5xl font-poppins font-bold text-foreground mb-6 leading-tight tracking-tighter">{currentHero.title}</h1>
                                 <p className="text-lg md:text-lg text-muted-foreground mb-8 max-w-lg mx-auto lg:mx-0">{currentHero.description}</p>
                                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                                    <a href={currentHero.ctaLink} className="w-full sm:w-auto"><Button size="lg" variant="default" className="w-full h-12 text-base">Request a Demo</Button></a>
-                                    <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 text-base">Learn More</Button>
+                                    <Link to={currentHero.ctaLink} className="w-full sm:w-auto"><Button size="lg" variant="default" className="w-full h-12 text-base">Request a Demo</Button></Link>
+                                    <Link to={currentHero.ctaLinkLearnMore} className="w-full sm:w-auto"><Button size="lg" variant="outline" className="w-full h-12 text-base">Learn More</Button></Link>
                                 </div>
                             </motion.div>
                         </AnimatePresence>
@@ -203,7 +203,7 @@ const Home = () => {
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {whyChooseUs.map((item, i) => (
                             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <Card className="bg-transparent border-0 shadow-none text-center card-hover-animation">
+                                <Card className="bg-background shadow-lg text-center card-hover-animation">
                                   <CardHeader>
                                       <div className="mx-auto text-primary w-fit mb-4"><item.icon className="h-10 w-10" /></div>
                                       <CardTitle className="font-poppins text-xl">{item.title}</CardTitle>
@@ -254,7 +254,7 @@ const Home = () => {
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {values.map((item, i) => (
                             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <Card className="bg-transparent border-0 shadow-none text-center card-hover-animation">
+                                <Card className="bg-background shadow-lg text-center card-hover-animation">
                                   <CardHeader>
                                       <div className="mx-auto text-primary w-fit mb-4"><item.icon className="h-10 w-10" /></div>
                                       <CardTitle className="font-poppins text-xl">{item.title}</CardTitle>

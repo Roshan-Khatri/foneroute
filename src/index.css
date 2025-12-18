@@ -35,7 +35,7 @@
     --background: 25 25 25;
     --foreground: 255 255 255;
     --header-background: 25 25 25;
-    --card: 25 25 25;
+    --card: 37 37 37;
     --card-foreground: 255 255 255;
     --popover: 25 25 25;
     --popover-foreground: 255 255 255;
@@ -69,7 +69,7 @@
 }
 
 .section-padding {
-  @apply py-16 md:py-24;
+  @apply py-8 md:py-16;
 }
 
 .section-padding-sm {

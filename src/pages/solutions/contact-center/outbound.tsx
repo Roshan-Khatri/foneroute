@@ -74,6 +74,23 @@ const OutboundPage = () => {
           </div>
         </div>
       </section>
+
+      <section className="py-16 sm:py-20">
+        <div className="container-custom text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Elevate Your Customer Service</h2>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Ready to transform your inbound call management? Explore our solutions and see how we can help you deliver exceptional customer experiences.
+          </p>
+          <div className="mt-8 space-x-4">
+            <Button asChild size="lg">
+              <Link to="/contact">Book a Demo</Link>
+            </Button>
+            <Button variant="outline" asChild size="lg">
+              <Link to="/pricing">Explore Pricing</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </main>
   );
 };

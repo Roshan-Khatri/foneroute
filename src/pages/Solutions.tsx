@@ -18,7 +18,7 @@ const solutions = [
         icon: BarChart2, 
         title: "Predictive Dialer", 
         description: "Boost sales and marketing with our AI-driven predictive dialer. Increase agent talk time, improve lead conversion rates, and ensure compliance.", 
-        link: "/solutions/predictive-dialer" 
+        link: "/solutions/contact-center/predictive-dialer" 
     },
     { 
         icon: Users, 

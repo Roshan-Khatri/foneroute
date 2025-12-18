@@ -30,22 +30,22 @@ const PowerDialerPage = () => {
           <div className="mt-12">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-8">Benefits of a Power Dialer</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div className="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 shadow-md text-center">
+                <div className="p-6 rounded-lg bg-gray-100 dark:bg-[#252525] shadow-md text-center card-hover-animation">
                     <TrendingUp className="h-12 w-12 text-primary mx-auto mb-4" />
                     <h4 className="text-xl font-bold">Increased Efficiency</h4>
                     <p className="mt-2 text-gray-600 dark:text-gray-300">Agents are always connected to a live call, eliminating manual dialing.</p>
                 </div>
-                <div className="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 shadow-md text-center">
+                <div className="p-6 rounded-lg bg-gray-100 dark:bg-[#252525] shadow-md text-center card-hover-animation">
                     <UserCheck className="h-12 w-12 text-primary mx-auto mb-4" />
                     <h4 className="text-xl font-bold">Improved Productivity</h4>
                     <p className="mt-2 text-gray-600 dark:text-gray-300">Agents focus on conversations, not dialing, to close more deals.</p>
                 </div>
-                <div className="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 shadow-md text-center">
+                <div className="p-6 rounded-lg bg-gray-100 dark:bg-[#252525] shadow-md text-center card-hover-animation">
                     <CheckCircle className="h-12 w-12 text-primary mx-auto mb-4" />
                     <h4 className="text-xl font-bold">Reduced Errors</h4>
                     <p className="mt-2 text-gray-600 dark:text-gray-300">Eliminates misdials, ensuring you always call the right person.</p>
                 </div>
-                <div className="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 shadow-md text-center">
+                <div className="p-6 rounded-lg bg-gray-100 dark:bg-[#252525] shadow-md text-center card-hover-animation">
                     <BarChart className="h-12 w-12 text-primary mx-auto mb-4" />
                     <h4 className="text-xl font-bold">Better Lead Management</h4>
                     <p className="mt-2 text-gray-600 dark:text-gray-300">Track call outcomes and schedule callbacks so no lead is left behind.</p>
@@ -59,17 +59,17 @@ const PowerDialerPage = () => {
         <div className="container-custom">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl text-center">Key Features of Our Power Dialer</h2>
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-md">
+                <div className="p-6 rounded-lg bg-white dark:bg-[#252525] shadow-md card-hover-animation">
                     <Phone className="h-10 w-10 text-primary mb-4" />
                     <h3 className="text-xl font-bold">Click-to-Call</h3>
                     <p className="mt-2 text-gray-600 dark:text-gray-300">Initiate calls directly from your CRM or any web page with a single click.</p>
                 </div>
-                <div className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-md">
+                <div className="p-6 rounded-lg bg-white dark:bg-[#252525] shadow-md card-hover-animation">
                     <Voicemail className="h-10 w-10 text-primary mb-4" />
                     <h3 className="text-xl font-bold">Voicemail Drop</h3>
                     <p className="mt-2 text-gray-600 dark:text-gray-300">Leave pre-recorded voicemails with a single click, saving agents valuable time.</p>
                 </div>
-                <div className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-md">
+                <div className="p-6 rounded-lg bg-white dark:bg-[#252525] shadow-md card-hover-animation">
                     <BarChart className="h-10 w-10 text-primary mb-4" />
                     <h3 className="text-xl font-bold">Call Analytics</h3>
                     <p className="mt-2 text-gray-600 dark:text-gray-300">Track key metrics like call volume, connection rates, and agent performance.</p>
@@ -80,16 +80,16 @@ const PowerDialerPage = () => {
 
       <section className="py-16 sm:py-20">
         <div className="container-custom text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Ready to Power Up Your Sales?</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Ready to Boost Your Sales?</h2>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Discover how our Power Dialer can help your team reach more leads and close more deals.
+            Discover how FoneRoute's Auto Dialer can transform your outbound campaigns. Get in touch with our experts for a personalized demo.
           </p>
           <div className="mt-8 space-x-4">
             <Button asChild size="lg">
-              <Link to="/contact">Request a Demo</Link>
+              <Link to="/contact">Book a Demo</Link>
             </Button>
             <Button variant="outline" asChild size="lg">
-              <Link to="/pricing">View Pricing</Link>
+              <Link to="/pricing">Explore Pricing</Link>
             </Button>
           </div>
         </div>

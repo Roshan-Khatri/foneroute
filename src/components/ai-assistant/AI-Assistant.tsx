@@ -11,7 +11,7 @@ interface Message {
     text: string;
 }
 
-export const AIAssistant = () => {
+const AIAssistant = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputValue, setInputValue] = useState('');
@@ -167,3 +167,5 @@ const AvatarIcon = ({ sender }: { sender: 'user' | 'ai' }) => {
     }
     return <Bot className={iconClass + " text-primary"} />;
 };
+
+export default AIAssistant;

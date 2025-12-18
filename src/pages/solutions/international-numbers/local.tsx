@@ -66,7 +66,7 @@ const LocalPage = () => {
         description="Establish a local presence in any city or country with our vast inventory of local numbers. Build trust and connect with your community, no matter where you are."
       />
 
-      <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800/20">
+      <section className="py-16 sm:py-20 bg-gray-50 dark:bg-transparent">
         <div className="container-custom">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Why Choose Our Local Numbers?</h2>
@@ -76,7 +76,7 @@ const LocalPage = () => {
           </div>
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {benefits.map((benefit) => (
-              <div key={benefit.title} className="rounded-lg border bg-background p-6 shadow-sm card-hover-animation">
+              <div key={benefit.title} className="rounded-lg border bg-card p-6 shadow-sm card-hover-animation dark:bg-[#252525]">
                 <h3 className="text-xl font-bold">{benefit.title}</h3>
                 <p className="mt-2 text-muted-foreground">{benefit.description}</p>
               </div>
@@ -88,7 +88,7 @@ const LocalPage = () => {
       <section className="py-16 sm:py-20">
         <div className="container-custom">
           <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Key Features</h2>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">Key Features</h2>
             <p className="mt-4 text-lg text-muted-foreground">
                 Powerful features to help you manage your local communications effectively.
             </p>

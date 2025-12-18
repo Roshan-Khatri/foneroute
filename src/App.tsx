@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from '@/pages/Home';
 import About from '@/pages/About';
 import SolutionsPage from '@/pages/Solutions';
@@ -35,6 +35,10 @@ import CaseStudies from '@/pages/CaseStudies';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
+import Features from '@/pages/Features';
+import Feature from '@/pages/features/Feature';
+import AIAssistant from '@/components/ai-assistant/AI-Assistant';
+import Pricing from '@/pages/Pricing';
 
 function App() {
   return (
@@ -53,6 +57,7 @@ function App() {
             <Route path="/solutions/contact-center/outbound" element={<OutboundPage />} />
             <Route path="/solutions/contact-center/power-dialer" element={<PowerDialerPage />} />
             <Route path="/solutions/contact-center/predictive-dialer" element={<PredictiveDialerPage />} />
+            <Route path="/solutions/predictive-dialer" element={<Navigate to="/solutions/contact-center/predictive-dialer" />} />
             <Route path="/solutions/contact-center/progressive-dialer" element={<ProgressiveDialerPage />} />
             <Route path="/solutions/international-numbers/local" element={<LocalPage />} />
             <Route path="/solutions/international-numbers/local-numbers" element={<LocalNumbersPage />} />
@@ -63,6 +68,7 @@ function App() {
             <Route path="/solutions/sms-mms-api" element={<SmsMmsApiPage />} />
             <Route path="/solutions/number-masking" element={<NumberMaskingPage />} />
             <Route path="/solutions/whatsapp-business-solution" element={<WhatsappBusinessSolutionPage />} />
+            <Route path="/features" element={<Features />} />
             <Route path="/features/calling-features" element={<CallingFeaturesPage />} />
             <Route path="/features/call-forwarding" element={<CallForwardingPage />} />
             <Route path="/features/call-management" element={<CallManagementPage />} />
@@ -71,15 +77,18 @@ function App() {
             <Route path="/features/target-management" element={<TargetManagementPage />} />
             <Route path="/features/call-capping" element={<CallCappingPage />} />
             <Route path="/features/international-numbers" element={<InternationalNumbers />} />
+            <Route path="/features/:slug" element={<Feature />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/solutions/:slug" element={<IndustryPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/support" element={<Support />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/pricing" element={<Pricing />} />
           </Routes>
         </main>
         <Footer />
       </div>
+      <AIAssistant />
     </Router>
   );
 }
