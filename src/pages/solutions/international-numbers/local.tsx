@@ -88,7 +88,7 @@ const LocalPage = () => {
       <section className="py-16 sm:py-20">
         <div className="container-custom">
           <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">Key Features</h2>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-black dark:text-white">Key Features</h2>
             <p className="mt-4 text-lg text-muted-foreground">
                 Powerful features to help you manage your local communications effectively.
             </p>

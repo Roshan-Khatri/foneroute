@@ -1,32 +1,28 @@
-
 import React, { createContext, useContext, ReactNode } from 'react';
-import { SiteSettings } from '@/sanity/types';
+import { useSiteSettings as useSanitySiteSettings } from '../hooks/useSanityContent';
+import type { SiteSettings } from '../sanity/types';
 
-// Create a context to hold the site settings. It's initialized to null.
-const SiteSettingsContext = createContext<SiteSettings | null>(null);
+interface SiteSettingsContextValue {
+  siteSettings: SiteSettings | null;
+  isLoading: boolean;
+}
 
-/**
- * A provider component that makes the site settings object available to any
- * child component that calls the `useSiteSettingsContext` hook.
- */
-export const SiteSettingsProvider = ({ children, settings }: { children: ReactNode; settings: SiteSettings | null }) => {
+const SiteSettingsContext = createContext<SiteSettingsContextValue | undefined>(undefined);
+
+export const SiteSettingsProvider = ({ children }: { children: ReactNode }) => {
+  const { data: siteSettings, isLoading } = useSanitySiteSettings();
+
   return (
-    <SiteSettingsContext.Provider value={settings}>
+    <SiteSettingsContext.Provider value={{ siteSettings, isLoading }}>
       {children}
     </SiteSettingsContext.Provider>
   );
 };
 
-/**
- * A custom hook to easily access the site settings from the context.
- * It ensures that components using this hook are wrapped in a SiteSettingsProvider.
- */
-export const useSiteSettingsContext = (): SiteSettings => {
+export const useSiteSettings = (): SiteSettingsContextValue => {
   const context = useContext(SiteSettingsContext);
-  if (context === null) {
-    // This error will be triggered if a component tries to access the settings
-    // without being a child of the provider, which is a common bug.
-    throw new Error('useSiteSettingsContext must be used within a SiteSettingsProvider');
+  if (!context) {
+    throw new Error('useSiteSettings must be used within a SiteSettingsProvider');
   }
   return context;
 };

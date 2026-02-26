@@ -40,15 +40,15 @@ const InternationalNumbers = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Why Choose FoneRoute for International Numbers?</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="p-6 rounded-lg shadow-lg bg-card">
+              <div className="p-6 rounded-lg shadow-lg bg-card transition-transform duration-300 transform hover:scale-105">
                 <h3 className="text-xl font-bold mb-4">Global Reach</h3>
                 <p className="text-muted-foreground">Get access to phone numbers in over 100 countries and establish a local presence anywhere in the world.</p>
               </div>
-              <div className="p-6 rounded-lg shadow-lg bg-card">
+              <div className="p-6 rounded-lg shadow-lg bg-card transition-transform duration-300 transform hover:scale-105">
                 <h3 className="text-xl font-bold mb-4">Cost-Effective</h3>
                 <p className="text-muted-foreground">Save on international calling charges and provide your customers with a low-cost way to reach you.</p>
               </div>
-              <div className="p-6 rounded-lg shadow-lg bg-card">
+              <div className="p-6 rounded-lg shadow-lg bg-card transition-transform duration-300 transform hover:scale-105">
                 <h3 className="text-xl font-bold mb-4">Easy Setup</h3>
                 <p className="text-muted-foreground">Get your international numbers up and running in minutes with our simple and intuitive setup process.</p>
               </div>
@@ -64,24 +64,24 @@ const InternationalNumbers = () => {
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold mb-6 text-center">Features</h2>
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <svg className="w-6 h-6 text-primary mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                <span>Local, national, and toll-free numbers</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-6 h-6 text-primary mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                <span>Call forwarding to any device</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-6 h-6 text-primary mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                <span>Voicemail and call recording</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-6 h-6 text-primary mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                <span>Advanced call routing and IVR</span>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-6 rounded-lg shadow-lg bg-card transition-transform duration-300 transform hover:scale-105">
+                <h3 className="text-xl font-bold mb-4">Local, national, and toll-free numbers</h3>
+                <p className="text-muted-foreground">Choose from a wide range of number types to suit your business needs.</p>
+              </div>
+              <div className="p-6 rounded-lg shadow-lg bg-card transition-transform duration-300 transform hover:scale-105">
+                <h3 className="text-xl font-bold mb-4">Call forwarding to any device</h3>
+                <p className="text-muted-foreground">Forward calls to your mobile, landline, or VoIP phone, so you never miss a call.</p>
+              </div>
+              <div className="p-6 rounded-lg shadow-lg bg-card transition-transform duration-300 transform hover:scale-105">
+                <h3 className="text-xl font-bold mb-4">Voicemail and call recording</h3>
+                <p className="text-muted-foreground">Capture important messages and record calls for quality and training purposes.</p>
+              </div>
+              <div className="p-6 rounded-lg shadow-lg bg-card transition-transform duration-300 transform hover:scale-105">
+                <h3 className="text-xl font-bold mb-4">Advanced call routing and IVR</h3>
+                <p className="text-muted-foreground">Create custom call flows and interactive voice response menus to direct callers to the right department or agent.</p>
+              </div>
+            </div>
           </div>
         </motion.section>
       </main>

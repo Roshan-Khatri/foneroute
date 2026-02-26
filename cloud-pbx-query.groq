@@ -1,0 +1,15 @@
+*[_type == "cloudPbxPage"][0] {
+    "metaTitle": seo.metaTitle,
+    "metaDescription": seo.metaDescription,
+    "keywords": seo.keywords,
+    heroSection,
+    whyChooseSection {
+        ...,
+        cards[] {
+            ...,
+            "icon": icon.asset->url
+        }
+    },
+    keyFeaturesSection,
+    ctaSection
+}

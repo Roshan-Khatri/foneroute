@@ -89,13 +89,6 @@ const SolutionsByIndustry = ({ limit }: SolutionsByIndustryProps) => {
             );
           })}
         </div>
-        {limit && (
-          <div className="text-center mt-16">
-            <Button asChild size="lg" className="font-bold">
-              <Link to="/solutions">View All Industries</Link>
-            </Button>
-          </div>
-        )}
       </div>
     </section>
   );

@@ -5,6 +5,7 @@ import App from './App';
 import { ThemeProvider } from './components/layout/ThemeProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
+import { SiteSettingsProvider } from './context/SiteSettingsContext';
 import './index.css';
 
 const queryClient = new QueryClient();
@@ -13,9 +14,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-          <App />
-        </ThemeProvider>
+        <SiteSettingsProvider>
+          <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+            <App />
+          </ThemeProvider>
+        </SiteSettingsProvider>
       </QueryClientProvider>
     </HelmetProvider>
   </React.StrictMode>

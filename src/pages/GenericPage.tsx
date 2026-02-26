@@ -13,7 +13,6 @@ const GenericPage: FC<GenericPageProps> = ({ title, description }) => {
       <PageHeader
         title={title}
         description={description}
-        breadcrumb={`Home / ${title}`}
       />
       <section className="section-padding bg-background">
         <div className="container-custom text-center">

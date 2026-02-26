@@ -1,10 +1,9 @@
-
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 import HomePage from '@/pages/Home';
 import About from '@/pages/About';
 import SolutionsPage from '@/pages/Solutions';
 import IndustryPage from '@/pages/solutions/IndustryPage';
-import Contact from '@/pages/Contact';
 import Support from '@/pages/Support';
 import Blog from '@/pages/Blog';
 import AutoDialerPage from '@/pages/solutions/contact-center/auto-dialer';
@@ -31,28 +30,31 @@ import CallTrackingPage from '@/pages/features/CallTracking';
 import TargetManagementPage from '@/pages/features/TargetManagement';
 import CallCappingPage from '@/pages/features/CallCapping';
 import InternationalNumbers from '@/pages/features/InternationalNumbers';
+import VoicemailToEmailPage from '@/pages/features/voicemail-to-email';
+import AutoAttendantPage from '@/pages/features/auto-attendant';
 import CaseStudies from '@/pages/CaseStudies';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import ScrollToTop from '@/components/ScrollToTop';
+import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import Features from '@/pages/Features';
 import Feature from '@/pages/features/Feature';
 import AIAssistant from '@/components/ai-assistant/AI-Assistant';
 import Pricing from '@/pages/Pricing';
+import Privacy from '@/pages/Privacy';
+import Terms from '@/pages/Terms';
+
+const Contact = lazy(() => import('@/pages/Contact'));
 
 function App() {
   return (
-    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      <ScrollToTop />
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow">
-          <Routes>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <LayoutWrapper>
+        <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<About />} />
             <Route path="/solutions" element={<SolutionsPage />} />
             <Route path="/solutions/contact-center" element={<ContactCenterPage />} />
             <Route path="/solutions/contact-center/auto-dialer" element={<AutoDialerPage />} />
+            <Route path="/solutions/auto-dialer" element={<Navigate to="/solutions/contact-center/auto-dialer" />} />
             <Route path="/solutions/contact-center/inbound" element={<InboundPage />} />
             <Route path="/solutions/contact-center/outbound" element={<OutboundPage />} />
             <Route path="/solutions/contact-center/power-dialer" element={<PowerDialerPage />} />
@@ -77,6 +79,9 @@ function App() {
             <Route path="/features/target-management" element={<TargetManagementPage />} />
             <Route path="/features/call-capping" element={<CallCappingPage />} />
             <Route path="/features/international-numbers" element={<InternationalNumbers />} />
+            <Route path="/features/voicemail-to-email" element={<VoicemailToEmailPage />} />
+            <Route path="/features/auto-attendant" element={<AutoAttendantPage />} />
+            <Route path="/international-number" element={<Navigate to="/features/international-numbers" />} />
             <Route path="/features/:slug" element={<Feature />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/solutions/:slug" element={<IndustryPage />} />
@@ -84,12 +89,13 @@ function App() {
             <Route path="/support" element={<Support />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/pricing" element={<Pricing />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-      <AIAssistant />
-    </Router>
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            </Routes>
+          </Suspense>
+        </LayoutWrapper>
+        <AIAssistant />
+      </Router>
   );
 }
 

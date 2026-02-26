@@ -1,0 +1,12 @@
+{
+  "mutations": [
+    {
+      "createOrReplace": {
+        "_id": "siteSettings",
+        "_type": "siteSettings",
+        "siteName": "FoneRoute",
+        "siteDescription": "Global site settings"
+      }
+    }
+  ]
+}

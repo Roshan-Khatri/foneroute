@@ -26,14 +26,22 @@ const Blog = () => {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold mb-6 text-center">Tech Spotlight</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+              <motion.div
+                className="p-6 rounded-lg shadow-lg bg-card"
+                whileHover={{ scale: 1.05, boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' }}
+                transition={{ duration: 0.3 }}
+              >
                 <h3 className="text-xl font-bold mb-4">The Rise of AI in Communication</h3>
                 <p className="text-muted-foreground">Artificial intelligence is revolutionizing the way we communicate. From AI-powered chatbots to predictive analytics, AI is enabling businesses to provide more personalized and efficient customer experiences.</p>
-              </div>
-              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+              </motion.div>
+              <motion.div
+                className="p-6 rounded-lg shadow-lg bg-card"
+                whileHover={{ scale: 1.05, boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' }}
+                transition={{ duration: 0.3 }}
+              >
                 <h3 className="text-xl font-bold mb-4">The Future of 5G</h3>
                 <p className="text-muted-foreground">5G is the next generation of wireless technology, promising faster speeds, lower latency, and greater capacity. This will unlock new possibilities for businesses, from enhanced mobile broadband to mission-critical communications.</p>
-              </div>
+              </motion.div>
             </div>
           </div>
         </motion.section>
@@ -47,14 +55,22 @@ const Blog = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Case Studies</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="p-6 rounded-lg shadow-lg bg-card">
+              <motion.div
+                className="p-6 rounded-lg shadow-lg bg-card"
+                whileHover={{ scale: 1.05, boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' }}
+                transition={{ duration: 0.3 }}
+              >
                 <h3 className="text-xl font-bold mb-4">How FoneRoute Helped a Startup Scale</h3>
                 <p className="text-muted-foreground">Read how a fast-growing startup leveraged FoneRoute's predictive dialer to triple their sales outreach and close more deals.</p>
-              </div>
-              <div className="p-6 rounded-lg shadow-lg bg-card">
+              </motion.div>
+              <motion.div
+                className="p-6 rounded-lg shadow-lg bg-card"
+                whileHover={{ scale: 1.05, boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' }}
+                transition={{ duration: 0.3 }}
+              >
                 <h3 className="text-xl font-bold mb-4">Enhancing Customer Support with Cloud PBX</h3>
                 <p className="text-muted-foreground">Learn how a mid-sized e-commerce company improved customer satisfaction by 40% after implementing FoneRoute's Cloud PBX system.</p>
-              </div>
+              </motion.div>
             </div>
           </div>
         </motion.section>
@@ -89,21 +105,30 @@ const Blog = () => {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold mb-6 text-center">Recent Posts</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="p-6 rounded-lg shadow-lg bg-card">
+              <motion.div
+                className="p-6 rounded-lg shadow-lg bg-card"
+                whileHover={{ scale: 1.05, boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' }}
+                transition={{ duration: 0.3 }}
+              >
                 <h3 className="text-xl font-bold mb-4">5 Ways to Improve Your Customer Service with a Cloud PBX</h3>
                 <p className="text-muted-foreground">Discover five practical ways a Cloud PBX system can help you enhance your customer service and build stronger customer relationships.</p>
-                <a href="#" className="text-primary hover:underline mt-4 inline-block">Read More</a>
-              </div>
-              <div className="p-6 rounded-lg shadow-lg bg-card">
+              </motion.div>
+              <motion.div
+                className="p-6 rounded-lg shadow-lg bg-card"
+                whileHover={{ scale: 1.05, boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' }}
+                transition={{ duration: 0.3 }}
+              >
                 <h3 className="text-xl font-bold mb-4">The Benefits of a Predictive Dialer for Your Sales Team</h3>
                 <p className="text-muted-foreground">Learn how a predictive dialer can boost your sales team's productivity, increase call connection rates, and drive revenue growth.</p>
-                <a href="#" className="text-primary hover:underline mt-4 inline-block">Read More</a>
-              </div>
-              <div className="p-6 rounded-lg shadow-lg bg-card">
+              </motion.div>
+              <motion.div
+                className="p-6 rounded-lg shadow-lg bg-card"
+                whileHover={{ scale: 1.05, boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' }}
+                transition={{ duration: 0.3 }}
+              >
                 <h3 className="text-xl font-bold mb-4">Why Your Business Needs a Toll-Free Number</h3>
                 <p className="text-muted-foreground">Find out how a toll-free number can enhance your brand image, improve customer accessibility, and increase sales inquiries.</p>
-                <a href="#" className="text-primary hover:underline mt-4 inline-block">Read More</a>
-              </div>
+              </motion.div>
             </div>
           </div>
         </motion.section>

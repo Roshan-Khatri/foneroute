@@ -14,7 +14,10 @@ import NotFoundPage from '@/pages/NotFound';
 interface FeatureData {
   title: string;
   description: string;
+  overview: string;
   benefits: string[];
+  keyFeatures: string[];
+  commonUseCases: string[];
   relatedFeatures: Array<{ title: string; slug: { current: string } }>;
 }
 
@@ -78,11 +81,37 @@ const Feature: FC = () => {
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             {feature.description}
           </p>
-          <Button asChild size="lg" className="mt-8 btn-hero">
-            <Link to="/contact">Request a Demo <ArrowRight className="ml-2 h-5 w-5" /></Link>
-          </Button>
+          {slug !== 'auto-attendant' && slug !== 'call-recording' && slug !== 'ring-groups' && (
+            <Button asChild size="lg" className="mt-8 btn-hero">
+              <Link to="/contact">Request a Demo <ArrowRight className="ml-2 h-5 w-5" /></Link>
+            </Button>
+          )}
         </div>
       </section>
+
+      {/* Overview Section */}
+      <section className="section-padding bg-surface rounded-lg mb-12">
+        <div className="container-custom">
+          <h2 className="text-3xl font-bold text-center mb-8">Overview</h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-center">{feature.overview}</p>
+        </div>
+      </section>
+
+      {/* Key Features Section */}
+      {feature.keyFeatures && feature.keyFeatures.length > 0 && (
+        <section className="section-padding bg-surface">
+          <div className="container-custom">
+            <h2 className="text-3xl font-bold text-center mb-8">Key Capabilities</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {feature.keyFeatures.map((capability, index) => (
+                <div key={index} className="p-6 text-center rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                  <p className="text-lg font-semibold">{capability}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Benefits Section */}
       {feature.benefits && feature.benefits.length > 0 && (
@@ -91,12 +120,28 @@ const Feature: FC = () => {
             <h2 className="text-3xl font-bold text-center mb-8">Benefits</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {feature.benefits.map((benefit, index) => (
-                <Card key={index} className="card-professional">
+                <Card key={index} className="card-professional transition-transform duration-300 transform hover:scale-105">
                   <CardContent className="p-6 text-center">
                     <CheckCircle className="h-12 w-12 text-accent mx-auto mb-4" />
                     <p className="text-lg font-semibold">{benefit}</p>
                   </CardContent>
                 </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Use Cases Section */}
+      {feature.commonUseCases && feature.commonUseCases.length > 0 && (
+        <section className="section-padding bg-surface">
+          <div className="container-custom">
+            <h2 className="text-3xl font-bold text-center mb-8">Use Cases</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {feature.commonUseCases.map((useCase, index) => (
+                <div key={index} className="p-6 text-center rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                  <p className="text-lg font-semibold">{useCase}</p>
+                </div>
               ))}
             </div>
           </div>

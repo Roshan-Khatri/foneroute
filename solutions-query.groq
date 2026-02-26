@@ -1,0 +1,39 @@
+`*[_type == "solutionsPage"][0] {
+  title,
+  "slug": slug.current,
+  "metaTitle": seo.metaTitle,
+  "metaDescription": seo.metaDescription,
+  "keywords": seo.keywords,
+  heroSection {
+    heading,
+    subtitle
+  },
+  coreSolutionsSection {
+    heading,
+    subtitle,
+    solutions[] {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  },
+  industrySolutionsSection {
+    heading,
+    subtitle,
+    industries[] {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  },
+  featuresSection {
+    heading,
+    subtitle,
+    features[] {
+      title,
+      description
+    }
+  }
+}`

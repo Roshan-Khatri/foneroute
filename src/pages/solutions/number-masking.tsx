@@ -23,9 +23,6 @@ const NumberMaskingPage: FC = () => {
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
               Safeguard your users' privacy by enabling anonymous conversations. Our Number Masking solution provides temporary, virtual phone numbers to protect personal information.
             </p>
-            <Link to="/contact">
-              <Button size="lg">Request a Demo</Button>
-            </Link>
           </div>
         </section>
 

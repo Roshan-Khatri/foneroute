@@ -56,14 +56,6 @@ const TollFreePage = () => {
     <main className="pt-16">
       <PageHeader
         title="Toll-Free Numbers"
-        breadcrumb={{
-          links: [
-            { name: 'Home', url: '/' },
-            { name: 'Solutions', url: '/solutions' },
-            { name: 'International Numbers', url: '/features/international-numbers' },
-            { name: 'Toll-Free', url: '/solutions/international-numbers/toll-free' }
-          ]
-        }}
         description="Establish a professional presence and make it free for customers to reach you, no matter where they are. Our toll-free numbers are packed with features to enhance your business communications."
       />
 

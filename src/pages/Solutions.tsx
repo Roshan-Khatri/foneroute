@@ -1,32 +1,42 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Zap, BarChart2, Users, Phone, MessageSquare, Cog, LineChart, ShieldCheck } from 'lucide-react';
 import SolutionsByIndustry from '@/components/SolutionsByIndustry';
 
-const solutions = [
-    { 
-        icon: Zap, 
-        title: "Contact Center Solution", 
-        description: "A comprehensive solution for managing customer interactions across all channels. Provide exceptional service with our intuitive agent interface and powerful analytics.", 
-        link: "/solutions/contact-center" 
+const iconMap = {
+    Zap,
+    BarChart2,
+    Users,
+    Phone,
+    MessageSquare,
+    Cog,
+    LineChart,
+    ShieldCheck,
+};
+
+const coreSolutions = [
+    {
+      title: 'Contact Center Solution',
+      description: 'A comprehensive solution for managing customer interactions across all channels. Provide exceptional service with our intuitive agent interface and powerful analytics.',
+      slug: 'contact-center',
+      icon: 'Zap'
     },
-    { 
-        icon: BarChart2, 
-        title: "Predictive Dialer", 
-        description: "Boost sales and marketing with our AI-driven predictive dialer. Increase agent talk time, improve lead conversion rates, and ensure compliance.", 
-        link: "/solutions/contact-center/predictive-dialer" 
+    {
+      title: 'Predictive Dialer',
+      description: 'Boost sales and marketing with our AI-driven predictive dialer. Increase agent talk time, improve lead conversion rates, and ensure compliance.',
+      slug: 'contact-center/predictive-dialer',
+      icon: 'BarChart2'
     },
-    { 
-        icon: Users, 
-        title: "Cloud PBX System", 
-        description: "A flexible, scalable, and feature-rich cloud phone system for modern businesses. Enjoy crystal-clear voice quality and advanced features like call forwarding and voicemail-to-email.", 
-        link: "/solutions/cloud-pbx" 
-    },
-];
+    {
+      title: 'Cloud PBX System',
+      description: 'A flexible, scalable, and feature-rich cloud phone system for modern businesses. Enjoy crystal-clear voice quality and advanced features like call forwarding and voicemail-to-email.',
+      slug: 'cloud-pbx',
+      icon: 'Users'
+    }
+  ];
 
 const features = [
     { icon: Phone, title: 'Intelligent Call Routing', description: 'Direct calls to the right agent or department automatically based on custom rules.' },
@@ -66,25 +76,28 @@ const Solutions = () => {
                 <div className="container-custom">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl font-poppins font-bold">Our Core Solutions</h2>
-                        <p className="text-muted-foreground mt-2">Click to learn more about each of our powerful solutions.</p>
+                        <p className="text-muted-foreground mt-2 max-w-3xl mx-auto">Click to learn more about each of our powerful solutions.</p>
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
-                        {solutions.map((solution, i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <Card className="bg-background shadow-lg h-full text-center card-hover-animation">
-                                    <CardHeader>
-                                        <div className="mx-auto bg-primary text-primary-foreground p-3 rounded-full w-fit mb-4"><solution.icon className="h-6 w-6" /></div>
-                                        <CardTitle className="font-poppins">{solution.title}</CardTitle>
+                        {coreSolutions.map((solution, i) => {
+                            const Icon = iconMap[solution.icon];
+                            return (
+                                <Card key={i} className="bg-card shadow-sm border border-gray-200 h-full text-center flex flex-col p-8 rounded-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                                    <CardHeader className="p-0">
+                                        {Icon && <Icon className="h-8 w-8 text-foreground mx-auto mb-4" />}
+                                        <CardTitle className="font-poppins text-xl font-bold">{solution.title}</CardTitle>
                                     </CardHeader>
-                                    <CardContent>
-                                        <p className="text-muted-foreground mb-4">{solution.description}</p>
-                                        <Button asChild>
-                                            <Link to={solution.link}>Learn More</Link>
-                                        </Button>
+                                    <CardContent className="flex-grow p-0 mt-4">
+                                        <p className="text-muted-foreground">{solution.description}</p>
                                     </CardContent>
+                                    <div className="mt-auto pt-6">
+                                        <Button variant="outline" asChild>
+                                            <Link to={`/solutions/${solution.slug}`}>Learn More</Link>
+                                        </Button>
+                                    </div>
                                 </Card>
-                            </motion.div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </section>
@@ -103,8 +116,7 @@ const Solutions = () => {
                     </div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {features.map((feature,i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * .1 }}>
-                                <Card className="bg-background shadow-lg h-full text-left card-hover-animation">
+                                <Card key={i} className="bg-background shadow-lg h-full text-left card-hover-animation">
                                     <CardHeader className="flex flex-row items-center gap-4">
                                         <div className="bg-primary text-primary-foreground p-3 rounded-full">
                                             <feature.icon className="h-6 w-6" />
@@ -115,7 +127,6 @@ const Solutions = () => {
                                         <p className="text-muted-foreground">{feature.description}</p>
                                     </CardContent>
                                 </Card>
-                            </motion.div>
                         ))}
                     </div>
                 </div>

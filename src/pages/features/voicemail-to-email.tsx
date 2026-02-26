@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { CheckCircle } from 'lucide-react';
 
 const VoicemailToEmailPage: FC = () => {
-  const keyFeatures = [
+  const keyCapabilities = [
     'Instant Email Notifications: Receive an email with the voicemail audio attached as an MP3 file the moment a message is left.',
     'Voicemail Transcription: Get a text version of your voicemails, allowing you to read messages at a glance.',
     'Easy Archiving and Search: Store and organize your voicemails within your email client for easy retrieval.',
@@ -16,6 +16,21 @@ const VoicemailToEmailPage: FC = () => {
     'Improved Responsiveness: Address urgent messages faster by receiving them directly in your inbox, no matter where you are.',
     'Better Organization: Keep a searchable record of all your communications, both emails and voicemails, in one place.',
     'Enhanced Accessibility: Provides an accessible alternative for team members who may have hearing impairments.',
+  ];
+
+  const useCases = [
+    {
+      title: 'Sales Professionals',
+      description: 'Sales teams can use Voicemail to Email to quickly follow up on leads and customer inquiries. By receiving voicemails in their inbox, they can prioritize messages, share them with colleagues, and ensure timely responses, ultimately improving customer satisfaction and closing more deals.',
+    },
+    {
+      title: 'Healthcare Providers',
+      description: 'Medical practices can enhance patient communication by using Voicemail to Email. Staff can securely receive and manage patient messages, schedule appointments, and address urgent requests more efficiently, all while maintaining a clear and organized record of all communications.',
+    },
+    {
+      title: 'Small Business Owners',
+      description: 'For busy entrepreneurs, Voicemail to Email is an indispensable tool for managing a high volume of calls. It allows them to stay connected with customers, partners, and suppliers without being tied to their phones, ensuring that no opportunity is missed.',
+    },
   ];
 
   return (
@@ -32,20 +47,29 @@ const VoicemailToEmailPage: FC = () => {
             </p>
           </div>
 
-          <section className="section-padding bg-surface rounded-lg">
+          <section className="section-padding bg-surface rounded-lg mb-12">
             <div className="container-custom">
-              <h2 className="text-3xl font-bold text-center mb-8">Key Features</h2>
+              <h2 className="text-3xl font-bold text-center mb-8">Overview</h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-center">
+                Voicemail to Email is a modern solution that bridges the gap between traditional telephony and digital communication. It automatically converts your voicemails into audio files and delivers them directly to your email inbox. This streamlined process ensures that you never miss an important message and can manage your communications more efficiently. With the added benefit of transcription, you can read your voicemails at your convenience, making it easier than ever to stay on top of your messages.
+              </p>
+            </div>
+          </section>
+
+          <section className="section-padding bg-surface rounded-lg mb-12">
+            <div className="container-custom">
+              <h2 className="text-3xl font-bold text-center mb-8">Key Capabilities</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {keyFeatures.map((feature, index) => (
-                  <div key={index} className="card-professional p-6 text-center">
-                    <p className="text-lg font-semibold">{feature}</p>
+                {keyCapabilities.map((capability, index) => (
+                  <div key={index} className="p-6 text-center rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                    <p className="text-lg font-semibold">{capability}</p>
                   </div>
                 ))}
               </div>
             </div>
           </section>
 
-          <section className="section-padding">
+          <section className="section-padding bg-surface rounded-lg mb-12">
             <div className="container-custom">
               <h2 className="text-3xl font-bold text-center mb-8">Benefits</h2>
               <ul className="space-y-4 max-w-4xl mx-auto">
@@ -56,6 +80,20 @@ const VoicemailToEmailPage: FC = () => {
                   </li>
                 ))}
               </ul>
+            </div>
+          </section>
+
+          <section className="section-padding bg-surface rounded-lg">
+            <div className="container-custom">
+              <h2 className="text-3xl font-bold text-center mb-8">Use Cases</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {useCases.map((useCase, index) => (
+                  <div key={index} className="p-6 text-center rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+                    <h3 className="text-xl font-bold mb-4">{useCase.title}</h3>
+                    <p className="text-muted-foreground">{useCase.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 

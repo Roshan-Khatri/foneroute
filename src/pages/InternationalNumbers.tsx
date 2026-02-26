@@ -1,3 +1,4 @@
+
 import PageHeader from '@/components/layout/PageHeader';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -23,8 +24,7 @@ const InternationalNumbers = () => {
     <div className="debug-force-refresh">
       <PageHeader
         title="Connect Globally with International Numbers"
-        subtitle="Establish a local presence in over 100 countries and build trust with your international customers."
-        breadcrumb="Home / Features / International Numbers"
+        description="Establish a local presence in over 100 countries and build trust with your international customers."
       />
 
       <section className="section-padding">
@@ -36,28 +36,28 @@ const InternationalNumbers = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center">
+            <Card className="text-center transition-transform duration-300 transform hover:scale-105">
               <CardContent className="p-6">
                 <Globe className="w-12 h-12 text-primary mx-auto mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Establish Local Presence</h3>
                 <p className="text-muted-foreground">Customers are 4x more likely to answer a call from a local number. Build trust and increase answer rates instantly.</p>
               </CardContent>
             </Card>
-            <Card className="text-center">
+            <Card className="text-center transition-transform duration-300 transform hover:scale-105">
               <CardContent className="p-6">
                 <Building className="w-12 h-12 text-primary mx-auto mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Enter New Markets</h3>
                 <p className="text-muted-foreground">Test and expand into new countries without the need for a physical office. Forward calls to your existing team anywhere.</p>
               </CardContent>
             </Card>
-            <Card className="text-center">
+            <Card className="text-center transition-transform duration-300 transform hover:scale-105">
               <CardContent className="p-6">
                 <Users className="w-12 h-12 text-primary mx-auto mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Unified Communications</h3>
                 <p className="text-muted-foreground">Manage all your international numbers from one simple platform, with unified reporting and analytics.</p>
               </CardContent>
             </Card>
-            <Card className="text-center">
+            <Card className="text-center transition-transform duration-300 transform hover:scale-105">
               <CardContent className="p-6">
                 <Star className="w-12 h-12 text-primary mx-auto mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Premium Quality</h3>

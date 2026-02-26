@@ -40,8 +40,7 @@ const Industries = () => {
 	<div>
 		<PageHeader
 			title="Industry Solutions"
-			subtitle="Tailored telecommunications solutions for every industry."
-			breadcrumb="Home / Industries"
+			description="Tailored telecommunications solutions for every industry."
 		>
 					<div className="flex flex-col md:flex-row gap-4 mt-4">
             <Button asChild size="lg">

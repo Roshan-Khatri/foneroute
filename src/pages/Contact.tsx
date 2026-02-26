@@ -1,79 +1,56 @@
 
+import { Suspense, lazy } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import PageHeader from '@/components/layout/PageHeader';
 import {
   Phone,
   Mail,
-  MapPin,
   MessageSquare,
 } from 'lucide-react';
-import { useSiteSettings } from '@/hooks/useSanityContent';
-import { ContactForm } from '@/components/ContactForm';
-import { ContactInfo } from '@/components/ContactInfo';
-import ContactSkeleton from './ContactSkeleton';
+import { useSiteSettings } from '@/context/SiteSettingsContext';
 import { motion } from 'framer-motion';
 import { SEO } from '@/components/layout/SEO';
 
+const ContactForm = lazy(() => import('@/components/ContactForm').then(module => ({ default: module.ContactForm })));
+const ContactInfo = lazy(() => import('@/components/ContactInfo').then(module => ({ default: module.ContactInfo })));
+
 const Contact = () => {
-  const { data: siteSettings, isLoading: settingsLoading, isError: settingsError } = useSiteSettings();
+  const { siteSettings } = useSiteSettings();
 
-  if (settingsLoading) {
-    return <ContactSkeleton />;
-  }
+  const offices = siteSettings?.officeLocations?.length
+    ? [...siteSettings.officeLocations]
+        .sort((a, b) => {
+          if (a.primary && !b.primary) return -1;
+          if (!a.primary && b.primary) return 1;
+          return 0;
+        })
+        .map((office) => ({
+          city: office.city || '',
+          address: office.address || '',
+          phone: office.phone || '',
+          hours: office.hours || '',
+        }))
+    : [
+        {
+          city: 'New York',
+          address: '123 Business Ave, Suite 100',
+          phone: '+1 (555) 123-4567',
+          hours: 'Mon-Fri: 9:00 AM - 6:00 PM EST',
+        },
+        {
+          city: 'San Francisco',
+          address: '456 Tech Street, Floor 15',
+          phone: '+1 (555) 987-6543',
+          hours: 'Mon-Fri: 9:00 AM - 6:00 PM PST',
+        },
+        {
+          city: 'London',
+          address: '789 Communication Blvd',
+          phone: '+44 20 1234 5678',
+          hours: 'Mon-Fri: 9:00 AM - 5:00 PM GMT',
+        },
+      ];
 
-  if (settingsError) {
-    console.warn('Failed to load site settings from CMS', settingsError);
-  }
-
-  // Build offices from CMS or fallback
-  let offices = [];
-  if (siteSettings?.officeLocations?.length) {
-    // Sort by primary or primaryOfficeIndex
-    const sorted = [...siteSettings.officeLocations];
-    if (typeof siteSettings.primaryOfficeIndex === 'number') {
-      sorted.sort((a, b) => {
-        if (a.primary) return -1;
-        if (b.primary) return 1;
-        return 0;
-      });
-      // Move primary office to front if index is set
-      if (siteSettings.primaryOfficeIndex >= 0 && siteSettings.primaryOfficeIndex < sorted.length) {
-        const [primary] = sorted.splice(siteSettings.primaryOfficeIndex, 1);
-        sorted.unshift(primary);
-      }
-    } else {
-      sorted.sort((a, b) => (b.primary ? 1 : -1));
-    }
-    offices = sorted.map((office) => ({
-      city: office.city || '',
-      address: office.address || '',
-      phone: office.phone || '',
-      hours: office.hours || '',
-    }));
-  } else {
-    offices = [
-      {
-        city: 'New York',
-        address: '123 Business Ave, Suite 100',
-        phone: '+1 (555) 123-4567',
-        hours: 'Mon-Fri: 9:00 AM - 6:00 PM EST'
-      },
-      {
-        city: 'San Francisco',
-        address: '456 Tech Street, Floor 15',
-        phone: '+1 (555) 987-6543',
-        hours: 'Mon-Fri: 9:00 AM - 6:00 PM PST'
-      },
-      {
-        city: 'London',
-        address: '789 Communication Blvd',
-        phone: '+44 20 1234 5678',
-        hours: 'Mon-Fri: 9:00 AM - 5:00 PM GMT'
-      }
-    ];
-  }
-
-  // Primary office for address
   const primaryOffice = offices[0];
 
   const contactInfo = [
@@ -92,106 +69,38 @@ const Contact = () => {
     {
       icon: MessageSquare,
       title: 'Support',
-      details: siteSettings?.supportPhone
-        || siteSettings?.supportEmail
-        || '+1 (555) 123-4568',
+      details: siteSettings?.supportPhone || siteSettings?.supportEmail || '+1 (555) 123-4568',
       description: 'Get help from our technical support team.',
     },
-    {
-      icon: MapPin,
-      title: 'Address',
-      details: primaryOffice?.address || '123 Business Ave, Tech City, TC 12345',
-      description: 'Visit our headquarters',
-    },
   ];
-
-  // Format business hours from CMS
-
-  function formatTime(time: string) {
-    if (!time) return '';
-    const [h, m] = time.split(':');
-    let hour = parseInt(h, 10);
-    const min = m !== undefined ? m : '00';
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    hour = hour % 12 || 12;
-    return `${hour}:${min} ${ampm}`;
-  }
-
-  const dayOrder = [
-    'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
-  ];
-  const dayLabels = {
-    monday: 'Monday',
-    tuesday: 'Tuesday',
-    wednesday: 'Wednesday',
-    thursday: 'Thursday',
-    friday: 'Friday',
-    saturday: 'Saturday',
-    sunday: 'Sunday',
-  };
-
-  let businessHours = [];
-  if (siteSettings?.businessHours) {
-    businessHours = dayOrder
-      .filter(day => siteSettings.businessHours[day])
-      .map(day => {
-        const hours = siteSettings.businessHours[day];
-        if (typeof hours === 'object') {
-          if (hours.closed) {
-            return { day: dayLabels[day], hours: 'Closed' };
-          }
-          if (hours.open && hours.close) {
-            return { day: dayLabels[day], hours: `${formatTime(hours.open)} - ${formatTime(hours.close)}` };
-          }
-        }
-        if (typeof hours === 'string') {
-          const [start, end] = hours.split('-');
-          if (start && end) {
-            return { day: dayLabels[day], hours: `${formatTime(start)} - ${formatTime(end)}` };
-          }
-        }
-        return { day: dayLabels[day], hours: 'Closed' };
-      });
-  } else {
-    businessHours = [
-      { day: 'Monday - Friday', hours: '9:00 AM - 6:00 PM' },
-      { day: 'Saturday', hours: '10:00 AM - 4:00 PM' },
-      { day: 'Sunday', hours: 'Closed' },
-    ];
-  }
-
-  // Support hours
-  let supportHours = siteSettings?.supportHours || '24/7 Available';
-  let holidayMessage = siteSettings?.holidayMessage || '';
 
   return (
-    <div>
-      <SEO 
+    <>
+      <SEO
         title="Contact FoneRoute | Get in Touch with Our Experts"
         description="Contact FoneRoute for sales, support, or general inquiries. Our team is ready to help you find the perfect communication solution for your business. Reach out today!"
-        keywords={['contact us', 'FoneRoute support', 'sales inquiries', 'business communication solutions', 'get in touch']}
       />
       <PageHeader
         title="Contact Our Team"
-        subtitle="Ready to transform your business communications? Get in touch with our experts to discuss your needs and discover the right solution for your organization."
-        breadcrumb={{ links: [{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact' }] }}
+        description="Ready to transform your business communications? Get in touch with our experts to discuss your needs and discover the right solution for your organization."
       />
 
       {/* Contact Form Section */}
       <section className="py-12 md:py-16 bg-background">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
-            <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-              <ContactForm />
-            </motion.div>
-            <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-              <ContactInfo 
-                contactInfo={contactInfo} 
-                businessHours={businessHours} 
-                supportHours={supportHours} 
-                holidayMessage={holidayMessage} 
-              />
-            </motion.div>
+            <Suspense fallback={<div>Loading form...</div>}>
+              <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+                <ContactForm />
+              </motion.div>
+            </Suspense>
+            <Suspense fallback={<div>Loading contact info...</div>}>
+              <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+                <ContactInfo 
+                  contactInfo={contactInfo} 
+                />
+              </motion.div>
+            </Suspense>
           </div>
         </div>
       </section>
@@ -275,7 +184,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

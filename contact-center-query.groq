@@ -1,0 +1,14 @@
+*[_type == "contactCenterSolutionPage"][0] {
+  "metaTitle": seo.metaTitle,
+  "metaDescription": seo.metaDescription,
+  "keywords": seo.keywords,
+  heroSection,
+  keyFeaturesSection {
+    heading,
+    description,
+    image,
+    features
+  },
+  benefitsSection,
+  exploreSolutionsSection,
+}

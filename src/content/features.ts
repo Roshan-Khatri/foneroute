@@ -48,6 +48,7 @@ export const features: Partial<Feature>[] = [
     slug: { current: 'call-recording' },
     excerpt: 'Record calls for quality assurance and training.',
     description: 'Call Recording is a powerful feature that automatically records inbound and outbound calls. These recordings can be used for quality monitoring, training new staff, resolving disputes, and ensuring compliance with industry regulations.',
+    overview: 'Call Recording is a powerful feature that automatically records inbound and outbound calls. These recordings can be used for quality monitoring, training new staff, resolving disputes, and ensuring compliance with industry regulations.',
     keyFeatures: [
       'Automatic Recording: Record all calls to and from your business numbers without manual intervention.',
       'On-Demand Recording: Start and stop recordings manually during a call for specific cases.',
@@ -72,6 +73,7 @@ export const features: Partial<Feature>[] = [
     slug: { current: 'ring-groups' },
     excerpt: 'Route calls to multiple extensions simultaneously.',
     description: 'Ring Groups, also known as hunt groups, allow you to route incoming calls to multiple extensions or phone numbers simultaneously or in a specific order. This ensures that calls are answered more quickly and efficiently by distributing them across a team.',
+    overview: 'Ring Groups, also known as hunt groups, allow you to route incoming calls to multiple extensions or phone numbers simultaneously or in a specific order. This ensures that calls are answered more quickly and efficiently by distributing them across a team.',
     keyFeatures: [
       'Simultaneous Ringing: Ring all extensions in the group at the same time.',
       'Sequential Ringing: Ring extensions one by one in a predefined order.',

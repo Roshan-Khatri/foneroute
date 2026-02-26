@@ -1,90 +1,52 @@
 
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { ArrowRight, Zap, Shield, BarChart } from 'lucide-react';
-import PageHeader from '@/components/layout/PageHeader';
-import AllFeaturesSkeleton from './AllFeaturesSkeleton';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const featuresItems = [
-    {
-      title: 'Contact Center Features',
-      href: '/features/contact-center',
-      description: 'Explore the powerful features of our omnichannel contact center solution.',
-    },
-    {
-      title: 'Advanced Calling Features',
-      href: '/features/calling',
-      description: 'Discover a wide range of advanced calling features for your business phone system.',
-    },
-    {
-      title: 'Intelligent Call Management',
-      href: '/features/call-management',
-      description: 'Manage your calls efficiently with intelligent routing, queuing, and IVR.',
-    },
-    {
-      title: 'Real-Time Call Reporting',
-      href: '/features/call-reporting',
-      description: 'Get detailed, real-time insights into your call performance and agent productivity.',
-    },
-  ];
+const features = [
+  {
+    title: "Voicemail to Email",
+    description: "Get voicemails delivered directly to your inbox.",
+  },
+  {
+    title: "Call Forwarding",
+    description: "Redirect calls to any number or device.",
+  },
+  {
+    title: "Auto Attendant",
+    description: "A virtual receptionist to greet and direct callers.",
+  },
+  {
+    title: "Call Recording",
+    description: "Record calls for quality assurance and training.",
+  },
+  {
+    title: "Ring Groups",
+    description: "Route calls to multiple extensions simultaneously.",
+  },
+];
 
 const AllFeatures = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500); // Simulate loading time
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return <AllFeaturesSkeleton />;
-  }
-
   return (
-    <div>
-      <PageHeader
-        title="Our Features"
-        description="Discover the powerful features that make our platform the best choice for your business."
-      />
-      
-      <section className="section-padding bg-background" style={{ scrollSnapAlign: 'start' }}>
+    <div className="bg-[#fafafa]">
+      <section className="py-16 sm:py-24">
         <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold mb-4">The Foundation for Your Success</h2>
-            <p className="text-muted-foreground text-lg">
-              We provide a comprehensive suite of features designed to empower your business. From seamless communication to powerful analytics, our platform is built to help you thrive in a competitive landscape.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding bg-surface" style={{ scrollSnapAlign: 'start' }}>
-        <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuresItems.map((feature) => (
-              <Link to={feature.href} key={feature.href} className="card-hover-parent">
-                <Card className="h-full card-professional card-hover-animation">
-                  <CardHeader>
-                    <CardTitle>{feature.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">{feature.description}</p>
-                    <div className="flex items-center text-primary font-medium">
-                      Learn More
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+            <div className="text-center mb-16">
+                <h1 className="text-4xl font-semibold text-gray-900">Our Features</h1>
+                <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">Explore the powerful features that make our platform the best choice for your business.</p>
+            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="bg-white border border-gray-200 rounded-lg shadow-sm p-8 flex flex-col justify-start text-left h-full">
+                <CardHeader className="p-0 mb-4">
+                  <CardTitle className="text-xl font-semibold text-gray-900">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <p className="text-gray-500 leading-relaxed">{feature.description}</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
-      
     </div>
   );
 };

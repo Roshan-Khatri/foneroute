@@ -70,15 +70,15 @@ const CaseStudies = () => {
             <h2 className="text-3xl font-bold mb-6">Results</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="p-6 rounded-lg shadow-lg bg-card">
-                <h3 className="text-4xl font-bold text-primary">3x</h3>
+                <h3 className="text-4xl font-bold text-black dark:text-primary">3x</h3>
                 <p className="text-muted-foreground mt-2">Increase in Sales Outreach</p>
               </div>
               <div className="p-6 rounded-lg shadow-lg bg-card">
-                <h3 className="text-4xl font-bold text-primary">40%</h3>
+                <h3 className="text-4xl font-bold text-black dark:text-primary">40%</h3>
                 <p className="text-muted-foreground mt-2">Improvement in Customer Satisfaction</p>
               </div>
               <div className="p-6 rounded-lg shadow-lg bg-card">
-                <h3 className="text-4xl font-bold text-primary">50%</h3>
+                <h3 className="text-4xl font-bold text-black dark:text-primary">50%</h3>
                 <p className="text-muted-foreground mt-2">Reduction in Operational Costs</p>
               </div>
             </div>

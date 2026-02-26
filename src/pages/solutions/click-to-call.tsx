@@ -23,9 +23,6 @@ const ClickToCallPage: FC = () => {
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
               Make it effortless for customers to reach you directly from your website or app. Embed a simple button to enable instant voice communication, boost engagement, and capture more leads.
             </p>
-            <Link to="/contact">
-              <Button size="lg">Get Started</Button>
-            </Link>
           </div>
         </section>
 

@@ -41,7 +41,7 @@ const About = () => {
   ];
 
   return (
-    <div className="pt-24">
+    <div className="pt-8">
       <SEO 
         title="About FoneRoute | Our Mission, Vision, and Team"
         description="Learn about FoneRoute's mission to empower businesses with intelligent communication solutions. Meet our dedicated team and discover our commitment to innovation, quality, and customer satisfaction."
@@ -49,7 +49,7 @@ const About = () => {
       />
       <PageHeader
         title="About Our Company"
-        subtitle="Innovators in business communication, dedicated to your success."
+        description="Innovators in business communication, dedicated to your success."
       />
 
       <section className="py-12 md:py-16">
@@ -126,7 +126,7 @@ const About = () => {
                     <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
                   </Avatar>
                   <h3 className="font-semibold text-foreground">{member.name}</h3>
-                  <p className="text-sm text-primary">{member.role}</p>
+                  <p className="text-sm text-muted-foreground">{member.role}</p>
                 </div>
               </motion.div>
             ))}

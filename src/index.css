@@ -92,3 +92,18 @@
     outline: none;
     box-shadow: none;
 }
+@media (max-width: 768px) {
+  footer .text-center {
+    text-align: left;
+  }
+  footer .justify-center {
+    justify-content: flex-start;
+  }
+  footer .flex-col-reverse.items-center {
+    align-items: flex-start;
+  }
+  footer .mx-auto {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

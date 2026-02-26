@@ -9,19 +9,11 @@ interface ContactInfoItem {
   description: string;
 }
 
-interface BusinessHourItem {
-  day: string;
-  hours: string;
-}
-
 interface ContactInfoProps {
   contactInfo: ContactInfoItem[];
-  businessHours: BusinessHourItem[];
-  supportHours: string;
-  holidayMessage: string;
 }
 
-export const ContactInfo = ({ contactInfo, businessHours, supportHours, holidayMessage }: ContactInfoProps) => {
+export const ContactInfo = ({ contactInfo }: ContactInfoProps) => {
   return (
     <div className="space-y-8">
       <div>
@@ -43,34 +35,6 @@ export const ContactInfo = ({ contactInfo, businessHours, supportHours, holidayM
           ))}
         </div>
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            <Clock className="h-5 w-5 text-primary" />
-            <span>Business Hours</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2 text-sm">
-            {businessHours.map((bh, idx) => (
-              <div key={idx} className="flex justify-between">
-                <span className="text-muted-foreground">{bh.day}:</span>
-                <span className="text-foreground font-medium">{bh.hours}</span>
-              </div>
-            ))}
-            <div className="pt-3 border-t border-border">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Support:</span>
-                <span className="text-accent font-medium">{supportHours}</span>
-              </div>
-              {holidayMessage && (
-                <div className="mt-2 text-yellow-500 text-xs font-semibold">{holidayMessage}</div>
-              )}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };

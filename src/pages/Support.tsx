@@ -1,142 +1,111 @@
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Mail, Phone, Ticket } from 'lucide-react';
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-
-const Support = () => {
+const SupportPage = () => {
   const faqs = [
     {
-      question: "What is FoneRoute?",
-      answer: "FoneRoute is a comprehensive communication platform that offers a suite of tools to enhance business communications, including a predictive dialer, contact center solutions, and a cloud PBX system.",
+      question: "How do I set up my voicemail?",
+      answer: "To set up your voicemail, dial *99 from your FoneRoute device. You will be prompted to record a new greeting and set a PIN for security. Follow the audio instructions to complete the setup."
     },
     {
-      question: "How can I get started?",
-      answer: "You can get started by requesting a demo or contacting our sales team. We offer a variety of plans to fit your business needs.",
+      question: "What are your international calling rates?",
+      answer: "International calling rates vary depending on the destination. You can find a full list of our competitive rates on our 'International Numbers' page or by contacting our support team."
     },
     {
-      question: "What kind of support do you offer?",
-      answer: "We offer 24/7 support through various channels, including phone, email, and live chat. Our dedicated support team is always ready to help you with any issues or questions.",
+      question: "How can I track my usage?",
+      answer: "You can monitor your call history, data usage, and billing information in real-time through your personal FoneRoute dashboard. Log in to your account on our website to access it."
     },
+    {
+        question: "My phone isn't working, what should I do?",
+        answer: "If you're experiencing service issues, first try restarting your device. If the problem persists, check our network status page for any known outages. For further assistance, please contact our technical support team."
+    }
   ];
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <motion.section
-          className="text-center py-20"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">Support</h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Welcome to our support page. How can we help you today?
+    <div className="bg-background text-foreground">
+      {/* Page Header */}
+      <section className="bg-primary/5 text-center pt-20 sm:pt-28 pb-10 sm:pb-14">
+        <div className="container-custom">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">FoneRoute Support Center</h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+            We're here to help. Find answers to your questions and ways to get in touch with us.
           </p>
-        </motion.section>
+        </div>
+      </section>
 
-        <motion.section
-          className="py-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        >
+      {/* FAQ Section */}
+      <section id="faq" className="pt-10 sm:pt-12 pb-20 sm:pb-24">
+        <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
             <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, i) => (
-                <AccordionItem key={i} value={`item-${i}`}>
-                  <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-                  <AccordionContent className="text-base">{faq.answer}</AccordionContent>
+              {faqs.map((faq, index) => (
+                <AccordionItem value={`item-${index}`} key={index}>
+                  <AccordionTrigger className="text-lg">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-base text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
           </div>
-        </motion.section>
+        </div>
+      </section>
 
-        <motion.section
-          className="py-12 bg-muted dark:bg-[#191919] rounded-lg"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        >
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">Contact Support</h2>
-            <p className="text-muted-foreground mb-8">
-              Can't find the answer you're looking for? Our support team is here to help.
-            </p>
-            <Button size="lg" asChild>
-              <Link to="/contact">Contact Us</Link>
-            </Button>
+      {/* Contact Section */}
+      <section id="contact" className="py-20 sm:py-24">
+        <div className="container-custom">
+          <h2 className="text-3xl font-bold text-center mb-12">Get in Touch</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <Card className="text-center">
+              <CardHeader>
+                <div className="mx-auto bg-primary/10 p-4 rounded-full w-max mb-4">
+                  <Mail className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle>Email Support</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">Send us an email and we'll get back to you shortly.</p>
+                <Button variant="outline" asChild>
+                  <a href="mailto:support@foneroute.com">Email Us</a>
+                </Button>
+              </CardContent>
+            </Card>
+            <Card className="text-center">
+              <CardHeader>
+                <div className="mx-auto bg-primary/10 p-4 rounded-full w-max mb-4">
+                  <Phone className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle>Phone Support</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">Talk to one of our friendly agents. Available 24/7.</p>
+                <Button variant="outline" asChild>
+                  <a href="tel:+1-800-555-0123">+1 (800) 555-0123</a>
+                </Button>
+              </CardContent>
+            </Card>
+            <Card className="text-center">
+              <CardHeader>
+                <div className="mx-auto bg-primary/10 p-4 rounded-full w-max mb-4">
+                  <Ticket className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle>Submit a Ticket</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">Open a support ticket for detailed technical issues.</p>
+                <Button variant="outline" asChild>
+                  <a href="/contact">Create Ticket</a>
+                </Button>
+              </CardContent>
+            </Card>
           </div>
-        </motion.section>
-
-        <motion.section
-          className="py-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        >
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-6 text-center">Helpful Resources</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
-                <h3 className="text-xl font-bold mb-4">Knowledge Base</h3>
-                <p className="text-muted-foreground">Explore our comprehensive knowledge base for detailed guides and tutorials.</p>
-              </div>
-              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
-                <h3 className="text-xl font-bold mb-4">Community Forums</h3>
-                <p className="text-muted-foreground">Join our community forums to connect with other users and share your experiences.</p>
-              </div>
-              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
-                <h3 className="text-xl font-bold mb-4">Blog</h3>
-                <p className="text-muted-foreground">Read our blog for the latest news, updates, and best practices.</p>
-              </div>
-              <div className="p-6 rounded-lg shadow-lg bg-card hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
-                <h3 className="text-xl font-bold mb-4">Video Tutorials</h3>
-                <p className="text-muted-foreground">Watch our video tutorials to learn how to use FoneRoute's features.</p>
-              </div>
-            </div>
-          </div>
-        </motion.section>
-
-        <motion.section
-          className="py-12 bg-muted dark:bg-[#191919] rounded-lg"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        >
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">System Status</h2>
-            <p className="text-muted-foreground mb-4">
-              All systems are currently operational.
-            </p>
-            <div className="flex justify-center items-center">
-                <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
-                <span>All Systems Operational</span>
-            </div>
-          </div>
-        </motion.section>
-
-        <motion.section
-          className="py-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        >
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">Submit a Ticket</h2>
-            <p className="text-muted-foreground mb-8">
-              If you need further assistance, you can submit a support ticket.
-            </p>
-            <Button size="lg" asChild>
-              <Link to="/contact">Submit a Ticket</Link>
-            </Button>
-          </div>
-        </motion.section>
-      </main>
+        </div>
+      </section>
     </div>
   );
 };
 
-export default Support;
+export default SupportPage;

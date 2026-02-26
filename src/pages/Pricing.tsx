@@ -106,7 +106,7 @@ export default function Pricing() {
               <div className="border rounded-lg overflow-x-auto">
                 <table className="w-full table-fixed">
                   <thead>
-                    <tr className="bg-white dark:bg-background">
+                    <tr className="bg-gray-50 dark:bg-zinc-900">
                       <th className="p-4 text-left font-bold text-lg w-[34%]">Feature</th>
                       <th className="p-4 text-center font-bold text-lg w-[22%]">Solo</th>
                       <th className="p-4 text-center font-bold text-lg w-[22%]">Pro</th>
@@ -156,9 +156,9 @@ export default function Pricing() {
         </section>
 
         {/* FAQs Section */}
-        <section style={{backgroundColor: '#191919'}} className="py-16 sm:py-20">
+        <section className="py-16 sm:py-20 bg-gray-50 dark:bg-zinc-950">
           <div className="container-custom">
-            <h2 className="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold text-center mb-10 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
             <div className="max-w-3xl mx-auto">
               <Accordion type="single" collapsible>
                 {faqs.map((faq, index) => (

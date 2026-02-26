@@ -1,119 +1,223 @@
-import PageHeader from '@/components/layout/PageHeader';
+
+import { FC } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
-const CallReportingPage = () => {
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+};
+
+const capabilities = [
+    {
+        title: 'Real-time Dashboards',
+        description: 'Monitor call queues, agent status, and service levels as they happen with customizable, live-updating wallboards and dashboards.'
+    },
+    {
+        title: 'Historical Reporting',
+        description: 'Analyze trends, track KPIs, and evaluate performance over time with a comprehensive suite of historical reports on calls, agents, and queues.'
+    },
+    {
+        title: 'Dialer & Campaign Analytics',
+        description: 'Measure the effectiveness of your outbound campaigns with detailed reports on contact rates, conversion rates, and agent performance.'
+    },
+    {
+        title: 'CRM & App Integration',
+        description: 'Sync call data seamlessly with your CRM and other business tools. Build custom reports and trigger workflows using our developer-friendly API.'
+    }
+]
+
+const benefits = [
+  { title: 'Improve Agent Performance' },
+  { title: 'Enhance Customer Experience' },
+  { title: 'Boost Operational Efficiency' },
+  { title: 'Increase Business ROI' },
+];
+
+const useCases = [
+    {
+        title: 'Sales Team Performance',
+        description: 'Track outbound call volume, connection rates, and conversion metrics to evaluate sales effectiveness and coach top performers.'
+    },
+    {
+        title: 'Customer Support Metrics',
+        description: 'Monitor average handle time (AHT), first call resolution (FCR), and customer satisfaction (CSAT) scores to improve support quality.'
+    },
+    {
+        title: 'Contact Center Operations',
+        description: 'Analyze call volume trends, peak hours, and abandonment rates to optimize staffing levels and improve service levels.'
+    }
+]
+
+const CallReportingPage: FC = () => {
   return (
-    <div>
-      <PageHeader
-        title="Comprehensive Call Reporting"
-        subtitle="Gain deep insights into your call performance, agent productivity, and customer experience with our advanced reporting and analytics tools."
-        breadcrumb="Home / Features / Call Reporting"
-      />
-
-      <section className="section-padding bg-background">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-3xl font-bold mb-4">Real-time Dashboards</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                Monitor your call center activity as it happens. Our live dashboards provide an at-a-glance view of key metrics such as call volume, queue status, agent availability, and service levels. Instantly identify emerging trends and address issues proactively to maintain optimal performance.
-              </p>
-            </div>
-            <div>
-                <Card>
-                    <CardContent className="p-8">
-                        <img src="/images/stock/reporting-dashboard.png" alt="Real-time reporting dashboard" className="rounded-lg shadow-lg" />
-                    </CardContent>
-                </Card>
-            </div>
+    <>
+      <Helmet>
+        <title>Comprehensive Call Reporting | FoneRoute</title>
+        <meta
+          name="description"
+          content="Gain deep insights into your call performance, agent productivity, and customer experience with our advanced reporting and analytics tools."
+        />
+      </Helmet>
+      <div className="bg-background text-foreground">
+        {/* Hero Section */}
+        <motion.section
+          className="section-padding bg-background mt-12"
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+        >
+          <div className="container-custom text-center">
+            <motion.h1
+              className="text-4xl md:text-5xl font-extrabold font-poppins tracking-tight mb-4"
+              variants={fadeInUp}
+            >
+              Comprehensive Call Reporting
+            </motion.h1>
+            <motion.p
+              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8"
+              variants={fadeInUp}
+            >
+              Gain deep insights into your call performance, agent productivity, and customer experience with our advanced reporting and analytics tools.
+            </motion.p>
           </div>
-        </div>
-      </section>
+        </motion.section>
 
-      <section className="section-padding">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-                <Card>
-                    <CardContent className="p-8">
-                        <img src="/images/stock/historical-reports.png" alt="Historical reports and analytics" className="rounded-lg shadow-lg" />
-                    </CardContent>
-                </Card>
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold mb-4">Historical Reporting & Analytics</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                Dive deep into your call data with our comprehensive historical reporting tools. Analyze call trends over time, measure agent performance against KPIs, and understand customer behavior. Use these insights to make informed decisions about staffing, training, and operational improvements.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding bg-background">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold">Dialer & Campaign Analytics</h2>
-            <p className="text-muted-foreground mt-2">Measure and optimize the performance of your outbound calling campaigns.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-2xl font-semibold mb-4">Maximize Outbound ROI</h3>
-              <p className="text-muted-foreground mb-4">
-                Reporting isn't just for inbound calls. FoneRoute provides powerful analytics for your outbound efforts, including our advanced Power Dialer and Predictive Dialer. Track key metrics to ensure your agents are connecting with as many live prospects as possible.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start"><CheckCircle className="text-green-500 w-5 h-5 mr-2 mt-1 flex-shrink-0" /><span>Monitor campaign list penetration and lead conversion rates.</span></li>
-                <li className="flex items-start"><CheckCircle className="text-green-500 w-5 h-5 mr-2 mt-1 flex-shrink-0" /><span>Analyze agent talk time, wait time, and calls per hour.</span></li>
-                <li className="flex items-start"><CheckCircle className="text-green-500 w-5 h-5 mr-2 mt-1 flex-shrink-0" /><span>Track call outcomes and dispositions to refine your sales strategy.</span></li>
-                <li className="flex items-start"><CheckCircle className="text-green-500 w-5 h-5 mr-2 mt-1 flex-shrink-0" /><span>Ensure TCPA compliance with detailed drop rate and call attempt reports.</span></li>
-              </ul>
-            </div>
-            <div>
-              <Card>
-                  <CardHeader><CardTitle>Dialer Performance Metrics</CardTitle></CardHeader>
-                  <CardContent>
-                      <img src="/images/stock/dialer-analytics.png" alt="Dialer analytics dashboard" className="rounded-lg" />
-                  </CardContent>
+        {/* Overview Section */}
+        <motion.section
+          className="section-padding-g bg-surface"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={fadeInUp}
+        >
+          <div className="container-custom text-center">
+            <h2 className="text-3xl font-bold mb-8">Overview</h2>
+            <div className="max-w-4xl mx-auto">
+              <Card className="card-professional text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <CardContent className="p-8">
+                  <p className="text-muted-foreground leading-relaxed">
+                    From high-level dashboards to granular, call-by-call analysis, FoneRoute provides the tools you need to turn raw call data into actionable business intelligence.
+                  </p>
+                </CardContent>
               </Card>
             </div>
           </div>
-        </div>
-      </section>
+        </motion.section>
 
-      <section className="section-padding">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold">CRM & Business Tool Integration</h2>
-            <p className="text-muted-foreground mt-2">Connect call data with your most important business systems for a unified view of the customer.</p>
+        {/* Key Capabilities Section */}
+        <motion.section
+          className="section-padding"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer}
+        >
+          <div className="container-custom text-center">
+            <h2 className="text-3xl font-bold mb-12">Key Capabilities</h2>
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 text-left"
+              variants={staggerContainer}
+            >
+              {capabilities.map((capability, index) => (
+                <motion.div key={index} variants={staggerItem} className="flex">
+                    <Card className="card-professional flex flex-col w-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                        <CardHeader>
+                        <CardTitle>{capability.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="flex-grow">
+                        <p className="text-muted-foreground">
+                            {capability.description}
+                        </p>
+                        </CardContent>
+                    </Card>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-              <Card>
-                  <CardHeader><CardTitle>Unified Customer View</CardTitle></CardHeader>
-                  <CardContent>
-                      <img src="/images/stock/crm-integration.png" alt="CRM Integration illustration" className="rounded-lg" />
-                  </CardContent>
-              </Card>
-            </div>
-            <div>
-              <h3 className="text-2xl font-semibold mb-4">Enrich Your Reports with Business Context</h3>
-              <p className="text-muted-foreground mb-4">
-                Seamlessly integrate FoneRoute with your CRM (like Salesforce, HubSpot, or Zendesk) to add powerful context to your call reports. Associate calls with customer records, support tickets, and sales opportunities to measure the true impact of your voice communications.
-              </p>
-              <ul className="space-y-2">
-                  <li className="flex items-start"><CheckCircle className="text-green-500 w-5 h-5 mr-2 mt-1 flex-shrink-0" /><span>Automatically log call activities and recordings to CRM contacts.</span></li>
-                  <li className="flex items-start"><CheckCircle className="text-green-500 w-5 h-5 mr-2 mt-1 flex-shrink-0" /><span>Trigger workflows and automations in your business tools based on call outcomes.</span></li>
-                  <li className="flex items-start"><CheckCircle className="text-green-500 w-5 h-5 mr-2 mt-1 flex-shrink-0" /><span>Include sales revenue and support case status in your FoneRoute reports.</span></li>
-                  <li className="flex items-start"><CheckCircle className="text-green-500 w-5 h-5 mr-2 mt-1 flex-shrink-0" /><span>Empower agents with screen-pops that display CRM data on incoming calls.</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+        </motion.section>
 
-    </div>
+        {/* Benefits Section */}
+        <motion.section
+          className="section-padding-g bg-surface"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={staggerContainer}
+        >
+          <div className="container-custom text-center">
+            <h2 className="text-3xl font-bold mb-12">Benefits</h2>
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 max-w-4xl mx-auto"
+              variants={staggerContainer}
+            >
+              {benefits.map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  className="flex items-center text-left gap-4 p-4 rounded-lg transition-all duration-300 hover:bg-background/80 shadow-sm hover:-translate-y-1"
+                  variants={staggerItem}
+                >
+                  <div className="bg-primary/10 p-2 rounded-full">
+                    <Check className="h-5 w-5 text-primary" />
+                  </div>
+                  <p className="font-medium text-foreground flex-1">{benefit.title}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* Use Cases Section */}
+        <motion.section
+          className="section-padding"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer}
+        >
+            <div className="container-custom text-center">
+                <h2 className="text-3xl font-bold mb-12">Common Use Cases</h2>
+                <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left" variants={staggerContainer}>
+                    {useCases.map((useCase, index) => (
+                        <motion.div key={index} variants={staggerItem} className="flex">
+                            <Card className="card-professional flex flex-col w-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                                <CardHeader>
+                                    <CardTitle>{useCase.title}</CardTitle>
+                                </CardHeader>
+                                <CardContent className="flex-grow">
+                                    <p className="text-muted-foreground">
+                                        {useCase.description}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                    ))}
+                </motion.div>
+            </div>
+        </motion.section>
+      </div>
+    </>
   );
 };
 

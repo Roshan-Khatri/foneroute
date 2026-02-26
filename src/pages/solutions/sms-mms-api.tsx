@@ -23,10 +23,6 @@ const SmsMmsApiPage: FC = () => {
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
               Integrate reliable and scalable messaging into your applications. Our developer-friendly API lets you send and receive text and multimedia messages with ease.
             </p>
-            <div className="flex gap-4 justify-center">
-                <Link to="/contact"><Button size="lg">Talk to an Expert</Button></Link>
-                <a href="/documentation"><Button size="lg" variant="outline">View API Docs</Button></a>
-            </div>
           </div>
         </section>
 
@@ -116,12 +112,11 @@ const SmsMmsApiPage: FC = () => {
 
         {/* CTA Section */}
         <section className="section-padding">
-            <div className="container-custom text-center bg-primary text-primary-foreground p-12 rounded-lg">
+            <div className="container-custom text-center bg-primary dark:bg-[#191919] text-primary-foreground p-12 rounded-lg">
                 <h2 className="text-3xl font-bold mb-4">Ready to Integrate?</h2>
                 <p className="max-w-2xl mx-auto mb-8">Explore our documentation, see pricing, or talk to one of our messaging experts to find the best solution for your business.</p>
                 <div className="flex gap-4 justify-center">
-                    <a href="/documentation"><Button size="lg" variant="secondary">View API Docs</Button></a>
-                    <Link to="/pricing"><Button size="lg" variant="outline-primary">See Pricing</Button></Link>
+                    <Link to="/pricing"><Button size="lg" variant="outline">See Pricing</Button></Link>
                 </div>
             </div>
         </section>

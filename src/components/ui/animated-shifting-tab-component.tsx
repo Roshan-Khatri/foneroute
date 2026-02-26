@@ -40,7 +40,6 @@ const solutions = {
           { name: 'Click to Call', href: '/solutions/click-to-call', description: 'Add a call button to your website or app.' },
           { name: 'SMS/MMS API', href: '/solutions/sms-mms-api', description: 'Integrate SMS and MMS messaging into your applications.' },
           { name: 'Number Masking', href: '/solutions/number-masking', description: 'Protect user privacy with temporary numbers.' },
-          { name: 'WhatsApp Business Solution', href: '/solutions/whatsapp-business-solution', description: 'Engage with customers on the world\'s most popular messaging app.' },
         ]
       }
     ],
