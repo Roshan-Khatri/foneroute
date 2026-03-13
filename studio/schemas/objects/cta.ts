@@ -13,7 +13,8 @@ export default defineType({
     defineField({
       name: 'link',
       title: 'Link',
-      type: 'url',
+      type: 'string',
+      description: 'Supports internal links like /contact or external links like https://example.com'
     }),
   ],
 })

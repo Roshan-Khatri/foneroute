@@ -1,47 +1,122 @@
-
-// HomePage Query
-export const HOME_PAGE_QUERY = `*[_type == "homePage"][0] {
+export const HOME_PAGE_QUERY = `*[_type == "homePage"][0]{
   title,
   "slug": slug.current,
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
-  },
-  "sections": sections[] {
+
+  sections[]{
     ...,
+
     _type == "heroSection" => {
       ...,
-      "slides": slides[] {
-        ...,
-        "image": image.asset->url
+      slides[]{
+        heading,
+        description,
+        "image": image.asset->url,
+        primaryButton{
+          text,
+          link
+        },
+        secondaryButton{
+          text,
+          link
+        }
       }
     },
+
     _type == "featuresSection" => {
       ...,
-      "features": features[] {
-        ...,
+      features[]{
+        title,
+        description,
         "icon": icon.asset->url
       }
     },
-    _type == "statsSection" => {
+
+    _type == "whyChooseUsSection" => {
       ...,
-      "stats": stats[] {
-        ...
+      items[]{
+        title,
+        description,
+        icon
       }
     },
-    _type == "testimonialsSection" => {
-      ...,
-      "testimonials": testimonials[] {
-        ...
-      }
-    },
-    _type == "ctaSection" => {
-      ...
+
+  _type == "industrySolutionsSection" => {
+  ...,
+  industryCards[]{
+    _key,
+    title,
+    description,
+    button{
+      label,
+      link
     }
   }
-}`;
+},
 
+    _type == "topSolutionsSection" => {
+      ...,
+      solutionCards[]{
+        _key,
+        title,
+        description,
+        link
+      }
+    },
+
+    _type == "ourValuesSection" => {
+      ...,
+      values[]{
+        title,
+        description,
+        icon
+      }
+    },
+
+_type == "provenResultsSection" => {
+  heading,
+  description,
+  highlightBulletPoints,
+  stats[]{
+    label,
+    value
+  },
+  cta{
+    text,
+    link
+  }
+},
+
+    _type == "featureComparisonSection" => {
+      ...,
+      columns[]{
+        title
+      },
+      rows[]{
+        feature,
+        values[]
+      }
+    },
+
+  _type == "testimonialsSection" => {
+  ...,
+  testimonials[]{
+    _key,
+    name,
+    companyName,
+    reviewText,
+    rating
+  }
+},
+
+    _type == "faqSection" => {
+      ...,
+      faqList[]{
+        question,
+        answer
+      }
+    }
+  }
+}`
 // AboutPage Query
 export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage"][0] {
   title,

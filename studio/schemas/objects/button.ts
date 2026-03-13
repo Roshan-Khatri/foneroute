@@ -14,12 +14,8 @@ export default defineType({
     defineField({
       name: 'link',
       title: 'Link',
-      type: 'url',
-      validation: (Rule) =>
-        Rule.required().uri({
-          allowRelative: true,
-          scheme: ['http', 'https', 'mailto', 'tel'],
-        }),
+      type: 'string',
+      description: 'Supports internal links like /contact or external links like https://example.com'
     }),
     defineField({
       name: 'isExternal',

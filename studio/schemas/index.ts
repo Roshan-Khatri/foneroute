@@ -8,7 +8,7 @@ import cta from './objects/cta';
 import seo from './objects/seo';
 import featureCard from './objects/featureCard';
 import testimonialItem from './objects/testimonialItem';
-import ctaSection from './objects/ctaSection';
+import ctaSection from './sections/ctaSection';
 import supportPage from './supportPage';
 import aboutPage from './pages/aboutPage';
 import heroSection from './sections/heroSection';
@@ -36,6 +36,15 @@ import smsMmsApiPage from './pages/smsMmsApiPage';
 import numberMaskingPage from './pages/numberMaskingPage';
 import tollFreePage from './pages/tollFreePage';
 import featuresMainPage from './pages/featuresMainPage';
+import topSolutionsSection from './sections/topSolutionsSection';
+import whyChooseUsSection from './sections/whyChooseUsSection';
+import industrySolutionsSection from './sections/industrySolutionsSection';
+import provenResultsSection from './sections/provenResultsSection';
+import featureComparisonSection from './sections/featureComparisonSection';
+import faqSection from './sections/faqSection';
+import stat from './objects/stat';
+import faqItem from './objects/faqItem';
+import featureComparison from './objects/featureComparison';
 
 export const schemaTypes = [
     siteSettings,
@@ -74,5 +83,14 @@ export const schemaTypes = [
     smsMmsApiPage,
     numberMaskingPage,
     tollFreePage,
-    featuresMainPage
+    featuresMainPage,
+    topSolutionsSection,
+    whyChooseUsSection,
+    industrySolutionsSection,
+    provenResultsSection,
+    featureComparisonSection,
+    faqSection,
+    stat,
+    faqItem,
+    featureComparison,
 ];

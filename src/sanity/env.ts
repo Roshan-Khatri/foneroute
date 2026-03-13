@@ -5,6 +5,7 @@ export interface SanityConfig {
 	dataset: string;
 	apiVersion: string;
 	useCdn: boolean;
+    token?: string;
 }
 
 export interface SanityConfigStatus {
@@ -24,7 +25,7 @@ function isPlaceholderValue(value: string | undefined): boolean {
 }
 
 export function validateSanitySetup(): SanityConfigStatus {
-	const required = ['VITE_SANITY_PROJECT_ID', 'VITE_SANITY_DATASET'];
+	const required = ['VITE_SANITY_PROJECT_ID', 'VITE_SANITY_DATASET', 'VITE_SANITY_API_TOKEN'];
 	const missing = required.filter((key) => {
 		const value = getEnvVar(key);
 		return !value || isPlaceholderValue(value);
@@ -33,8 +34,9 @@ export function validateSanitySetup(): SanityConfigStatus {
 	const dataset = getEnvVar('VITE_SANITY_DATASET');
 	const apiVersion = getEnvVar('VITE_SANITY_API_VERSION') || '2023-01-01';
 	const useCdn = getEnvVar('VITE_SANITY_USE_CDN') === 'true';
+    const token = getEnvVar('VITE_SANITY_API_TOKEN');
 	const isConfigured = missing.length === 0;
-	const config = isConfigured ? { projectId, dataset, apiVersion, useCdn } : undefined;
+	const config = isConfigured ? { projectId, dataset, apiVersion, useCdn, token } : undefined;
 	return { isConfigured, missing, config };
 }
 

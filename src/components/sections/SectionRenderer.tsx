@@ -1,72 +1,72 @@
+import React from "react";
 
-import React from 'react';
+import HeroSection from "./HeroSection";
+import FeaturesSection from "./FeaturesSection";
+import WhyChooseUsSection from "./WhyChooseUsSection";
+import ProvenResultsSection from "./ProvenResultsSection";
+import OurValuesSection from "./OurValuesSection";
+import TestimonialsSection from "./TestimonialsSection";
+import FeatureComparisonSection from "./FeatureComparisonSection";
+import FaqSection from "./FaqSection";
+import CtaSection from "./CtaSection";
+import TopSolutionsSection from "./TopSolutionsSection";
+import IndustrySolutionsSection from "./IndustrySolutionsSection";
 
-// Define your section components here
-const HeroSection = ({ section }: { section: any }) => (
-  <section key={section._key} className="hero-section">
-    <h2>{section.title}</h2>
-    <p>{section.subtitle}</p>
-  </section>
-);
+const SectionRenderer = ({ sections = [] }) => {
 
-const FeaturesSection = ({ section }: { section: any }) => (
-  <section key={section._key} className="features-section">
-    <h2>{section.title}</h2>
-    {/* Render features */}
-  </section>
-);
-
-const CtaSection = ({ section }: { section: any }) => (
-  <section key={section._key} className="cta-section">
-    <h2>{section.title}</h2>
-    {/* Render CTA */}
-  </section>
-);
-
-const FaqSection = ({ section }: { section: any }) => (
-  <section key={section._key} className="faq-section">
-    <h2>{section.title}</h2>
-    {/* Render FAQs */}
-  </section>
-);
-
-const StatsSection = ({ section }: { section: any }) => (
-    <section key={section._key} className="stats-section">
-      <h2>{section.title}</h2>
-      {/* Render Stats */}
-    </section>
-  );
-
-const UnknownSection = ({ type }: { type: string }) => (
-    <section className="unknown-section">
-      <p>Unknown section type: {type}</p>
-    </section>
-  );
-
-const SectionRenderer = ({ sections }: { sections: any[] }) => {
-  if (!sections) {
+  if (!sections.length) {
+    console.log("No sections received from Sanity");
     return null;
   }
 
+  console.log("Sections received:", sections);
+
   return (
     <>
-      {sections.map((section) => {
+      {sections.map((section, index) => {
+
+        if (!section || !section._type) return null;
+
+        const key = section._key || index;
+
         switch (section._type) {
-            case 'heroSection':
-                return <HeroSection key={section._key} section={section} />;
-            case 'featuresSection':
-                return <FeaturesSection key={section._key} section={section} />;
-            case 'ctaSection':
-                return <CtaSection key={section._key} section={section} />;
-            case 'faqSection':
-                return <FaqSection key={section._key} section={section} />;
-            case 'statsSection':
-                return <StatsSection key={section._key} section={section} />;
-            default:
-                if (process.env.NODE_ENV !== 'production') {
-                    return <UnknownSection key={section._key} type={section._type} />;
-                }
-                return null;
+
+          case "heroSection":
+            return <HeroSection key={key} section={section} />;
+
+          case "featuresSection":
+            return <FeaturesSection key={key} section={section} />;
+
+          case "whyChooseUsSection":
+            return <WhyChooseUsSection key={key} section={section} />;
+
+          case "provenResultsSection":
+            return <ProvenResultsSection key={key} section={section} />;
+
+          case "ourValuesSection":
+            return <OurValuesSection key={key} section={section} />;
+
+          case "industrySolutionsSection":
+            return <IndustrySolutionsSection key={key} section={section} />;
+
+          case "topSolutionsSection":
+            return <TopSolutionsSection key={key} section={section} />;
+
+          case "testimonialsSection":
+            return <TestimonialsSection key={key} section={section} />;
+
+          case "featureComparisonSection":
+            return <FeatureComparisonSection key={key} section={section} />;
+
+          case "faqSection":
+            return <FaqSection key={key} section={section} />;
+
+          case "ctaSection":
+            return <CtaSection key={key} section={section} />;
+
+          default:
+            console.warn("Unknown section type:", section._type);
+            return null;
         }
       })}
     </>

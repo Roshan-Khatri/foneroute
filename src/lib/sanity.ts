@@ -1,22 +1,65 @@
+import { createClient } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
+import { PortableTextBlock } from "@/sanity/types";
 
-import { getSanityClient } from '@/sanity/client';
+export const sanityClient = createClient({
+  apiVersion: import.meta.env.VITE_SANITY_API_VERSION || "2024-03-11",
+  dataset: import.meta.env.VITE_SANITY_DATASET || "production",
+  projectId: import.meta.env.VITE_SANITY_PROJECT_ID || "00t6xfuz",
+  useCdn: false,
+});
+
+const builder = imageUrlBuilder(sanityClient);
+
+export function urlFor(source: any) {
+  return builder.image(source);
+}
+
+/* ------------------------------------------ */
+/* SANITY FETCH HELPER */
+/* ------------------------------------------ */
 
 export async function sanityFetch<T>({
   query,
   params = {},
-  // By default, we use the live client, but allow overriding for previews
-  client = getSanityClient(),
 }: {
   query: string;
-  params?: Record<string, unknown>;
-  client?: ReturnType<typeof getSanityClient>;
+  params?: Record<string, any>;
 }): Promise<T> {
-  try {
-    return await client.fetch<T>(query, params);
-  } catch (error) {
-    console.error('Sanity fetch failed:', error);
-    // It's often better to throw the error to let the caller handle it,
-    // as they might want to show a specific error message or retry.
-    throw error;
-  }
+  return sanityClient.fetch(query, params);
 }
+
+/* ------------------------------------------ */
+/* SAFE TEXT HELPER */
+/* ------------------------------------------ */
+
+export const sanityText = (value: any): string => {
+  if (!value) return "";
+
+  if (typeof value === "string") {
+    return value;
+  }
+
+  if (
+    value &&
+    typeof value === "object" &&
+    "textValue" in value &&
+    typeof value.textValue === "string"
+  ) {
+    return value.textValue;
+  }
+
+  if (Array.isArray(value)) {
+    return value
+      .filter(
+        (block): block is PortableTextBlock =>
+          block && block._type === "block" && Array.isArray(block.children)
+      )
+      .map((block) =>
+        block.children!.map((span) => span.text || "").join("")
+      )
+      .join(" ");
+  }
+
+  return "";
+};

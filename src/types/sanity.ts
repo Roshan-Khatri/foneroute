@@ -13,13 +13,27 @@ export interface SanityReference {
   _type: string;
 }
 
+export interface HeroSlide {
+  heading: string
+  description: string
+  image?: {
+    asset?: {
+      url?: string
+    }
+  }
+  primaryButton?: {
+    text?: string
+    link?: string
+  }
+  secondaryButton?: {
+    text?: string
+    link?: string
+  }
+}
+
 export interface HeroSection {
-  _type: 'heroSection';
-  title: string;
-  description: string;
-  image: SanityImage;
-  ctaLink: string;
-  ctaLinkLearnMore: string;
+  _type: "heroSection"
+  slides?: HeroSlide[]
 }
 
 export interface Feature {
