@@ -24,7 +24,7 @@ const buttonVariants = cva(
         "outline-secondary":
           "border border-border bg-card text-muted-foreground hover:bg-accent hover:text-accent-foreground shadow-sm hover:shadow-md dark:hover:bg-[#27272a]",
         custom:
-          "bg-[#18181B] text-white shadow-md hover:bg-[#27272a]",
+          "bg-[#18181B] text-white shadow-md hover:bg-[#27272a] btn-custom",
       },
       size: {
         default: "h-11 px-6",

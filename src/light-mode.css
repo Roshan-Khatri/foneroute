@@ -1,40 +1,9 @@
-      /* src/light-mode.css */
-      
-      /* 1️⃣ & 2️⃣: General icon loading and styling for light mode */
-      .light svg {
-        color: #1A1A1A;
-        opacity: 1;
-      }
-      
-      /* 3️⃣: Icon styles within feature cards or pricing tables */
-      .light .feature-card svg,
-      .light .pricing-table svg {
-        background-color: #EDEDED;
-        border-radius: 10px;
-        padding: 10px;
-        height: 24px;
-        width: 24px;
-      }
-      
-      /* 4️⃣: Force visibility for checkmarks, numbers, and pricing symbols */
-      .light .checkmark,
-      .light .number,
-      .light .pricing-symbol {
-        color: #111111 !important;
-        font-weight: 600;
-      }
-      
-      /* 5️⃣: Remove white icons or white strokes in light mode */
-      .light svg[fill="#FFFFFF"],
-      .light svg[fill="#F7F7F7"] {
-        fill: #1A1A1A;
-      }
-      
-      .light svg[stroke="#FFFFFF"],
-      .light svg[stroke="#F7F7F7"] {
-        stroke: #1A1A1A;
-      }
-      
-      .light .statistic-number {
-          color: #111111 !important;
-      }
+.light .btn-custom {
+  background-color: white;
+  color: #18181B;
+  border: 1px solid #e5e7eb;
+}
+
+.light .btn-custom:hover {
+  background-color: #f3f4f6;
+}
