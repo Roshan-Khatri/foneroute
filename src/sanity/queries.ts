@@ -1,3 +1,4 @@
+// ================= HOME PAGE =================
 export const HOME_PAGE_QUERY = `*[_type == "homePage"][0]{
   title,
   "slug": slug.current,
@@ -11,14 +12,8 @@ export const HOME_PAGE_QUERY = `*[_type == "homePage"][0]{
         heading,
         description,
         "image": image.asset->url,
-        primaryButton{
-          text,
-          link
-        },
-        secondaryButton{
-          text,
-          link
-        }
+        primaryButton{ text, link },
+        secondaryButton{ text, link }
       }
     },
 
@@ -31,83 +26,6 @@ export const HOME_PAGE_QUERY = `*[_type == "homePage"][0]{
       }
     },
 
-    _type == "whyChooseUsSection" => {
-      ...,
-      items[]{
-        title,
-        description,
-        icon
-      }
-    },
-
-  _type == "industrySolutionsSection" => {
-  ...,
-  industryCards[]{
-    _key,
-    title,
-    description,
-    button{
-      label,
-      link
-    }
-  }
-},
-
-    _type == "topSolutionsSection" => {
-      ...,
-      solutionCards[]{
-        _key,
-        title,
-        description,
-        link
-      }
-    },
-
-    _type == "ourValuesSection" => {
-      ...,
-      values[]{
-        title,
-        description,
-        icon
-      }
-    },
-
-_type == "provenResultsSection" => {
-  heading,
-  description,
-  highlightBulletPoints,
-  stats[]{
-    label,
-    value
-  },
-  cta{
-    text,
-    link
-  }
-},
-
-    _type == "featureComparisonSection" => {
-      ...,
-      columns[]{
-        title
-      },
-      rows[]{
-        feature,
-        values[]
-      }
-    },
-
-  _type == "testimonialsSection" => {
-  ...,
-  testimonials[]{
-    _key,
-    name,
-    companyName,
-    reviewText,
-    rating
-  }
-},
-
     _type == "faqSection" => {
       ...,
       faqList[]{
@@ -116,246 +34,262 @@ _type == "provenResultsSection" => {
       }
     }
   }
-}`
-// AboutPage Query
-export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage"][0] {
+}`;
+
+
+// ================= ABOUT =================
+export const ABOUT_PAGE_QUERY = `*[_type == "aboutPage"][0]{
   title,
   "slug": slug.current,
-  seo {
+
+  seo{
     metaTitle,
     metaDescription,
     keywords
   },
-  "sections": sections[] {
-    ...,
-    _type == "ourValuesSection" => {
-      ...,
-      "values": values[] {
-        ...
-      }
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  missionVisionSection{
+    heading,
+    description,
+    points[],
+    "image": image.asset->url
+  },
+
+  coreValuesSection{
+    heading,
+    description,
+    values[]{
+      title,
+      description
     }
-  }
-}`;
-
-// ContactPage Query
-export const CONTACT_PAGE_QUERY = `*[_type == "contactPage"][0] {
-  title,
-  "slug": slug.current,
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
   },
-  "sections": sections[] {
-    ...
-  }
-}`;
 
-// PrivacyPolicy Page Query
-export const PRIVACY_POLICY_PAGE_QUERY = `*[_type == "privacyPolicy"][0] {
-  title,
-  "slug": slug.current,
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
+  commitmentSection{
+    heading,
+    description,
+    items[]{
+      title,
+      description
+    }
   },
-  body
-}`;
 
-// Terms Page Query
-export const TERMS_PAGE_QUERY = `*[_type == "terms"][0] {
-  title,
-  "slug": slug.current,
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
-  },
-  body
-}`;
-
-// Support Page Query
-export const SUPPORT_PAGE_QUERY = `*[_type == "supportPage"][0] {
-  title,
-  "slug": slug.current,
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
-  },
-  "sections": sections[] {
-    ...,
-    _type == "faqSection" => {
-      ...,
-      "faqs": faqs[] {
-        ...
-      }
+  teamSection{
+    heading,
+    description,
+    members[]{
+      name,
+      role
     }
   }
 }`;
 
 
-// All Features Query
-export const allFeaturesQuery = `*[_type == "solution"]{
-  title,
-  "slug": slug.current,
-  overview,
-  "mainImage": mainImage.asset->url,
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
+// ================= CONTACT =================
+export const CONTACT_PAGE_QUERY = `*[_type == "contactPage"][0]{
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  contactFormSection{
+    heading,
+    description,
+    solutions,
+    submitButtonText
+  },
+
+  getInTouchSection{
+    heading,
+    items[]{
+      title,
+      value,
+      description
+    }
+  },
+
+  faqSection{
+    heading,
+    faqs[]{
+      question,
+      answer
+    }
   }
 }`;
 
-// All Industries Query
+
+// ================= SUPPORT =================
+export const SUPPORT_PAGE_QUERY = `*[_type == "supportPage"][0]{
+  title,
+
+  pageHeader{
+    title,
+    subtitle
+  },
+
+  faqSection{
+    heading,
+    faqs[]{
+      question,
+      answer
+    }
+  },
+
+  getInTouchSection{
+    heading,
+    cards[]{
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  }
+}`;
+
+
+// ================= BLOG (🔥 ADDED) =================
+// ================= BLOG PAGE =================
+export const BLOG_PAGE_QUERY = `*[_type == "blogPage"][0]{
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  techSpotlightSection{
+    heading,
+    posts[]{
+      title,
+      description
+    }
+  },
+
+  caseStudiesSection{
+    heading,
+    studies[]{
+      title,
+      description
+    }
+  },
+
+  testimonialsSection{
+    heading,
+    testimonials[]{
+      name,
+      role,
+      quote
+    }
+  },
+
+  recentPostsSection{
+    heading,
+    posts[]{
+      title,
+      description
+    }
+  }
+}`;
+
+// ================= SITE SETTINGS =================
+export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
+  ...,
+  "logo": logo.asset->url,
+  "favicon": favicon.asset->url
+}`;
+
+
+// ================= INDUSTRIES =================
 export const allIndustriesQuery = `*[_type == "industry"]{
   title,
   "slug": slug.current,
   overview,
   "mainImage": mainImage.asset->url,
-  seo {
+  seo{
     metaTitle,
-    metaDescription,
-    keywords
+    metaDescription
   }
 }`;
 
-// All Posts Query
+
+// ================= SOLUTIONS =================
+export const allSolutionsQuery = `*[_type == "solution"]{
+  title,
+  "slug": slug.current,
+  overview,
+  "mainImage": mainImage.asset->url,
+  seo{
+    metaTitle,
+    metaDescription
+  }
+}`;
+
+
+// ================= POSTS =================
 export const allPostsQuery = `*[_type == "post"]{
   title,
   "slug": slug.current,
   overview,
   "mainImage": mainImage.asset->url,
   publishedAt,
-  author->{name, "picture": image.asset->url},
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
-  }
+  author->{name, "picture": image.asset->url}
 }`;
 
-// All Solutions Query
-export const allSolutionsQuery = `*[_type == "solution"]{
-  title,
-  "slug": slug.current,
-  overview,
-  "mainImage": mainImage.asset->url,
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
-  }
-}`;
 
-// Feature by Slug Query
+// ================= FEATURE BY SLUG =================
 export const featureBySlugQuery = `*[_type == "solution" && slug.current == $slug][0]{
   title,
   "slug": slug.current,
   overview,
   "mainImage": mainImage.asset->url,
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
+  sections[]{...}
+}`;
+
+
+// ================= SOLUTION BY SLUG =================
+export const solutionBySlugQuery = `*[
+  _type == "powerDialerPage" &&
+  slug.current == $slug
+][0]{
+  title,
+  "slug": slug.current,
+  overview,
+
+  heroSection{
+    heading,
+    subtitle
   },
-  "sections": sections[] {
-    ...,
-    _type == 'featureComparisonSection' => {
-      ...,
-      "features": features[] {
-        ...,
-        "icon": icon.asset->url
-      }
-    },
-    _type == 'ctaSection' => {
-      ...
+
+  whyChooseSection{
+    heading,
+    subtitle,
+    cards[]{ title }
+  },
+
+  keyFeaturesSection{
+    heading,
+    description,
+    features[]{
+      title,
+      description
     }
   }
 }`;
 
-// Featured Features Query
-export const featuredFeaturesQuery = `*[_type == "solution" && featured == true]{
+
+// ================= PAGE BY SLUG =================
+export const pageBySlugQuery = `*[
+  _type in ["homePage", "aboutPage", "contactPage", "supportPage"]
+  && slug.current == $slug
+][0]{
   title,
-  "slug": slug.current,
-  overview,
-  "mainImage": mainImage.asset->url,
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
-  }
+  "slug": slug.current
 }`;
 
-// Featured Solutions Query
-export const featuredSolutionsQuery = `*[_type == "solution" && featured == true]{
-  title,
-  "slug": slug.current,
-  overview,
-  "mainImage": mainImage.asset->url,
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
-  }
-}`;
 
-// Page by Slug Query
-export const pageBySlugQuery = `*[_type in ["homePage", "aboutPage", "contactPage", "privacyPolicy", "terms", "supportPage"] && slug.current == $slug][0]{
-  _type,
-  title,
-  "slug": slug.current,
-  seo,
-  body,
-  "sections": sections[] {
-    ...,
-    _type == "heroSection" => {
-      ...,
-      "slides": slides[] {
-        ...,
-        "image": image.asset->url
-      }
-    },
-    _type == "featuresSection" => {
-      ...,
-      "features": features[] {
-        ...,
-        "icon": icon.asset->url
-      }
-    },
-    _type == "statsSection" => {
-      ...,
-      "stats": stats[] {
-        ...
-      }
-    },
-    _type == "testimonialsSection" => {
-      ...,
-      "testimonials": testimonials[] {
-        ...
-      }
-    },
-    _type == "ctaSection" => {
-      ...
-    },
-    _type == "ourValuesSection" => {
-      ...,
-      "values": values[] {
-        ...
-      }
-    },
-    _type == "faqSection" => {
-      ...,
-      "faqs": faqs[] {
-        ...
-      }
-    }
-  }
-}`;
-
-// Post by Slug Query
+// ================= POST BY SLUG =================
 export const postBySlugQuery = `*[_type == "post" && slug.current == $slug][0]{
   title,
   "slug": slug.current,
@@ -363,58 +297,100 @@ export const postBySlugQuery = `*[_type == "post" && slug.current == $slug][0]{
   "mainImage": mainImage.asset->url,
   publishedAt,
   author->{name, "picture": image.asset->url},
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
-  },
   body
 }`;
 
-// Site Settings Query
-export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
-  ...,
-  "logo": logo.asset->url,
-  "favicon": favicon.asset->url
-}`;
 
-// Solution by Slug Query
-export const solutionBySlugQuery = `*[_type == "solution" && slug.current == $slug][0]{
+// ================= FEATURED =================
+export const featuredFeaturesQuery = `*[_type == "solution" && featured == true]{
   title,
   "slug": slug.current,
   overview,
-  "mainImage": mainImage.asset->url,
-  seo {
-    metaTitle,
-    metaDescription,
-    keywords
+  "mainImage": mainImage.asset->url
+}`;
+
+export const featuredSolutionsQuery = `*[_type == "solution" && featured == true]{
+  title,
+  "slug": slug.current,
+  overview,
+  "mainImage": mainImage.asset->url
+}`;
+
+
+// ================= SOLUTIONS PAGE =================
+export const SOLUTIONS_PAGE_QUERY = `*[_type == "solutionsPage"][0]{
+  title,
+  "slug": slug.current,
+
+  heroSection{
+    heading,
+    subtitle
   },
-  "sections": sections[] {
-    ...,
-    _type == 'featureComparisonSection' => {
-      ...,
-      "features": features[] {
-        ...,
-        "icon": icon.asset->url
-      }
-    },
-    _type == 'ctaSection' => {
-      ...
+
+  coreSolutionsSection{
+    heading,
+    solutions[]{
+      title,
+      description,
+      buttonLink,
+      buttonText
+    }
+  },
+
+  industrySection{
+    heading,
+    subtitle,
+    industries[]{
+      title,
+      description
+    }
+  },
+
+  featuresSection{
+    heading,
+    subtitle,
+    features[]
+  }
+}`;
+
+
+// ================= FEATURES PAGE =================
+export const FEATURES_PAGE_QUERY = `*[_type == "featuresPage"][0]{
+  title,
+  "slug": slug.current,
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  featuresSection{
+    features[]
+  },
+
+  faqSection{
+    heading,
+    subtitle,
+    faqs[]{
+      question,
+      answer
     }
   }
 }`;
 
-// Industry by Slug Query
-export const industryBySlugQuery = `*[_type == "industry" && slug.current == $slug][0]{
+
+// ================= NAVIGATION =================
+export const NAVIGATION_QUERY = `*[_type == "navigation"][0]{
   title,
-  "slug": slug.current,
-  overview,
-  "mainImage": mainImage.asset->url,
-  seo,
-  "sections": sections[] {
-    ...,
-    _type == 'ctaSection' => {
-      ...
+  items[]{
+    title,
+    columns[]{
+      title,
+      items[]{
+        title,
+        description,
+        "slug": slug.current
+      }
     }
   }
 }`;

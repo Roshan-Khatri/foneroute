@@ -1,190 +1,154 @@
-
-import { Suspense, lazy } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import PageHeader from '@/components/layout/PageHeader';
-import {
-  Phone,
-  Mail,
-  MessageSquare,
-} from 'lucide-react';
-import { useSiteSettings } from '@/context/SiteSettingsContext';
-import { motion } from 'framer-motion';
-import { SEO } from '@/components/layout/SEO';
-
-const ContactForm = lazy(() => import('@/components/ContactForm').then(module => ({ default: module.ContactForm })));
-const ContactInfo = lazy(() => import('@/components/ContactInfo').then(module => ({ default: module.ContactInfo })));
+import { useEffect, useState } from "react";
+import { getSanityClient } from "@/sanity/client";
+import { CONTACT_PAGE_QUERY } from "@/sanity/queries";
+import PageHeader from "@/components/layout/PageHeader";
+import { Button } from "@/components/ui/button";
 
 const Contact = () => {
-  const { siteSettings } = useSiteSettings();
+  const [data, setData] = useState<any>(null);
 
-  const offices = siteSettings?.officeLocations?.length
-    ? [...siteSettings.officeLocations]
-        .sort((a, b) => {
-          if (a.primary && !b.primary) return -1;
-          if (!a.primary && b.primary) return 1;
-          return 0;
-        })
-        .map((office) => ({
-          city: office.city || '',
-          address: office.address || '',
-          phone: office.phone || '',
-          hours: office.hours || '',
-        }))
-    : [
-        {
-          city: 'New York',
-          address: '123 Business Ave, Suite 100',
-          phone: '+1 (555) 123-4567',
-          hours: 'Mon-Fri: 9:00 AM - 6:00 PM EST',
-        },
-        {
-          city: 'San Francisco',
-          address: '456 Tech Street, Floor 15',
-          phone: '+1 (555) 987-6543',
-          hours: 'Mon-Fri: 9:00 AM - 6:00 PM PST',
-        },
-        {
-          city: 'London',
-          address: '789 Communication Blvd',
-          phone: '+44 20 1234 5678',
-          hours: 'Mon-Fri: 9:00 AM - 5:00 PM GMT',
-        },
-      ];
+  useEffect(() => {
+    const client = getSanityClient();
 
-  const primaryOffice = offices[0];
+    client.fetch(CONTACT_PAGE_QUERY).then((res) => {
+      console.log("CONTACT DATA 👉", res);
+      setData(res);
+    });
+  }, []);
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: 'General Inquiries',
-      details: siteSettings?.primaryEmail || 'info@foneroute.com',
-      description: 'For all general questions and information.',
-    },
-    {
-      icon: Phone,
-      title: 'Sales Inquiries',
-      details: siteSettings?.primaryPhone || primaryOffice?.phone || '+1 (555) 123-4567',
-      description: 'Speak with our sales team about our solutions.',
-    },
-    {
-      icon: MessageSquare,
-      title: 'Support',
-      details: siteSettings?.supportPhone || siteSettings?.supportEmail || '+1 (555) 123-4568',
-      description: 'Get help from our technical support team.',
-    },
-  ];
+  if (!data) return <div className="p-10 text-center">Loading...</div>;
 
   return (
-    <>
-      <SEO
-        title="Contact FoneRoute | Get in Touch with Our Experts"
-        description="Contact FoneRoute for sales, support, or general inquiries. Our team is ready to help you find the perfect communication solution for your business. Reach out today!"
-      />
+    <div className="dark:bg-black dark:text-white">
+
+      {/* ✅ HERO */}
       <PageHeader
-        title="Contact Our Team"
-        description="Ready to transform your business communications? Get in touch with our experts to discuss your needs and discover the right solution for your organization."
+        title={data.heroSection?.heading}
+        description={data.heroSection?.subtitle}
       />
 
-      {/* Contact Form Section */}
-      <section className="py-12 md:py-16 bg-background">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
-            <Suspense fallback={<div>Loading form...</div>}>
-              <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-                <ContactForm />
-              </motion.div>
-            </Suspense>
-            <Suspense fallback={<div>Loading contact info...</div>}>
-              <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-                <ContactInfo 
-                  contactInfo={contactInfo} 
+      {/* ✅ CONTACT FORM */}
+      <section className="py-16">
+        <div className="container-custom grid md:grid-cols-2 gap-10">
+
+          {/* LEFT SIDE (FORM) */}
+          <div className="border p-6 rounded-lg shadow-sm dark:bg-[#111111] dark:border-gray-800 card-hover-animation">
+
+            <h2 className="text-xl font-semibold mb-2 dark:text-white">
+              {data.contactFormSection?.heading}
+            </h2>
+
+            <p className="text-muted-foreground mb-6 text-sm">
+              {data.contactFormSection?.description}
+            </p>
+
+            <form className="space-y-4">
+
+              {/* NAME */}
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  placeholder="First Name *"
+                  className="border p-2 rounded w-full bg-white dark:bg-[#1a1a1a] dark:text-white dark:placeholder-gray-400 dark:border-gray-700"
                 />
-              </motion.div>
-            </Suspense>
-          </div>
-        </div>
-      </section>
+                <input
+                  type="text"
+                  placeholder="Last Name *"
+                  className="border p-2 rounded w-full bg-white dark:bg-[#1a1a1a] dark:text-white dark:placeholder-gray-400 dark:border-gray-700"
+                />
+              </div>
 
-      {/* Our Locations Section */}
-      <section className="py-12 md:py-16 bg-background">
-        <div className="container-custom">
-          <div className="text-center mb-10 md:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-foreground mb-4">
-              Our Locations
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-              Find our offices around the world.
-            </p>
+              {/* EMAIL + PHONE */}
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  type="email"
+                  placeholder="Email Address *"
+                  className="border p-2 rounded w-full bg-white dark:bg-[#1a1a1a] dark:text-white dark:placeholder-gray-400 dark:border-gray-700"
+                />
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  className="border p-2 rounded w-full bg-white dark:bg-[#1a1a1a] dark:text-white dark:placeholder-gray-400 dark:border-gray-700"
+                />
+              </div>
+
+              {/* COMPANY + JOB */}
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  placeholder="Company Name"
+                  className="border p-2 rounded w-full bg-white dark:bg-[#1a1a1a] dark:text-white dark:placeholder-gray-400 dark:border-gray-700"
+                />
+                <input
+                  type="text"
+                  placeholder="Job Title"
+                  className="border p-2 rounded w-full bg-white dark:bg-[#1a1a1a] dark:text-white dark:placeholder-gray-400 dark:border-gray-700"
+                />
+              </div>
+
+              {/* DROPDOWN */}
+              <select className="w-full border p-3 rounded bg-white dark:bg-[#1a1a1a] dark:text-white dark:border-gray-700">
+                <option>Select a solution</option>
+                {data.contactFormSection?.solutions?.map((item: string, i: number) => (
+                  <option key={i}>{item}</option>
+                ))}
+              </select>
+
+              {/* MESSAGE */}
+              <textarea
+                placeholder="Tell us about your needs..."
+                className="w-full border p-3 rounded h-24 bg-white dark:bg-[#1a1a1a] dark:text-white dark:placeholder-gray-400 dark:border-gray-700"
+              />
+
+              {/* BUTTON */}
+              <Button variant="outline" className="w-full">
+                {data.contactFormSection?.submitButtonText || "Send Message"}
+              </Button>
+
+            </form>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
-            {offices.map((office, index) => (
-              <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
-                <Card className="card-professional card-hover-animation h-full">
-                  <CardContent className="p-6">
-                    <h3 className="font-poppins font-semibold text-foreground mb-3 text-base md:text-lg">
-                      {office.city}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {office.address}<br />
-                      {office.phone}<br />
-                      {office.hours}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+
+          {/* RIGHT SIDE */}
+          <div>
+            <h2 className="text-xl font-semibold mb-6 dark:text-white">
+              {data.getInTouchSection?.heading}
+            </h2>
+
+            {data.getInTouchSection?.items?.map((item: any, i: number) => (
+              <div key={i} className="mb-6">
+                <h3 className="font-semibold dark:text-white">{item.title}</h3>
+                <p className="dark:text-gray-300">{item.value}</p>
+                <p className="text-sm text-muted-foreground">
+                  {item.description}
+                </p>
+              </div>
             ))}
           </div>
+
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-12 md:py-16 bg-secondary/30">
+      {/* ✅ FAQ */}
+      <section className="py-16 bg-gray-50 dark:bg-[#0d0d0d]">
         <div className="container-custom">
-          <div className="text-center mb-10 md:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-foreground mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-              Quick answers to common questions about our services and getting started
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                question: "How quickly can we get started?",
-                answer: "Most implementations can begin within 24-48 hours of contract signing, with full deployment typically completed within 1-2 weeks."
-              },
-              {
-                question: "Do you offer 24/7 support?",
-                answer: "Yes, we provide round-the-clock technical support and customer service to ensure your communications never go down."
-              },
-              {
-                question: "Can you integrate with our existing systems?",
-                answer: "Absolutely. Our solutions integrate with most CRM, helpdesk, and business applications through APIs and pre-built connectors."
-              },
-              {
-                question: "What's included in the setup?",
-                answer: "We provide complete setup, configuration, training, and ongoing support. No hidden fees or additional charges for standard implementation."
-              }
-            ].map((faq, index) => (
-              <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
-                <Card className="card-professional card-hover-animation h-full">
-                  <CardContent className="p-6">
-                    <h3 className="font-poppins font-semibold text-foreground mb-3 text-base md:text-lg">
-                      {faq.question}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+          <h2 className="text-2xl font-bold text-center mb-10 dark:text-white">
+            {data.faqSection?.heading}
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {data.faqSection?.faqs?.map((faq: any, i: number) => (
+              <div key={i} className="p-4 border rounded dark:bg-[#1a1a1a] dark:border-gray-800 card-hover-animation">
+                <h3 className="font-semibold dark:text-white">{faq.question}</h3>
+                <p className="text-muted-foreground">{faq.answer}</p>
+              </div>
             ))}
           </div>
+
         </div>
       </section>
-    </>
+
+    </div>
   );
 };
 

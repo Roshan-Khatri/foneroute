@@ -1,4 +1,3 @@
-
 import siteSettings from './siteSettings';
 import privacyPolicy from './pages/privacyPolicy';
 import terms from './pages/terms';
@@ -45,6 +44,7 @@ import faqSection from './sections/faqSection';
 import stat from './objects/stat';
 import faqItem from './objects/faqItem';
 import featureComparison from './objects/featureComparison';
+import navigation from './navigation';
 
 export const schemaTypes = [
     siteSettings,
@@ -93,4 +93,5 @@ export const schemaTypes = [
     stat,
     faqItem,
     featureComparison,
+    navigation,
 ];

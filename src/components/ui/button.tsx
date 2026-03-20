@@ -10,19 +10,21 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:shadow-lg", // Adjusted hover to use existing primary/90
+          "bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:shadow-lg dark:hover:bg-[#27272a]",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 hover:shadow-md",
+          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 hover:shadow-md dark:hover:bg-[#27272a]",
         outline:
-          "border border-input bg-background hover:bg-secondary hover:text-secondary-foreground shadow-sm hover:shadow-md",
+          "border border-input bg-background hover:bg-secondary hover:text-secondary-foreground shadow-sm hover:shadow-md dark:hover:bg-[#27272a]",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:shadow-md",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:shadow-md dark:hover:bg-[#27272a]",
+        ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-[#27272a]",
         link: "text-primary underline-offset-4 hover:underline",
         premium:
-          "bg-foreground text-background shadow-lg hover:shadow-xl",
+          "bg-foreground text-background shadow-lg hover:shadow-xl dark:hover:bg-[#27272a]",
         "outline-secondary":
-          "border border-border bg-card text-muted-foreground hover:bg-accent hover:text-accent-foreground shadow-sm hover:shadow-md", // Assuming 'surface' maps to 'card' and 'surface-hover' maps to 'accent'
+          "border border-border bg-card text-muted-foreground hover:bg-accent hover:text-accent-foreground shadow-sm hover:shadow-md dark:hover:bg-[#27272a]",
+        custom:
+          "bg-[#18181B] text-white shadow-md hover:bg-[#27272a]",
       },
       size: {
         default: "h-11 px-6",

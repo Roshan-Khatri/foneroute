@@ -15,18 +15,18 @@ const FaqSection = ({ section }) => {
   }
 
   return (
-    <section className="py-12 md:py-20">
+    <section className="py-12 md:py-20 bg-gray-50 dark:bg-[#0d0d0d]">
 
       <div className="container mx-auto px-4">
 
         {section?.heading && (
-          <h2 className="text-3xl font-bold text-center mb-4">
+          <h2 className="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">
             {sanityText(section.heading)}
           </h2>
         )}
 
         {section?.description && (
-          <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-8">
+          <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-8 text-gray-600 dark:text-gray-400">
             {sanityText(section.description)}
           </p>
         )}
@@ -42,13 +42,14 @@ const FaqSection = ({ section }) => {
             <AccordionItem
               value={`item-${index}`}
               key={faq._key || index}
+              className="dark:border-gray-800"
             >
 
-              <AccordionTrigger>
+              <AccordionTrigger className="text-gray-900 dark:text-white">
                 {sanityText(faq.question)}
               </AccordionTrigger>
 
-              <AccordionContent>
+              <AccordionContent className="text-gray-600 dark:text-gray-400">
                 {sanityText(faq.answer)}
               </AccordionContent>
 

@@ -12,11 +12,9 @@ const Home = () => {
     const fetchHomePageContent = async () => {
       try {
         const client = getSanityClient();
-
         const data = await client.fetch(HOME_PAGE_QUERY);
 
-        console.log("Sanity homepage data:", data);
-
+        // ✅ Safe handling
         if (data?.sections && Array.isArray(data.sections)) {
           setSections(data.sections);
         } else {
@@ -34,11 +32,26 @@ const Home = () => {
     fetchHomePageContent();
   }, []);
 
+  // ✅ Loading state
   if (loading) {
     return <HomeSkeleton />;
   }
 
-  return <SectionRenderer sections={sections || []} />;
+  // ✅ Empty state (important)
+  if (!sections.length) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-500">
+        No content available
+      </div>
+    );
+  }
+
+  // ✅ MAIN FIX: Force correct background
+  return (
+    <main className="bg-white dark:bg-zinc-900">
+      <SectionRenderer sections={sections} />
+    </main>
+  );
 };
 
 export default Home;

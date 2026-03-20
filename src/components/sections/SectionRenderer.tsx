@@ -15,61 +15,111 @@ import IndustrySolutionsSection from "./IndustrySolutionsSection";
 const SectionRenderer = ({ sections = [] }) => {
 
   if (!sections.length) {
-    console.log("No sections received from Sanity");
+    console.warn("No sections received from Sanity");
     return null;
   }
 
-  console.log("Sections received:", sections);
-
   return (
-    <>
+    <div className="flex flex-col">
+
       {sections.map((section, index) => {
 
         if (!section || !section._type) return null;
 
         const key = section._key || index;
 
+        // ✅ Wrapper for spacing + consistency
+        const Wrapper = ({ children }: any) => (
+          <section className="">
+            <div className="container mx-auto px-4">
+              {children}
+            </div>
+          </section>
+        );
+
         switch (section._type) {
 
           case "heroSection":
+            // ✅ Hero usually full-width (no container wrap)
             return <HeroSection key={key} section={section} />;
 
           case "featuresSection":
-            return <FeaturesSection key={key} section={section} />;
+            return (
+              <Wrapper key={key}>
+                <FeaturesSection section={section} />
+              </Wrapper>
+            );
 
           case "whyChooseUsSection":
-            return <WhyChooseUsSection key={key} section={section} />;
+            return (
+              <Wrapper key={key}>
+                <WhyChooseUsSection section={section} />
+              </Wrapper>
+            );
 
           case "provenResultsSection":
-            return <ProvenResultsSection key={key} section={section} />;
+            return (
+              <Wrapper key={key}>
+                <ProvenResultsSection section={section} />
+              </Wrapper>
+            );
 
           case "ourValuesSection":
-            return <OurValuesSection key={key} section={section} />;
+            return (
+              <Wrapper key={key}>
+                <OurValuesSection section={section} />
+              </Wrapper>
+            );
 
           case "industrySolutionsSection":
-            return <IndustrySolutionsSection key={key} section={section} />;
+            return (
+              <Wrapper key={key}>
+                <IndustrySolutionsSection section={section} />
+              </Wrapper>
+            );
 
           case "topSolutionsSection":
-            return <TopSolutionsSection key={key} section={section} />;
+            return (
+              <Wrapper key={key}>
+                <TopSolutionsSection section={section} />
+              </Wrapper>
+            );
 
           case "testimonialsSection":
-            return <TestimonialsSection key={key} section={section} />;
+            return (
+              <Wrapper key={key}>
+                <TestimonialsSection section={section} />
+              </Wrapper>
+            );
 
           case "featureComparisonSection":
-            return <FeatureComparisonSection key={key} section={section} />;
+            return (
+              <Wrapper key={key}>
+                <FeatureComparisonSection section={section} />
+              </Wrapper>
+            );
 
           case "faqSection":
-            return <FaqSection key={key} section={section} />;
+            return (
+              <Wrapper key={key}>
+                <FaqSection section={section} />
+              </Wrapper>
+            );
 
           case "ctaSection":
-            return <CtaSection key={key} section={section} />;
+            return (
+              <Wrapper key={key}>
+                <CtaSection section={section} />
+              </Wrapper>
+            );
 
           default:
             console.warn("Unknown section type:", section._type);
             return null;
         }
       })}
-    </>
+
+    </div>
   );
 };
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FeaturesSection as FeaturesSectionType } from "@/types/sanity";
@@ -31,22 +33,21 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ section }) => {
     <section className="py-12 md:py-16">
       <div className="container-custom">
 
-        {/* SECTION HEADER */}
+        {/* HEADER */}
         <div className="text-center mb-10 md:mb-12">
-
-          <h2 className="text-2xl sm:text-3xl font-poppins font-bold">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
             {sanityText(section?.title || section?.heading)}
           </h2>
 
-          <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-400 mt-2 max-w-2xl mx-auto">
             {sanityText(section?.description)}
           </p>
-
         </div>
 
-        {/* FEATURES GRID */}
+        {/* GRID */}
         {features.length > 0 && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
             {features.map((feature, index) => {
               const Icon =
                 iconMap[feature?.icon as keyof typeof iconMap] || Phone;
@@ -59,22 +60,21 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ section }) => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="bg-background shadow-lg h-full text-left card-hover-animation">
+                  <Card className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all h-full">
 
-                    <CardHeader className="flex flex-row items-center gap-4">
+                    <CardHeader className="flex flex-row items-center gap-3">
 
-                      <div className="bg-primary text-primary-foreground p-3 rounded-full">
-                        <Icon className="h-6 w-6" />
-                      </div>
+                      {/* ✅ FIXED ICON */}
+                      <Icon className="h-5 w-5 text-black dark:text-white" />
 
-                      <CardTitle className="font-poppins text-lg">
+                      <CardTitle className="text-base font-semibold text-gray-900 dark:text-white">
                         {sanityText(feature?.title)}
                       </CardTitle>
 
                     </CardHeader>
 
                     <CardContent>
-                      <p className="text-muted-foreground">
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">
                         {sanityText(feature?.description)}
                       </p>
                     </CardContent>
@@ -83,6 +83,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ section }) => {
                 </motion.div>
               );
             })}
+
           </div>
         )}
 

@@ -1,71 +1,138 @@
-@import "./light-mode.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ===============================
+   Base Theme Variables
+================================ */
+
 @layer base {
   :root {
-    --background: 250 249 246;
+    /* ✅ FIX: Pure white background */
+    --background: 255 255 255;
     --foreground: 36 36 36;
-    --header-background: 250 249 246;
-    --card: 250 249 246;
+    --header-background: 255 255 255;
+
+    --card: 255 255 255;
     --card-foreground: 36 36 36;
-    --popover: 250 249 246;
+
+    --popover: 255 255 255;
     --popover-foreground: 36 36 36;
-    --primary: 250 249 246;
-    --primary-foreground: 36 36 36;
-    --secondary: 250 249 246;
+
+    --primary: 36 36 36;
+    --primary-foreground: 255 255 255;
+
+    --secondary: 245 245 245;
     --secondary-foreground: 36 36 36;
-    --muted: 249 248 244;
+
+    --muted: 245 245 245;
     --muted-foreground: 107 107 107;
+
     --accent: 36 36 36;
     --accent-foreground: 255 255 255;
+
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
-    --border: 36 36 36;
-    --input: 218 220 224;
-    --ring: 250 249 246;
+
+    --border: 230 230 230;
+    --input: 230 230 230;
+    --ring: 36 36 36;
+
     --radius: 0.5rem;
-    --font-mono: monospace;
-    --font-sans: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --font-serif: gt-super, Georgia, Cambria, "Times New Roman", Times, serif;
   }
 
+  /* ===============================
+     Dark Mode
+  ================================ */
+
   .dark {
-    --background: 25 25 25;
+    --background: 24 24 27; /* zinc-900 */
     --foreground: 255 255 255;
-    --header-background: 25 25 25;
-    --card: 37 37 37;
+    --header-background: 24 24 27;
+
+    --card: 39 39 42; /* zinc-800 */
     --card-foreground: 255 255 255;
-    --popover: 25 25 25;
+
+    --popover: 39 39 42;
     --popover-foreground: 255 255 255;
-    --primary: 69 69 69;
-    --primary-foreground: 255 255 255;
-    --secondary: 17 17 17;
+
+    --primary: 255 255 255;
+    --primary-foreground: 24 24 27;
+
+    --secondary: 39 39 42;
     --secondary-foreground: 255 255 255;
-    --muted: 0 0 0;
-    --muted-foreground: 107 107 107;
-    --accent: 69 69 69;
+
+    --muted: 39 39 42;
+    --muted-foreground: 161 161 170;
+
+    --accent: 63 63 70;
     --accent-foreground: 255 255 255;
+
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
-    --border: 36 36 36;
-    --input: 36 36 36;
-    --ring: 69 69 69;
+
+    --border: 63 63 70;
+    --input: 63 63 70;
+    --ring: 161 161 170;
   }
 }
 
+/* ===============================
+   Base Styles
+================================ */
+
 @layer base {
+
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
 }
 
+/* ===============================
+   Reusable UI Surfaces
+================================ */
+
+@layer components {
+
+  /* ✅ Cards / Containers */
+  .surface {
+    @apply bg-white border border-gray-200
+           dark:bg-zinc-900 dark:border-zinc-800;
+  }
+
+  .surface-elevated {
+    @apply bg-white border border-gray-200 shadow-lg
+           dark:bg-zinc-900 dark:border-zinc-800;
+  }
+
+  /* ✅ Table */
+  .table-head {
+    @apply bg-gray-100 text-gray-900
+           dark:bg-zinc-800 dark:text-white;
+  }
+
+  .table-row {
+    @apply border-t border-gray-200 hover:bg-gray-50
+           dark:border-zinc-800 dark:hover:bg-zinc-800;
+  }
+
+  .ai-assistant-icon {
+    color: rgb(var(--primary-foreground));
+  }
+
+}
+
+/* ===============================
+   Utilities
+================================ */
+
 .transition-colors {
-  transition: background-color 250ms, color 250ms;
+  transition: background-color 250ms ease, color 250ms ease;
 }
 
 .section-padding {
@@ -80,6 +147,10 @@
   @apply container mx-auto px-4;
 }
 
+/* ===============================
+   Card Hover
+================================ */
+
 .card-hover-animation {
   @apply transition-all duration-300 ease-in-out;
 }
@@ -88,22 +159,36 @@
   @apply transform -translate-y-2 shadow-2xl;
 }
 
+/* ===============================
+   Accessibility
+================================ */
+
 .no-focus-ring:focus {
-    outline: none;
-    box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
+
+/* ===============================
+   Mobile Fix
+================================ */
+
 @media (max-width: 768px) {
+
   footer .text-center {
     text-align: left;
   }
+
   footer .justify-center {
     justify-content: flex-start;
   }
+
   footer .flex-col-reverse.items-center {
     align-items: flex-start;
   }
+
   footer .mx-auto {
     margin-left: 0;
     margin-right: 0;
   }
+
 }

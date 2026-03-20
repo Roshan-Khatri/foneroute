@@ -29,7 +29,7 @@ export default function FeatureComparisonSection({ section }: FeatureComparisonP
     <section className="py-16">
       <div className="container">
 
-        <h2 className="text-3xl font-bold text-center mb-3">
+        <h2 className="text-3xl font-bold text-center mb-3 text-gray-900 dark:text-white">
           {section?.title}
         </h2>
 
@@ -38,17 +38,17 @@ export default function FeatureComparisonSection({ section }: FeatureComparisonP
         </p>
 
         <div className="overflow-x-auto">
-          <table className="w-full border">
+          <table className="w-full border border-gray-200 dark:border-zinc-700">
 
             <thead>
-              <tr className="border-b bg-gray-100">
+              <tr className="border-b bg-gray-100 dark:bg-zinc-800">
 
-                <th className="text-left px-6 py-4">
+                <th className="text-left px-6 py-4 text-gray-900 dark:text-white">
                   Feature
                 </th>
 
                 {columns.map((col, i) => (
-                  <th key={i} className="text-center px-6 py-4">
+                  <th key={i} className="text-center px-6 py-4 text-gray-900 dark:text-white">
                     {col}
                   </th>
                 ))}
@@ -56,25 +56,31 @@ export default function FeatureComparisonSection({ section }: FeatureComparisonP
               </tr>
             </thead>
 
-            <tbody>
+            <tbody className="bg-white dark:bg-zinc-900">
 
               {rows.map((row, i) => (
-                <tr key={i} className="border-b">
+                <tr key={i} className="border-b border-gray-200 dark:border-zinc-700">
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-gray-900 dark:text-white">
                     {row.feature}
                   </td>
 
                   <td className="text-center px-6 py-4">
-                    {row.productA === "yes" ? <Check className="mx-auto h-5 w-5" /> : "-"}
+                    {row.productA === "yes" ? (
+                      <Check className="mx-auto h-5 w-5 text-black dark:text-white" />
+                    ) : "-"}
                   </td>
 
                   <td className="text-center px-6 py-4">
-                    {row.productB === "yes" ? <Check className="mx-auto h-5 w-5" /> : "-"}
+                    {row.productB === "yes" ? (
+                      <Check className="mx-auto h-5 w-5 text-black dark:text-white" />
+                    ) : "-"}
                   </td>
 
                   <td className="text-center px-6 py-4">
-                    {row.productC === "yes" ? <Check className="mx-auto h-5 w-5" /> : "-"}
+                    {row.productC === "yes" ? (
+                      <Check className="mx-auto h-5 w-5 text-black dark:text-white" />
+                    ) : "-"}
                   </td>
 
                 </tr>

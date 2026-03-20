@@ -1,87 +1,49 @@
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { TestimonialsSection as TestimonialsSectionType } from "@/types/sanity";
 import { Star } from "lucide-react";
-import { sanityText } from "@/lib/sanity";
 
-interface TestimonialsSectionProps {
-  section: TestimonialsSectionType;
-}
+const TestimonialsSection = ({ section }) => {
+  const { heading, description, testimonials } = section || {};
 
-const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ section }) => {
-
-  const testimonials = section?.testimonials || [];
-  console.log("Testimonials data:", testimonials);
   return (
-    <section className="py-12 md:py-16 bg-secondary">
-      <div className="container-custom">
+    <section className="py-20 bg-muted/20">
+      <div className="container mx-auto px-4">
 
-        {/* HEADER */}
-        <div className="text-center mb-10 md:mb-12">
-
-          <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">
-            {sanityText(section?.heading || section?.title || "")}
+        {/* Heading */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-3">
+            {heading}
           </h2>
-
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {sanityText(section?.description || "")}
+            {description}
           </p>
-
         </div>
 
-        {/* TESTIMONIAL CARDS */}
-        <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Testimonial Cards */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {testimonials?.map((item, index) => (
+            <div
+              key={index}
+              className="border rounded-lg p-8 shadow-sm hover:shadow-md transition"
+            >
 
-        {testimonials.map((item: any, index: number) => {
+              {/* Stars */}
+              <div className="flex mb-4">
+                {Array.from({ length: item.rating || 5 }).map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-black text-black mr-1" />
+                ))}
+              </div>
 
-console.log("Single testimonial:", item);
-const rating = Number(item?.rating ?? 5)
-const quote = item?.reviewText ?? ""
-const name = item?.name ?? ""
-const company = item?.companyName ?? ""
+              {/* Review */}
+              <p className="text-muted-foreground mb-6">
+                "{item.reviewText}"
+              </p>
 
-return (
-              <motion.div
-                key={item?._key || index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
+              {/* Company */}
+              <p className="font-semibold">
+                {item.companyName}
+              </p>
 
-                <Card className="bg-background shadow-lg h-full text-left card-hover-animation">
-
-                  <CardHeader>
-
-                    <div className="flex text-primary">
-                      {Array.from({ length: rating }).map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-current" />
-                      ))}
-                    </div>
-
-                  </CardHeader>
-                  <CardContent>
-
-          <p className="text-muted-foreground mb-4">
-                "{quote}"
-          </p>
-
-          <p className="font-semibold">
-  {name}
-</p>
-
-<p className="text-sm text-muted-foreground">
-  {company}
-</p>
-
-</CardContent>
-
-                </Card>
-
-              </motion.div>
-            );
-          })}
-
+            </div>
+          ))}
         </div>
 
       </div>

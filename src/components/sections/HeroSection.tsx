@@ -122,12 +122,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ section }) => {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link to={currentHero.ctaLink}>
-                  <Button size="lg">Request a Demo</Button>
+                  <Button size="lg" variant="custom">Request a Demo</Button>
                 </Link>
 
                 <Link to={currentHero.ctaLinkLearnMore}>
                   <Button size="lg" variant="outline">
-                    Learn More
+                    Explore Solutions
                   </Button>
                 </Link>
               </div>

@@ -1,10 +1,11 @@
-
-import {StructureBuilder} from 'sanity/desk'
+import { StructureBuilder } from 'sanity/desk'
 
 export const structure = (S: StructureBuilder) =>
   S.list()
     .title('Content')
     .items([
+
+      // Home Page (Singleton)
       S.listItem()
         .title('Home Page')
         .id('homePage')
@@ -13,6 +14,8 @@ export const structure = (S: StructureBuilder) =>
             .schemaType('homePage')
             .documentId('homePage')
         ),
+
+      // About Page (Singleton)
       S.listItem()
         .title('About Page')
         .id('aboutPage')
@@ -21,6 +24,8 @@ export const structure = (S: StructureBuilder) =>
             .schemaType('aboutPage')
             .documentId('aboutPage')
         ),
+
+      // Blog Page (Singleton)
       S.listItem()
         .title('Blog Page')
         .id('blogPage')
@@ -29,7 +34,9 @@ export const structure = (S: StructureBuilder) =>
             .schemaType('blogPage')
             .documentId('blogPage')
         ),
-        S.listItem()
+
+      // Solutions Page (Singleton)
+      S.listItem()
         .title('Solutions Page')
         .id('solutionsPage')
         .child(
@@ -37,7 +44,9 @@ export const structure = (S: StructureBuilder) =>
             .schemaType('solutionsPage')
             .documentId('solutionsPage')
         ),
-        S.listItem()
+
+      // International Numbers Section
+      S.listItem()
         .title('International Numbers')
         .child(
           S.list()
@@ -50,10 +59,17 @@ export const structure = (S: StructureBuilder) =>
                     .schemaType('internationalNumbersPage')
                     .documentId('internationalNumbersPage')
                 ),
+
               S.divider(),
-              S.documentTypeList('internationalSubPage').title('Sub Pages')
+
+              S.documentTypeList('internationalSubPage')
+                .title('Sub Pages')
             ])
         ),
+
+      S.divider(),
+
+      // Site Settings (Singleton)
       S.listItem()
         .title('Site Settings')
         .id('siteSettings')

@@ -1,116 +1,246 @@
+"use client";
 
-import { useState, useEffect } from 'react';
-import { PhoneCall, Moon, Sun, Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useTheme } from '@/components/layout/ThemeProvider';
-import { ShiftingDropDown } from "@/components/ui/animated-shifting-tab-component";
-import AnimatedSearch from '@/components/layout/AnimatedSearch';
-
-const NavLink = ({ to, children, className = '' }) => {
-  const isActive = window.location.pathname === to;
-  return (
-    <a
-      href={to}
-      className={`text-sm font-medium transition-colors hover:text-foreground ${isActive ? 'font-bold text-foreground' : 'text-muted-foreground'} ${className}`}>
-      {children}
-    </a>
-  );
-};
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { PhoneCall, Moon, Sun, Menu, X, ChevronDown } from "lucide-react";
+import AnimatedSearch from "@/components/layout/AnimatedSearch";
+import { useTheme } from "@/components/layout/ThemeProvider";
+import { useSiteSettings } from "@/context/SiteSettingsContext";
+import { getSanityClient } from "@/sanity/client";
+import { NAVIGATION_QUERY } from "@/sanity/queries";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSticky, setIsSticky] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [navigation, setNavigation] = useState<any>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openSection, setOpenSection] = useState<string | null>(null);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const menuTimeoutRef = useRef<any>(null);
+
+  const { theme, setTheme } = useTheme();
+  const { siteSettings } = useSiteSettings();
+
+  const handleEnter = (title: string) => {
+    if (menuTimeoutRef.current) clearTimeout(menuTimeoutRef.current);
+    setActiveMenu(title);
+  };
+
+  const handleLeave = () => {
+    menuTimeoutRef.current = setTimeout(() => {
+      setActiveMenu(null);
+    }, 120);
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 10);
+    const fetchNavigation = async () => {
+      const data = await getSanityClient().fetch(NAVIGATION_QUERY);
+      setNavigation(data);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    fetchNavigation();
   }, []);
 
-  const headerContainerClasses = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isSticky ? 'shadow-lg bg-background/80 backdrop-blur-lg' : 'bg-transparent'}`;
-  const mobileNavClasses = theme === 'dark' ? 'bg-header' : 'bg-background';
-
   return (
-    <header className={headerContainerClasses}>
-      <div className="text-xs text-muted-foreground">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-8">
-          <div className="flex items-center space-x-4">
-            <a href="tel:+448001234567" className="flex items-center hover:text-foreground">
-              <img src="/gb.svg" alt="UK Flag" className="h-4 w-4 mr-2" />
-              <span>+44 800 123 4567</span>
-            </a>
-            <a href="tel:+18009876543" className="flex items-center hover:text-foreground">
-              <img src="/us.svg" alt="US Flag" className="h-4 w-4 mr-2" />
-              <span>+1 800 987 6543</span>
-            </a>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800">
+
+      {/* TOP BAR */}
+      <div className="text-xs text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-zinc-800">
+        <div className="container mx-auto px-6 flex items-center h-8 gap-6">
+          <div className="flex items-center gap-2">
+            <img src="/gb.svg" className="h-4 w-4" />
+            <span>{siteSettings?.ukPhoneNumber || "+44 800 123 4567"}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <img src="/us.svg" className="h-4 w-4" />
+            <span>{siteSettings?.usPhoneNumber || "+1 800 987 6543"}</span>
           </div>
         </div>
       </div>
-      <nav className={`border-b ${isSticky ? 'border-border/80' : 'border-transparent'} transition-colors duration-300`}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <a href="/" className="flex-shrink-0 flex items-center space-x-2">
-                <PhoneCall className="h-8 w-8 text-primary" />
-                <span className="text-2xl font-bold">FoneRoute</span>
-              </a>
-              <div className="hidden lg:flex items-center space-x-4 ml-10">
-                <NavLink to="/">Home</NavLink>
-                <ShiftingDropDown />
-                <NavLink to="/support">Support</NavLink>
-                <NavLink to="/about">About</NavLink>
-              </div>
+
+      {/* NAVBAR */}
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+
+          {/* LEFT */}
+          <div className="flex items-center gap-10">
+            <Link href="/" className="flex items-center gap-2">
+              <PhoneCall className="h-6 w-6 text-gray-800 dark:text-white" />
+              <span className="text-lg font-semibold text-gray-900 dark:text-white">
+                {siteSettings?.siteName || "FoneRoute"}
+              </span>
+            </Link>
+
+            {/* DESKTOP NAV */}
+            <div className="hidden lg:flex items-center gap-8 text-sm text-gray-600 dark:text-gray-300">
+
+              <Link href="/">Home</Link>
+
+              {navigation?.items?.map((item: any) => (
+                <div
+                  key={item.title}
+                  className="relative"
+                  onMouseEnter={() => handleEnter(item.title)}
+                  onMouseLeave={handleLeave}
+                >
+                  <Link
+                    href={item.title.toLowerCase() === "features" ? "/features" : "/solutions"}
+                    className="flex items-center gap-1 hover:text-black dark:hover:text-white"
+                  >
+                    {item.title}
+                    <span className="text-xs">⌄</span>
+                  </Link>
+
+                  {activeMenu === item.title && item.columns && (
+                    <div className="absolute left-0 top-full mt-2 p-5 flex gap-6 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 shadow-xl rounded-xl min-w-[620px]">
+
+                      {item.columns.map((col: any) => (
+                        <div key={col.title} className="w-48">
+                          <h3 className="font-semibold mb-2">{col.title}</h3>
+
+                          {col.items?.map((i: any) => {
+                            const slug = i.slug?.current || i.slug;
+
+                            return (
+                              <Link
+                                key={slug}
+                                href={
+                                  item.title.toLowerCase() === "features"
+                                    ? `/features/${slug}`
+                                    : `/solutions/${slug}`
+                                }
+                                className="block text-sm py-1"
+                              >
+                                {i.title}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      ))}
+
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              <Link href="/support">Support</Link>
+              <Link href="/about">About</Link>
+
             </div>
-            <div className="flex items-center space-x-2">
-              {/* Desktop Icons */}
-              <div className="hidden lg:flex items-center space-x-2">
-                <AnimatedSearch />
-                <Button variant="ghost" size="icon" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="hover:bg-transparent">
-                  {theme === 'dark' ? <Sun className="h-6 w-6" /> : <Moon className="h-6 w-6" />}
-                </Button>
-                <Button asChild>
-                  <a href="/contact">Contact Sales</a>
-                </Button>
-              </div>
-              {/* Mobile Menu Button */}
-              <div className="lg:hidden">
-                <Button variant="ghost" size="icon" onClick={toggleMenu}>
-                  {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                </Button>
-              </div>
+          </div>
+
+          {/* RIGHT */}
+          <div className="flex items-center gap-5">
+
+            <div className="hidden lg:flex items-center gap-5">
+              <AnimatedSearch />
+
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              >
+                {theme === "dark" ? <Sun /> : <Moon />}
+              </button>
+
+              {/* ✅ FIXED DARK MODE BUTTON */}
+              <Link
+                href="/contact"
+                className="px-4 py-2 rounded-md bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-[#27272a] text-gray-800 dark:text-white text-sm font-medium"
+              >
+                Contact Sales
+              </Link>
+
             </div>
+
+            <button
+              className="lg:hidden p-2"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              {mobileOpen ? <X /> : <Menu />}
+            </button>
+
           </div>
         </div>
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className={`lg:hidden ${mobileNavClasses} border-t border-border`}>
-            <div className="px-4 pt-3 pb-4 flex flex-col space-y-2">
-              <NavLink to="/" className="block text-base py-2">Home</NavLink>
-              <ShiftingDropDown />
-              <NavLink to="/support" className="block text-base py-2">Support</NavLink>
-              <NavLink to="/about" className="block text-base py-2">About</NavLink>
+      </div>
 
-              <div className="border-t border-border flex items-center justify-center space-x-2 pt-4 mt-2">
-                  <AnimatedSearch />
-                  <Button variant="ghost" size="icon" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-                      {theme === 'dark' ? <Sun className="h-6 w-6" /> : <Moon className="h-6 w-6" />}
-                  </Button>
-              </div>
+      {/* MOBILE MENU */}
+      {mobileOpen && (
+        <div className="lg:hidden bg-white dark:bg-zinc-900 border-t border-gray-200 dark:border-zinc-800">
 
-              <div className="pt-2">
-                <Button asChild className="w-full">
-                  <a href="/contact">Contact Sales</a>
-                </Button>
+          <div className="px-6 py-4 space-y-4">
+
+            <Link href="/" className="block py-2 text-sm">Home</Link>
+
+            {navigation?.items?.map((item: any) => (
+              <div key={item.title} className="border-t pt-3">
+
+                <button
+                  onClick={() =>
+                    setOpenSection(openSection === item.title ? null : item.title)
+                  }
+                  className="flex justify-between w-full py-2 text-sm font-semibold"
+                >
+                  {item.title}
+                  <ChevronDown />
+                </button>
+
+                {openSection === item.title && (
+                  <div className="mt-2 space-y-2">
+                    {item.columns?.map((col: any) =>
+                      col.items?.map((i: any) => {
+                        const slug = i.slug?.current || i.slug;
+
+                        return (
+                          <Link
+                            key={slug}
+                            href={
+                              item.title.toLowerCase() === "features"
+                                ? `/features/${slug}`
+                                : `/solutions/${slug}`
+                            }
+                            className="block pl-3 text-sm"
+                          >
+                            {i.title}
+                          </Link>
+                        );
+                      })
+                    )}
+                  </div>
+                )}
+
               </div>
+            ))}
+
+            {/* ✅ FIXED SUPPORT & ABOUT */}
+            <div className="border-t pt-3">
+              <Link href="/support" className="block py-2 text-sm">Support</Link>
             </div>
+
+            <div className="border-t pt-3">
+              <Link href="/about" className="block py-2 text-sm">About</Link>
+            </div>
+
           </div>
-        )}
-      </nav>
+
+          {/* BOTTOM */}
+          <div className="border-t px-6 py-4 space-y-4">
+
+            <div className="flex justify-center gap-6">
+              <AnimatedSearch />
+
+              <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+                {theme === "dark" ? <Sun /> : <Moon />}
+              </button>
+            </div>
+
+            <Link
+              href="/contact"
+              className="block text-center py-2 rounded-md bg-gray-100 dark:bg-zinc-800 dark:hover:bg-[#27272a] text-sm font-medium"
+            >
+              Contact Sales
+            </Link>
+
+          </div>
+
+        </div>
+      )}
     </header>
   );
 };
