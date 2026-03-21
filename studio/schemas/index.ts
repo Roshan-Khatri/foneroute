@@ -20,6 +20,8 @@ import contactPage from './pages/contactPage';
 import solutionsPage from './pages/solutionsPage';
 import featuresPage from './pages/featuresPage';
 import blogPage from './pages/blogPage';
+import pricingPage from './pages/pricingPage'; // ✅ ADD THIS
+
 import contactCenterPage from './pages/contactCenterPage';
 import predictiveDialerPage from './pages/predictiveDialerPage';
 import cloudPbxPage from './pages/cloudPbxPage';
@@ -35,63 +37,69 @@ import smsMmsApiPage from './pages/smsMmsApiPage';
 import numberMaskingPage from './pages/numberMaskingPage';
 import tollFreePage from './pages/tollFreePage';
 import featuresMainPage from './pages/featuresMainPage';
+
 import topSolutionsSection from './sections/topSolutionsSection';
 import whyChooseUsSection from './sections/whyChooseUsSection';
 import industrySolutionsSection from './sections/industrySolutionsSection';
 import provenResultsSection from './sections/provenResultsSection';
 import featureComparisonSection from './sections/featureComparisonSection';
 import faqSection from './sections/faqSection';
+
 import stat from './objects/stat';
 import faqItem from './objects/faqItem';
 import featureComparison from './objects/featureComparison';
 import navigation from './navigation';
 
 export const schemaTypes = [
-    siteSettings,
-    privacyPolicy,
-    terms,
-    link,
-    homePage,
-    cta,
-    seo,
-    featureCard,
-    testimonialItem,
-    ctaSection,
-    supportPage,
-    aboutPage,
-    heroSection,
-    featuresSection,
-    statsSection,
-    testimonialsSection,
-    ourValuesSection,
-    valueCard,
-    contactPage,
-    solutionsPage,
-    featuresPage,
-    blogPage,
-    contactCenterPage,
-    predictiveDialerPage,
-    cloudPbxPage,
-    industryPage,
-    autoDialerPage,
-    powerDialerPage,
-    progressiveDialerPage,
-    inboundCallSolutionsPage,
-    outboundPage,
-    internationalNumbersPage,
-    clickToCallPage,
-    smsMmsApiPage,
-    numberMaskingPage,
-    tollFreePage,
-    featuresMainPage,
-    topSolutionsSection,
-    whyChooseUsSection,
-    industrySolutionsSection,
-    provenResultsSection,
-    featureComparisonSection,
-    faqSection,
-    stat,
-    faqItem,
-    featureComparison,
-    navigation,
+  siteSettings,
+  privacyPolicy,
+  terms,
+  link,
+  homePage,
+  cta,
+  seo,
+  featureCard,
+  testimonialItem,
+  ctaSection,
+  supportPage,
+  aboutPage,
+  heroSection,
+  featuresSection,
+  statsSection,
+  testimonialsSection,
+  ourValuesSection,
+  valueCard,
+  contactPage,
+  solutionsPage,
+  featuresPage,
+  blogPage,
+  pricingPage, // ✅ ADD HERE
+
+  contactCenterPage,
+  predictiveDialerPage,
+  cloudPbxPage,
+  industryPage,
+  autoDialerPage,
+  powerDialerPage,
+  progressiveDialerPage,
+  inboundCallSolutionsPage,
+  outboundPage,
+  internationalNumbersPage,
+  clickToCallPage,
+  smsMmsApiPage,
+  numberMaskingPage,
+  tollFreePage,
+  featuresMainPage,
+
+  topSolutionsSection,
+  whyChooseUsSection,
+  industrySolutionsSection,
+  provenResultsSection,
+  featureComparisonSection,
+  faqSection,
+
+  stat,
+  faqItem,
+  featureComparison,
+  navigation,
 ];

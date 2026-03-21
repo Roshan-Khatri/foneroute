@@ -15,6 +15,7 @@ import {
 import SolutionsByIndustry from "@/components/SolutionsByIndustry";
 import { getSanityClient } from "@/sanity/client";
 import { SOLUTIONS_PAGE_QUERY } from "@/sanity/queries";
+import { SolutionsSkeleton } from "@/pages/AllPagesSkeleton";
 
 const iconList = [
   Zap,
@@ -30,6 +31,7 @@ const iconList = [
 const Solutions = () => {
   const location = useLocation();
   const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (location.hash) {
@@ -45,11 +47,16 @@ const Solutions = () => {
     client.fetch(SOLUTIONS_PAGE_QUERY).then((res) => {
       console.log("SOLUTIONS DATA 👉", res);
       setData(res);
+      setLoading(false);
     });
   }, []);
 
+  if (loading) {
+    return <SolutionsSkeleton />;
+  }
+
   if (!data) {
-    return <div className="p-10 text-center">Loading...</div>;
+    return <div className="p-10 text-center">No data available.</div>;
   }
 
   return (
