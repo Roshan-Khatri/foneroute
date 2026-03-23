@@ -59,7 +59,7 @@ export default function FeatureComparisonSection({ section }: FeatureComparisonP
             <tbody className="bg-white dark:bg-zinc-900">
 
               {rows.map((row, i) => (
-                <tr key={i} className="border-b border-gray-200 dark:border-zinc-700">
+                <tr key={i} className="border-b border-gray-200 dark:border-zinc-700 transition-shadow duration-300 ease-in-out hover:shadow-lg">
 
                   <td className="px-6 py-4 text-gray-900 dark:text-white">
                     {row.feature}

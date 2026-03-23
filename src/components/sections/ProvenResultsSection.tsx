@@ -60,7 +60,7 @@ export default function ProvenResultsSection({ section }: ProvenResultsSectionPr
           <div className="grid grid-cols-3 gap-6">
 
             {stats.map((stat, i) => (
-              <div key={i} className="border p-6 text-center">
+              <div key={i} className="border p-6 text-center transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
 
                 <h3 className="text-3xl font-bold">
                   {stat.value}
