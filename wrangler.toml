@@ -1,0 +1,9 @@
+name = "my-vite-app"
+main = "src/index.ts"
+compatibility_date = "2024-07-08"
+account_id = "698bd58a6d5dfe849499d0f0d774b2d2"
+[build]
+command = "npm run build"
+
+# This is the correct way to configure static assets for a Worker
+assets = "./dist"
