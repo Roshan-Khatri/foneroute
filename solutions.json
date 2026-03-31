@@ -1,0 +1,9 @@
+{
+  "_id": "solutions",
+  "_type": "page",
+  "title": "Solutions",
+  "slug": {
+    "_type": "slug",
+    "current": "solutions"
+  }
+}

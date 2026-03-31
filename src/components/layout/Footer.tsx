@@ -1,173 +1,127 @@
+import { useSiteSettings } from '../../context/SiteSettingsContext';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Twitter, Linkedin, Facebook, Youtube, Instagram } from 'lucide-react';
-import { useSiteSettings } from '@/hooks/useSanityContent';
-import { urlFor } from '@/sanity/image';
-
-const staticSolutionsLinks = [
-  { title: 'Contact Center', href: '/solutions/contact-center' },
-  { title: 'Auto Dialer', href: '/solutions/auto-dialer' },
-  { title: 'Cloud PBX', href: '/solutions/cloud-pbx' },
-  { title: 'Unified Communications', href: '/solutions/unified-communications' },
-];
-const staticFeaturesLinks = [
-  { title: 'Call Management', href: '/features/call-management' },
-  { title: 'Call Reporting', href: '/features/call-reporting' },
-  { title: 'Call Tracking', href: '/features/call-tracking' },
-  { title: 'International Numbers', href: '/features/international-numbers' },
-];
-const staticCompanyLinks = [
-  { title: 'About Us', href: '/about' },
-  { title: 'Contact', href: '/solutions/contact-center' },
-  { title: 'Blog', href: '/blog' },
-  { title: 'Support', href: '/support' },
-];
-const staticLegalLinks = [
-  { title: 'Privacy Policy', href: '/privacy' },
-  { title: 'Terms of Service', href: '/terms' },
-];
+import { PhoneCall, Mail } from 'lucide-react';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  const { data: siteSettings } = useSiteSettings();
+  const { siteSettings, isLoading } = useSiteSettings();
 
-  const solutionsLinks = siteSettings?.footerSolutionsLinks || staticSolutionsLinks;
-  const featuresLinks = siteSettings?.footerFeaturesLinks || staticFeaturesLinks;
-  const companyLinks = siteSettings?.footerCompanyLinks || staticCompanyLinks;
-  const legalLinks = siteSettings?.footerLegalLinks || staticLegalLinks;
+  if (isLoading) {
+    return null;
+  }
 
-  const siteName = siteSettings?.siteName || 'FoneRoute';
-  const logoImg = siteSettings?.logoImage ? urlFor(siteSettings.logoImage).url() : null;
-  const description = siteSettings?.footerDescription || 'Empowering businesses with cutting-edge telecommunications solutions. From contact centers to unified communications, we deliver reliable, scalable technology that drives success.';
-  const tagline = siteSettings?.companyTagline;
-  const primaryOffice = siteSettings?.officeLocations?.find(o => o.primary) || siteSettings?.officeLocations?.[0];
-  const phone = siteSettings?.primaryPhone || primaryOffice?.phone || '+1 (555) 123-4567';
-  const email = siteSettings?.primaryEmail || 'info@foneroute.com';
-  const address = primaryOffice?.address || '123 Business Ave, Tech City, TC 12345';
-  const social = siteSettings?.socialLinks || {};
-  const copyrightText = siteSettings?.copyrightText || `© ${currentYear} ${siteName}. All rights reserved.`;
+  const {
+    siteName,
+    footerDescription,
+    copyrightText,
+    footerSolutionsLinks = [],
+    footerFeaturesLinks = [],
+    footerCompanyLinks = [],
+    legalLinks,
+    footer
+  } = siteSettings || {};
 
   return (
-    <footer className="bg-surface border-t border-border">
-      <div className="container-custom">
-        <div className="py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-            {/* Company Info */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                {logoImg ? (
-                  <img src={logoImg} alt={siteName} className="h-8 w-8 object-contain" />
-                ) : (
-                  <Phone className="h-8 w-8 text-primary" />
-                )}
-                <span className="font-poppins font-bold text-xl text-foreground">
-                  {siteName}
+    <footer className="bg-gray-50 dark:bg-zinc-950 w-full">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="border-t border-gray-200 dark:border-zinc-800">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 py-16">
+
+            <div className="md:col-span-12 lg:col-span-5">
+              <div className="flex items-center space-x-2">
+                <PhoneCall className="h-6 w-6 text-gray-800 dark:text-white" />
+                <span className="text-xl font-bold text-gray-800 dark:text-white">
+                  {siteName || 'FoneRoute'}
                 </span>
               </div>
-              <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
-                {description}
-                {tagline && <span className="block mt-2 font-semibold text-primary">{tagline}</span>}
+
+              <p className="mt-4 text-base text-gray-500 dark:text-gray-400 lg:pr-8">
+                {footerDescription}
               </p>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3 text-muted-foreground">
-                  <Phone size={16} />
-                  <span>{phone}</span>
+
+              <div className="mt-4 space-y-2">
+
+                <div className="flex items-center space-x-2">
+                  <PhoneCall className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                  <a
+                    href={`tel:${footer?.phoneNumber}`}
+                    className="text-base text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    {footer?.phoneNumber}
+                  </a>
                 </div>
-                <div className="flex items-center space-x-3 text-muted-foreground">
-                  <Mail size={16} />
-                  <span>{email}</span>
+
+                <div className="flex items-center space-x-2">
+                  <Mail className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                  <a
+                    href={`mailto:${footer?.email}`}
+                    className="text-base text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    {footer?.email}
+                  </a>
                 </div>
-                <div className="flex items-center space-x-3 text-muted-foreground">
-                  <MapPin size={16} />
-                  <span>{address}</span>
-                </div>
+
               </div>
-              {/* Social Links */}
-              <div className="flex space-x-3 mt-4">
-                {social.twitter && <a href={social.twitter} target="_blank" rel="noopener noreferrer"><Twitter size={20} className="text-muted-foreground hover:text-primary" /></a>}
-                {social.linkedin && <a href={social.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={20} className="text-muted-foreground hover:text-primary" /></a>}
-                {social.facebook && <a href={social.facebook} target="_blank" rel="noopener noreferrer"><Facebook size={20} className="text-muted-foreground hover:text-primary" /></a>}
-                {social.youtube && <a href={social.youtube} target="_blank" rel="noopener noreferrer"><Youtube size={20} className="text-muted-foreground hover:text-primary" /></a>}
-                {social.instagram && <a href={social.instagram} target="_blank" rel="noopener noreferrer"><Instagram size={20} className="text-muted-foreground hover:text-primary" /></a>}
-              </div>
             </div>
 
-            {/* Solutions */}
-            <div>
-              <h3 className="font-poppins font-semibold text-foreground mb-4">
-                Solutions
-              </h3>
-              <ul className="space-y-3">
-                {solutionsLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      to={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {link.title}
+            <div className="hidden lg:block lg:col-span-1"></div>
+
+            <div className="md:col-span-4 lg:col-span-2">
+              <h4 className="font-bold text-gray-900 dark:text-white">Solutions</h4>
+              <ul className="mt-4 space-y-4">
+                {footerSolutionsLinks.map((item, index) => (
+                  <li key={index}>
+                    <Link to={item.link} className="text-base text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                      {item.label}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Features */}
-            <div>
-              <h3 className="font-poppins font-semibold text-foreground mb-4">
-                Features
-              </h3>
-              <ul className="space-y-3">
-                {featuresLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      to={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {link.title}
+            <div className="md:col-span-4 lg:col-span-2">
+              <h4 className="font-bold text-gray-900 dark:text-white">Features</h4>
+              <ul className="mt-4 space-y-4">
+                {footerFeaturesLinks.map((item, index) => (
+                  <li key={index}>
+                    <Link to={item.link} className="text-base text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                      {item.label}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Company */}
-            <div>
-              <h3 className="font-poppins font-semibold text-foreground mb-4">
-                Company
-              </h3>
-              <ul className="space-y-3">
-                {companyLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      to={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {link.title}
+            <div className="md:col-span-4 lg:col-span-2">
+              <h4 className="font-bold text-gray-900 dark:text-white">Company</h4>
+              <ul className="mt-4 space-y-4">
+                {footerCompanyLinks.map((item, index) => (
+                  <li key={index}>
+                    <Link to={item.link} className="text-base text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                      {item.label}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
+
           </div>
-        </div>
 
-        {/* Bottom Bar */}
-        <div className="py-6 border-t border-border">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-muted-foreground text-sm">
+          <div className="border-t border-gray-200 dark:border-zinc-800 py-6 flex flex-col sm:flex-row justify-between items-center">
+            <p className="text-sm text-gray-500 dark:text-gray-500">
               {copyrightText}
-            </div>
+            </p>
+
             <div className="flex space-x-6 text-sm">
-              {legalLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {link.title}
-                </Link>
-              ))}
+              <Link to={legalLinks?.privacyPolicy || "/privacy"} className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                Privacy Policy
+              </Link>
+
+              <Link to={legalLinks?.termsOfService || "/terms"} className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                Terms of Service
+              </Link>
             </div>
           </div>
+
         </div>
       </div>
     </footer>

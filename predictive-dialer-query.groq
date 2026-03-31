@@ -1,0 +1,10 @@
+*[_type == "predictiveDialerPage"][0] {{
+  "metaTitle": seo.metaTitle,
+  "metaDescription": seo.metaDescription,
+  "keywords": seo.keywords,
+  heroSection,
+  introSection,
+  benefitsSection,
+  "featuresSection": keyFeaturesSection,
+  ctaSection
+}}

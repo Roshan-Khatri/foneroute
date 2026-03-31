@@ -1,0 +1,34 @@
+import {defineField, defineType} from 'sanity'
+
+export default defineType({
+  name: 'seo',
+  title: 'SEO',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+    }),
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+    }),
+    defineField({
+      name: 'keywords',
+      title: 'Keywords',
+      type: 'string',
+    }),
+    defineField({
+      name: 'synonyms',
+      title: 'Synonyms',
+      type: 'string',
+    }),
+  ],
+})

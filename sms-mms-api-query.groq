@@ -1,0 +1,10 @@
+*[_type == "smsMmsApiPage"][0] {
+  "metaTitle": seo.metaTitle,
+  "metaDescription": seo.metaDescription,
+  "keywords": seo.keywords,
+  heroSection,
+  whyChooseSection,
+  useCaseSection,
+  stepsSection,
+  ctaSection,
+}

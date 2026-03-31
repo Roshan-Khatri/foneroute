@@ -1,164 +1,34 @@
 
-import PageHeader from '@/components/layout/PageHeader';
-import { Card, CardContent } from '@/components/ui/card';
-import { useFeatureBySlug } from '@/hooks/useSanityContent';
-import PortableText from '@/components/PortableText';
-import type { Feature } from '@/sanity/types';
+import FeaturePage from './FeaturePage';
 
-const CallReportingFeature = () => {
-	const { data: feature } = useFeatureBySlug('call-reporting');
-
-	const fallback: Partial<Feature> = {
-		title: 'Call Reporting Features',
-		description: 'Comprehensive analytics and insights for every call.',
-		longDescription: [
-			{ _type: 'block', children: [{ _type: 'span', text: 'Gain actionable insights with real-time dashboards, custom analytics, and performance metrics for all your communications.' }] }
-		],
-		benefits: [
-			'Real-time Dashboards',
-			'Custom Analytics',
-			'Performance Metrics',
-			'Compliance Reporting',
-			'Historical Data',
-			'Exportable Reports',
-		],
-		useCases: [
-			'Business Intelligence',
-			'Performance Optimization',
-			'Compliance Reporting',
-			'Trend Analysis',
-			'Team Monitoring',
-			'Customer Insights',
-		],
-		technicalSpecs: [
-			{ _type: 'block', children: [{ _type: 'span', text: 'Customizable dashboards, export formats (CSV, PDF), secure data storage, API access.' }] }
-		],
-		howItWorks: [
-			{ _type: 'block', children: [{ _type: 'span', text: 'System collects call data, processes analytics, and displays insights in real time.' }] }
-		],
-		setupGuide: [
-			{ _type: 'block', children: [{ _type: 'span', text: 'Connect data sources, configure dashboards, set up reporting schedules.' }] }
-		],
-		relatedFeatures: [
-			{ title: 'Contact Center', slug: { current: 'contact-center' } },
-			{ title: 'Call Management', slug: { current: 'call-management' } },
-		],
-		relatedSolutions: [
-			{ title: 'Contact Center', slug: { current: 'contact-center' } },
-			{ title: 'Unified Communications', slug: { current: 'unified-communications' } },
-		],
-	} as any;
-
-	const f = feature ?? (fallback as Feature);
-
-	return (
-		<div>
-			<PageHeader title={f.title} subtitle={f.description} />
-
-			{/* Hero / Overview */}
-			<section className="section-padding bg-background">
-				<div className="container-custom max-w-4xl">
-					<PortableText value={f.longDescription ?? fallback.longDescription} className="prose prose-lg mb-8" />
-				</div>
-			</section>
-
-			{/* Features Grid */}
-			<section className="section-padding bg-surface">
-				<div className="container-custom grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					{(f.useCases ?? fallback.useCases!).map((uc, i) => (
-						<Card key={i} className="card-professional card-hover">
-							<CardContent className="p-6 font-semibold text-foreground">{uc}</CardContent>
-						</Card>
-					))}
-				</div>
-			</section>
-
-			{/* Benefits Section */}
-			<section className="section-padding bg-background">
-				<div className="container-custom max-w-3xl">
-					<h2 className="text-2xl font-bold mb-4">Business Benefits</h2>
-					<ul className="list-disc pl-6 text-lg">
-						{(f.benefits ?? fallback.benefits!).map((b, i) => (
-							<li key={i}>{b}</li>
-						))}
-					</ul>
-				</div>
-			</section>
-
-			{/* Technical Specs Section */}
-			<section className="section-padding bg-surface">
-				<div className="container-custom max-w-3xl">
-					<h2 className="text-2xl font-bold mb-4">Technical Specifications</h2>
-					<PortableText value={f.technicalSpecs ?? fallback.technicalSpecs} className="prose" />
-				</div>
-			</section>
-
-			{/* How It Works Section */}
-			{f.howItWorks && f.howItWorks.length > 0 && (
-				<section className="section-padding bg-background">
-					<div className="container-custom max-w-3xl">
-						<h2 className="text-2xl font-bold mb-4">How It Works</h2>
-						<PortableText value={f.howItWorks} className="prose" />
-					</div>
-				</section>
-			)}
-
-			{/* Setup Guide Section */}
-			{f.setupGuide && f.setupGuide.length > 0 && (
-				<section className="section-padding bg-surface">
-					<div className="container-custom max-w-3xl">
-						<h2 className="text-2xl font-bold mb-4">Setup Guide</h2>
-						<PortableText value={f.setupGuide} className="prose" />
-					</div>
-				</section>
-			)}
-
-			{/* Related Features Section */}
-			{f.relatedFeatures && f.relatedFeatures.length > 0 && (
-				<section className="section-padding bg-background">
-					<div className="container-custom">
-						<h2 className="text-2xl font-bold mb-4">Related Features</h2>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-							{f.relatedFeatures.map((rel, i) => (
-								<a key={i} href={rel.slug?.current ? `/features/${rel.slug.current}` : '#'} className="block">
-									<Card className="card-professional card-hover">
-										<CardContent className="p-4 font-semibold text-primary">{rel.title}</CardContent>
-									</Card>
-								</a>
-							))}
-						</div>
-					</div>
-				</section>
-			)}
-
-			{/* Related Solutions Section */}
-			{f.relatedSolutions && f.relatedSolutions.length > 0 && (
-				<section className="section-padding bg-surface">
-					<div className="container-custom">
-						<h2 className="text-2xl font-bold mb-4">Related Solutions</h2>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-							{f.relatedSolutions.map((rel, i) => (
-								<a key={i} href={rel.slug?.current ? `/solutions/${rel.slug.current}` : '#'} className="block">
-									<Card className="card-professional card-hover">
-										<CardContent className="p-4 font-semibold text-primary">{rel.title}</CardContent>
-									</Card>
-								</a>
-							))}
-						</div>
-					</div>
-				</section>
-			)}
-
-			{/* CTA Section */}
-			<section className="section-padding bg-gradient-primary">
-				<div className="container-custom text-center">
-					<h2 className="text-2xl md:text-3xl font-bold text-white mb-6">Ready to unlock call insights?</h2>
-					<a href="/contact">
-						<button className="btn-hero bg-white text-primary font-semibold px-8 py-4 rounded-lg shadow">Request a Demo</button>
-					</a>
-				</div>
-			</section>
-		</div>
-	);
+const callReportingData = {
+  title: "Call Reporting & Analytics",
+  subtitle: "Gain valuable insights into your call performance with comprehensive reporting and analytics.",
+  overview: "FoneRoute's Call Reporting and Analytics tools provide deep insights into your call center's performance, customer interactions, and operational efficiency. With customizable dashboards and detailed reports, you can track key metrics, identify trends, and make data-driven decisions to optimize your communication strategy. Turn raw call data into actionable intelligence to improve agent productivity and enhance the customer experience.",
+  capabilities: [
+    "Real-Time Dashboards: Monitor live call activity, agent status, and service levels with customizable, real-time dashboards.",
+    "Historical Reporting: Generate detailed historical reports on call volume, agent performance, queue times, and more.",
+    "Call Detail Records (CDRs): Access comprehensive logs of every call, including timestamps, duration, caller ID, and call disposition.",
+    "Performance Analytics: Analyze key performance indicators (KPIs) such as average handle time, first-call resolution, and agent utilization.",
+    "Scheduled Reports: Automatically receive reports via email on a daily, weekly, or monthly basis to stay informed.",
+    "Data Export: Export report data in various formats (e.g., CSV, PDF) for further analysis or integration with other business systems."
+  ],
+  benefits: [
+    "Data-Driven Decision-Making: Make informed decisions based on accurate and timely data to improve your operations.",
+    "Improved Agent Performance: Identify top-performing agents and areas for improvement with detailed performance metrics.",
+    "Enhanced Customer Satisfaction: Reduce wait times and improve service levels by analyzing call patterns and queue performance.",
+    "Optimized Resource Allocation: Use historical data to forecast call volume and schedule agents more effectively.",
+    "Increased Accountability: Track individual and team performance to foster a culture of accountability and continuous improvement."
+  ],
+  useCases: [
+    "Call Center Managers: Use real-time dashboards to monitor service levels and make immediate adjustments to agent assignments as call volumes fluctuate.",
+    "Business Analysts: Analyze historical call data to identify peak hours, common customer issues, and trends in call volume to inform business strategy.",
+    "Team Leaders: Generate weekly performance reports to review with their teams, celebrate successes, and identify coaching opportunities."
+  ],
 };
-export default CallReportingFeature;
+
+const CallReportingPage = () => {
+  return <FeaturePage feature={callReportingData} />;
+};
+
+export default CallReportingPage;

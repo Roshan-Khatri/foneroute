@@ -1,0 +1,9 @@
+.light .btn-custom {
+  background-color: white;
+  color: #18181B;
+  border: 1px solid #e5e7eb;
+}
+
+.light .btn-custom:hover {
+  background-color: #f3f4f6;
+}

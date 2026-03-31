@@ -1,20 +1,31 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { Send } from 'lucide-react';
 
 interface ContactFormProps {
-  solution?: string;
+  data: {
+    heading?: string;
+    description?: string;
+    solutions?: string[];
+    submitButtonText?: string;
+  };
 }
 
-export const ContactForm = ({ solution }: ContactFormProps) => {
+export const ContactForm = ({ data }: ContactFormProps) => {
   const { toast } = useToast();
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -22,7 +33,7 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
     phone: '',
     company: '',
     jobTitle: '',
-    solution: solution || '',
+    solution: '',
     message: ''
   });
 
@@ -32,13 +43,16 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission logic would go here
+
+    // 🔥 Future: API call here
+    console.log("FORM DATA 👉", formData);
+
     toast({
       title: "Message Sent!",
-      description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+      description: "We'll get back to you within 24 hours.",
     });
-    
-    // Reset form
+
+    // Reset
     setFormData({
       firstName: '',
       lastName: '',
@@ -46,133 +60,129 @@ export const ContactForm = ({ solution }: ContactFormProps) => {
       phone: '',
       company: '',
       jobTitle: '',
-      solution: solution || '',
+      solution: '',
       message: ''
     });
   };
 
   return (
     <Card className="card-professional">
+
+      {/* HEADER */}
       <CardHeader>
         <CardTitle className="text-2xl font-poppins font-bold text-foreground">
-          Get Started Today
+          {data?.heading || "Get Started Today"}
         </CardTitle>
+
         <p className="text-muted-foreground">
-          Fill out the form below and our team will contact you within 24 hours to discuss your needs.
+          {data?.description || "Fill out the form and we’ll contact you."}
         </p>
       </CardHeader>
+
+      {/* FORM */}
       <CardContent className="space-y-6">
-        <form id="contact-form" onSubmit={handleSubmit} className="space-y-6">
-          {/* Name Fields */}
+        <form onSubmit={handleSubmit} className="space-y-6">
+
+          {/* NAME */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="firstName">First Name *</Label>
+              <Label>First Name *</Label>
               <Input
-                id="firstName"
-                type="text"
                 value={formData.firstName}
                 onChange={(e) => handleInputChange('firstName', e.target.value)}
                 required
-                className="bg-surface border-input-border"
               />
             </div>
+
             <div className="space-y-2">
-              <Label htmlFor="lastName">Last Name *</Label>
+              <Label>Last Name *</Label>
               <Input
-                id="lastName"
-                type="text"
                 value={formData.lastName}
                 onChange={(e) => handleInputChange('lastName', e.target.value)}
                 required
-                className="bg-surface border-input-border"
               />
             </div>
           </div>
 
-          {/* Contact Info */}
+          {/* EMAIL + PHONE */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email Address *</Label>
+              <Label>Email Address *</Label>
               <Input
-                id="email"
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 required
-                className="bg-surface border-input-border"
               />
             </div>
+
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number</Label>
+              <Label>Phone Number</Label>
               <Input
-                id="phone"
-                type="tel"
                 value={formData.phone}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
-                className="bg-surface border-input-border"
               />
             </div>
           </div>
 
-          {/* Company Info */}
+          {/* COMPANY */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="company">Company Name</Label>
+              <Label>Company Name</Label>
               <Input
-                id="company"
-                type="text"
                 value={formData.company}
                 onChange={(e) => handleInputChange('company', e.target.value)}
-                className="bg-surface border-input-border"
               />
             </div>
+
             <div className="space-y-2">
-              <Label htmlFor="jobTitle">Job Title</Label>
+              <Label>Job Title</Label>
               <Input
-                id="jobTitle"
-                type="text"
                 value={formData.jobTitle}
                 onChange={(e) => handleInputChange('jobTitle', e.target.value)}
-                className="bg-surface border-input-border"
               />
             </div>
           </div>
 
-          {/* Solution Interest */}
+          {/* DROPDOWN (🔥 SANITY DATA) */}
           <div className="space-y-2">
-            <Label htmlFor="solution">Solution of Interest</Label>
-            <Select value={formData.solution} onValueChange={(value) => handleInputChange('solution', value)}>
-              <SelectTrigger className="bg-surface border-input-border">
+            <Label>Solution of Interest</Label>
+
+            <Select
+              value={formData.solution}
+              onValueChange={(value) => handleInputChange('solution', value)}
+            >
+              <SelectTrigger>
                 <SelectValue placeholder="Select a solution" />
               </SelectTrigger>
+
               <SelectContent>
-                <SelectItem value="contact-center">Contact Center Solution</SelectItem>
-                <SelectItem value="auto-dialer">Auto Dialer</SelectItem>
-                <SelectItem value="cloud-pbx">Cloud PBX</SelectItem>
-                <SelectItem value="unified-communications">Unified Communications</SelectItem>
-                <SelectItem value="multiple">Multiple Solutions</SelectItem>
-                <SelectItem value="not-sure">Not Sure / Need Consultation</SelectItem>
+                {data?.solutions?.map((item: string, i: number) => (
+                  <SelectItem key={i} value={item}>
+                    {item}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
 
-          {/* Message */}
+          {/* MESSAGE */}
           <div className="space-y-2">
-            <Label htmlFor="message">Message</Label>
+            <Label>Message</Label>
             <Textarea
-              id="message"
               rows={4}
               value={formData.message}
               onChange={(e) => handleInputChange('message', e.target.value)}
-              placeholder="Tell us about your business needs and requirements..."
-              className="bg-surface border-input-border resize-none"
+              placeholder="Tell us about your requirements..."
             />
           </div>
 
+          {/* BUTTON */}
           <Button type="submit" size="lg" className="w-full btn-hero">
-            Send Message
+            {data?.submitButtonText || "Send Message"}
             <Send className="ml-2 h-4 w-4" />
           </Button>
+
         </form>
       </CardContent>
     </Card>

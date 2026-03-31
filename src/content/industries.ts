@@ -1,78 +1,204 @@
-// Industry content types and constants
-export type Industry = {
-  name: string;
-  icon: any;
-  description: string;
-  solutions: string[];
-  metrics: string;
-};
+import { Heart, Scale, BookOpen, Code, ShoppingCart, Truck, Hotel, Home, Briefcase } from 'lucide-react';
 
-export const industries: Industry[] = [
+export const industries = [
   {
-    name: 'Healthcare',
-    icon: undefined, // Set icon in page
-    description: 'Secure, compliant communications for hospitals, clinics, and providers.',
-    solutions: ['Contact Center', 'Unified Communications', 'Compliance Tools'],
-    metrics: 'HIPAA Compliant, 99.99% uptime',
+    slug: 'healthcare',
+    title: 'Healthcare',
+    icon: Heart,
+    hero: {
+      title: 'Transform Patient Communication in Healthcare',
+      subtitle: 'Secure, compliant, and integrated solutions for modern healthcare providers.',
+    },
+    overview: 'In the healthcare sector, timely and secure communication is not just a matter of convenience—it can be a matter of life and death...',
+    keyProblems: [
+      'High no-show rates for appointments',
+      'Insecure communication channels',
+      'Fragmented communication between departments',
+      'Lack of scalable telehealth solutions',
+      'Difficulty in managing patient feedback'
+    ],
+    ourSolutions: [
+      {
+        title: 'Automated Appointment Reminders',
+        description: 'Reduce no-shows with automated reminders.',
+        icon: 'Calendar'
+      }
+    ],
+    useCases: [
+      {
+        title: 'Appointment Management',
+        description: 'Reduce no-shows by 30%.'
+      }
+    ],
+    benefits: [
+      'Improved patient outcomes',
+      'Enhanced efficiency'
+    ],
   },
-  {
-    name: 'Finance',
-    icon: undefined,
-    description: 'Reliable, secure telecom for banks, fintech, and insurance.',
-    solutions: ['Call Recording', 'Fraud Prevention', 'Analytics'],
-    metrics: 'PCI DSS Ready, Real-time monitoring',
-  },
-  {
-    name: 'Education',
-    icon: undefined,
-    description: 'Flexible solutions for schools, universities, and e-learning.',
-    solutions: ['Virtual Classrooms', 'Parent Notification', 'Cloud PBX'],
-    metrics: 'FERPA Compliant, Scalable',
-  },
-  {
-    name: 'Technology',
-    icon: undefined,
-    description: 'Agile communications for tech companies and startups.',
-    solutions: ['API Integrations', 'Global Numbers', 'Auto Dialer'],
-    metrics: 'Developer Friendly, Global Reach',
-  },
-  {
-    name: 'Retail',
-    icon: undefined,
-    description: 'Omnichannel solutions for stores and e-commerce.',
-    solutions: ['Contact Center', 'SMS Marketing', 'Analytics'],
-    metrics: 'Omnichannel, Scalable',
-  },
-  {
-    name: 'Manufacturing',
-    icon: undefined,
-    description: 'Robust telecom for logistics, supply chain, and production.',
-    solutions: ['Unified Communications', 'IoT Integration', 'Reporting'],
-    metrics: 'Reliable, Secure',
-  },
-];
 
-export const challenges: string[] = [
-  'Data security & compliance',
-  'Scalability for growth',
-  'Omnichannel customer engagement',
-  'Integration with business systems',
-  'Real-time analytics & reporting',
-  'Cost control & efficiency',
-];
+  {
+    slug: 'finance',
+    title: 'Finance',
+    icon: Scale,
+    hero: {
+      title: 'Secure Communication for Finance',
+      subtitle: 'Build trust and compliance.',
+    },
+    overview: 'Financial services require secure and reliable communication...',
+    keyProblems: ['Compliance risks', 'High operational cost'],
+    ourSolutions: [
+      {
+        title: 'Call Recording',
+        description: 'Secure call recording.',
+        icon: 'Mic'
+      }
+    ],
+    useCases: [],
+    benefits: ['Compliance', 'Security'],
+  },
 
-export type SuccessStory = { industry: string; story: string };
-export const successStories: SuccessStory[] = [
   {
-    industry: 'Healthcare',
-    story: 'A hospital reduced missed appointments by 30% using automated reminders.',
+    slug: 'education',
+    title: 'Education',
+    icon: BookOpen,
+    hero: {
+      title: 'Connecting Education',
+      subtitle: 'Better communication for institutions.',
+    },
+    overview: 'Educational institutions need seamless communication...',
+    keyProblems: ['Delayed communication'],
+    ourSolutions: [],
+    useCases: [],
+    benefits: [],
   },
+
   {
-    industry: 'Retail',
-    story: 'An e-commerce brand increased customer satisfaction by 25% with omnichannel support.',
+    slug: 'technology',
+    title: 'Technology',
+    icon: Code,
+    hero: {
+      title: 'Build & Scale',
+      subtitle: 'Communication APIs for developers.',
+    },
+    overview: 'Tech companies need scalable infra...',
+    keyProblems: [],
+    ourSolutions: [],
+    useCases: [],
+    benefits: [],
   },
+
   {
-    industry: 'Finance',
-    story: 'A bank improved fraud detection with real-time call analytics.',
+    slug: 'retail',
+    title: 'Retail',
+    icon: ShoppingCart,
+    hero: {
+      title: 'Enhance Retail Experience',
+      subtitle: 'Drive engagement and sales.',
+    },
+    overview: 'Retail depends on customer experience...',
+    keyProblems: [],
+    ourSolutions: [],
+    useCases: [],
+    benefits: [],
+  },
+
+  {
+    slug: 'manufacturing',
+    title: 'Manufacturing',
+    icon: Truck,
+    hero: {
+      title: 'Streamline Manufacturing',
+      subtitle: 'Improve operations.',
+    },
+    overview: 'Manufacturing needs real-time coordination...',
+    keyProblems: [],
+    ourSolutions: [],
+    useCases: [],
+    benefits: [],
+  },
+
+  {
+    slug: 'hospitality',
+    title: 'Hospitality',
+    icon: Hotel,
+    hero: {
+      title: 'Guest Experience',
+      subtitle: 'Deliver better service.',
+    },
+    overview: 'Hospitality thrives on experience...',
+    keyProblems: [],
+    ourSolutions: [],
+    useCases: [],
+    benefits: [],
+  },
+
+  {
+    slug: 'real-estate',
+    title: 'Real Estate',
+    icon: Home,
+    hero: {
+      title: 'Close Deals Faster',
+      subtitle: 'Stay connected.',
+    },
+    overview: 'Real estate depends on timing...',
+    keyProblems: [],
+    ourSolutions: [],
+    useCases: [],
+    benefits: [],
+  },
+
+  {
+    slug: 'legal',
+    title: 'Legal',
+    icon: Briefcase,
+    hero: {
+      title: 'Secure Legal Communication',
+      subtitle: 'Confidential & compliant.',
+    },
+    overview: 'Legal sector needs security...',
+    keyProblems: [],
+    ourSolutions: [],
+    useCases: [],
+    benefits: [],
+  },
+
+  // ✅ ONLY NEW ADDITION
+  {
+    slug: 'power-dialer',
+    title: 'Power Dialer',
+    icon: Briefcase,
+    hero: {
+      title: 'Intelligent Power Dialer',
+      subtitle: 'Boost your outbound sales with smart auto-dialing.',
+    },
+    overview: 'Power dialer helps agents connect faster by auto dialing leads.',
+    keyProblems: [
+      'Manual dialing wastes time',
+      'Low productivity',
+      'High idle time',
+    ],
+    ourSolutions: [
+      {
+        title: 'Auto Dialing',
+        description: 'Automatically dial numbers.',
+        icon: 'Phone',
+      },
+      {
+        title: 'Lead Management',
+        description: 'Manage leads efficiently.',
+        icon: 'Users',
+      },
+    ],
+    useCases: [
+      {
+        title: 'Sales Teams',
+        description: 'Increase outbound efficiency.',
+      },
+    ],
+    benefits: [
+      'Higher productivity',
+      'Better conversion',
+      'Reduced idle time',
+    ],
   },
 ];

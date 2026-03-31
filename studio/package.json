@@ -4,11 +4,13 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "sanity dev",
+    "dev": "sanity dev --port 9999",
     "build": "sanity build",
-    "deploy": "sanity deploy"
+    "deploy": "sanity deploy",
+    "seed": "sanity dataset import studio/data/seed.ndjson production --replace"
   },
   "dependencies": {
+    "@sanity/table": "^2.0.1",
     "@sanity/vision": "^3.40.0",
     "sanity": "^3.40.0",
     "styled-components": "^6.1.19"

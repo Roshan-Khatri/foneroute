@@ -1,0 +1,10 @@
+*[_type == "clickToCallPage"][0] {
+  "metaTitle": seo.metaTitle,
+  "metaDescription": seo.metaDescription,
+  "keywords": seo.keywords,
+  heroSection,
+  whySection,
+  howItWorksSection,
+  keyFeaturesSection,
+  ctaSection,
+}

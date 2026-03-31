@@ -1,0 +1,10 @@
+name = "vite-react-spa-on-workers"
+main = "worker.js"
+compatibility_date = "2024-07-15"
+account_id = "698bd58a6d5dfe849499d0f0d774b2d2"
+
+[assets]
+directory = "./dist"
+
+[build]
+command = "npm run build"

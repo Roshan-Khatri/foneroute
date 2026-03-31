@@ -1,479 +1,138 @@
-import { useState } from 'react';
+
+import React from 'react';
+import { SEO } from '@/components/layout/SEO';
 import PageHeader from '@/components/layout/PageHeader';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import PortableText from '@/components/PortableText';
-import { useSolutionBySlug, useSiteSettings } from '@/hooks/useSanityContent';
-import type { Solution } from '@/sanity/types';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useToast } from '@/hooks/use-toast';
-import {
-	Phone,
-	Mail,
-	MapPin,
-	Clock,
-	MessageSquare,
-	Building,
-	Send,
-} from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { motion } from 'framer-motion';
 
-const ContactCenter = () => {
-	const { data: solution, isLoading, isError } = useSolutionBySlug('contact-center');
-	const { toast } = useToast();
-	const { data: siteSettings, isError: settingsError } = useSiteSettings();
-	if (settingsError) console.warn('Failed to load site settings from CMS', settingsError);
+const ContactCenterSolutionPage = () => {
+  const solution = {
+    title: 'Contact Center',
+    hero: {
+      title: 'Deliver Exceptional Customer Service with Our Contact Center Solution',
+      subtitle: 'Empower your agents with an all-in-one omnichannel platform designed for modern customer engagement.',
+    },
+    overview: 'Our Contact Center Solution is a comprehensive, cloud-based platform that enables you to manage all your customer interactions—voice, email, chat, and social media—from a single, unified interface. It is designed to help you deliver seamless, personalized, and efficient customer service. By equipping your agents with powerful tools and providing managers with real-time insights, our solution empowers your team to resolve issues faster and create exceptional customer experiences.',
+    features: [
+      { title: 'Omnichannel Routing', description: 'Intelligently route all incoming interactions from any channel to the most appropriate agent based on skills, availability, and customer history.' },
+      { title: 'Advanced IVR & Self-Service', description: 'Build sophisticated Interactive Voice Response (IVR) flows that allow customers to self-serve for common inquiries, freeing up agents for more complex issues.' },
+      { title: 'Unified Agent Desktop', description: 'Give your agents a single view of the customer, with access to their entire interaction history across all channels, right at their fingertips.' },
+      { title: 'Real-Time & Historical Reporting', description: 'Monitor key metrics, track agent performance, and gain deep insights into your contact center operations with customizable dashboards and reports.' },
+    ],
+    benefits: [
+        {
+            title: 'Improved Customer Satisfaction',
+            description: 'By providing faster response times, personalized interactions, and a seamless experience across all channels, our solution helps you build stronger customer relationships and boost satisfaction.',
+        },
+        {
+            title: 'Increased Agent Efficiency',
+            description: 'The unified agent desktop, AI-powered assistance, and workflow automation enable your agents to handle more interactions in less time, reducing operational costs and improving productivity.',
+        },
+        {
+            title: 'Enhanced Operational Insights',
+            description: 'With our advanced reporting and analytics, you can track key performance indicators (KPIs), identify trends, and make data-driven decisions to optimize your contact center operations.',
+        },
+        {
+            title: 'Greater Scalability & Flexibility',
+            description: 'Our cloud-based platform allows you to easily scale your operations up or down, add new channels, and integrate with other business systems, ensuring that your contact center can adapt to changing demands.',
+        },
+    ],
+    faq: [
+      {
+        question: 'What is an omnichannel contact center?',
+        answer: 'An omnichannel contact center provides a seamless and consistent customer experience across all communication channels, such as voice, email, chat, and social media. It allows agents to have a unified view of customer interactions, leading to more personalized and efficient service.'
+      },
+      {
+        question: 'How does your solution improve agent productivity?',
+        answer: 'Our solution boosts agent productivity by providing a unified agent desktop, which eliminates the need to switch between applications. Features like skill-based routing, CRM integration, and knowledge base access empower agents to resolve customer issues faster and more effectively.'
+      },
+      {
+        question: 'Is the contact center solution scalable?',
+        answer: 'Yes, our cloud-based platform is designed to be highly scalable. You can easily add or remove agents, channels, and features as your business needs evolve, ensuring that you only pay for what you use.'
+      },
+    ],
+  };
 
-	const fallback: Partial<Solution> = {
-		title: 'Contact Center Solution',
-		description: 'Comprehensive omnichannel platform for customer engagement, agent productivity, and operational efficiency.',
-		longDescription: [
-			{ _type: 'block', children: [{ _type: 'span', text: 'Our Contact Center Solution delivers seamless omnichannel support, intelligent routing, and real-time analytics to elevate customer experience and drive business growth.' }] }
-		],
-		features: [
-			'Omnichannel Support',
-			'Intelligent Routing',
-			'Real-time Analytics',
-			'Agent Desktop',
-			'Quality Management',
-			'Workforce Management',
-		],
-		benefits: [
-			'Increase CSAT',
-			'Reduce handle time',
-			'Improve agent utilization',
-		],
-		specifications: [
-			{ _type: 'block', children: [{ _type: 'span', text: '99.9% uptime, enterprise-grade security, scalable architecture.' }] }
-		],
-		pricing: 'Starting at $49/user/month',
-		pricingModel: 'per-user',
-		testimonials: [
-			'“FoneRoute transformed our customer service operations.”',
-			'“Agent productivity increased by 40% after switching.”',
-		],
-		relatedSolutions: [
-			{ title: 'Auto Dialer', slug: { current: 'auto-dialer' } },
-			{ title: 'Power Dialer', slug: { current: 'power-dialer' } },
-			{ title: 'Unified Communications', slug: { current: 'unified-communications' } },
-		],
-	} as any;
+  const renderSection = (title, items) => (
+    <section className="py-12 md:py-16 bg-secondary/30">
+      <div className="container-custom">
+        <div className="text-center mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-poppins font-bold">{title}</h2>
+        </div>
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          {items.map((item, index) => (
+            <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
+                <Card className="bg-background shadow-lg h-full text-left card-hover-animation">
+                    <CardHeader>
+                        <CardTitle className="font-poppins text-lg">{item.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground">{item.description}</p>
+                    </CardContent>
+                </Card>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 
-	const s = solution ?? (fallback as Solution);
+  const renderFAQ = (title, items) => (
+    <section className="py-12 md:py-16">
+        <div className="container-custom max-w-3xl mx-auto">
+            <div className="text-center mb-10 md:mb-12">
+                <h2 className="text-2xl sm:text-3xl font-poppins font-bold">{title}</h2>
+            </div>
+            <Accordion type="single" collapsible className="w-full">
+                {items.map((faq, i) => (
+                     <AccordionItem key={i} value={`item-${i}`}>
+                        <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+                        <AccordionContent className="text-base">{faq.answer}</AccordionContent>
+                    </AccordionItem>
+                ))}
+            </Accordion>
+        </div>
+    </section>
+  );
 
-	const [formData, setFormData] = useState({
-		firstName: '',
-		lastName: '',
-		email: '',
-		phone: '',
-		company: '',
-		jobTitle: '',
-		solution: 'contact-center', // Pre-select this solution
-		message: ''
-	});
+  return (
+    <>
+      <SEO title={solution.title} description={solution.hero.subtitle} />
+      <div>
+        <PageHeader title={solution.hero.title} subtitle={solution.hero.subtitle} />
+        <main>
+          <section className="py-12 md:py-16">
+            <div className="container-custom max-w-4xl text-center">
+              <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Overview</h2>
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                {solution.overview}
+              </motion.p>
+            </div>
+          </section>
+          
+          {solution.features && solution.features.length > 0 && renderSection('Key Features', solution.features)}
+          {solution.benefits && solution.benefits.length > 0 && renderSection('Benefits', solution.benefits)}
 
-	const handleInputChange = (field: string, value: string) => {
-		setFormData(prev => ({ ...prev, [field]: value }));
-	};
+          <section className="py-16 bg-primary text-primary-foreground">
+            <div className="container-custom text-center">
+                <h2 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">Ready to Get Started?</h2>
+                <p className="text-base md:text-lg max-w-2xl mx-auto mb-8">
+                    Contact our sales team to get a personalized demo for the Contact Center industry.
+                </p>
+                <Button size="lg" variant="secondary" asChild className="h-12 text-base">
+                    <Link to="/contact">Contact Sales</Link>
+                </Button>
+            </div>
+          </section>
 
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-		// Form submission logic would go here
-		toast({
-			title: "Message Sent!",
-			description: "Thank you for contacting us. We'll get back to you within 24 hours.",
-		});
-
-		// Reset form
-		setFormData({
-			firstName: '',
-			lastName: '',
-			email: '',
-			phone: '',
-			company: '',
-			jobTitle: '',
-			solution: 'contact-center',
-			message: ''
-		});
-	};
-
-	// Build offices from CMS or fallback
-	let offices = [];
-	if (siteSettings?.officeLocations?.length) {
-		const sorted = [...siteSettings.officeLocations];
-		if (typeof siteSettings.primaryOfficeIndex === 'number') {
-			sorted.sort((a, b) => {
-				if (a.primary) return -1;
-				if (b.primary) return 1;
-				return 0;
-			});
-			if (siteSettings.primaryOfficeIndex >= 0 && siteSettings.primaryOfficeIndex < sorted.length) {
-				const [primary] = sorted.splice(siteSettings.primaryOfficeIndex, 1);
-				sorted.unshift(primary);
-			}
-		} else {
-			sorted.sort((a, b) => (b.primary ? 1 : -1));
-		}
-		offices = sorted.map((office) => ({
-			city: office.city || '',
-			address: office.address || '',
-			phone: office.phone || '',
-			hours: office.hours || '',
-		}));
-	} else {
-		offices = [
-			{ city: 'New York', address: '123 Business Ave, Suite 100', phone: '+1 (555) 123-4567', hours: 'Mon-Fri: 9:00 AM - 6:00 PM EST' },
-			{ city: 'San Francisco', address: '456 Tech Street, Floor 15', phone: '+1 (555) 987-6543', hours: 'Mon-Fri: 9:00 AM - 6:00 PM PST' },
-			{ city: 'London', address: '789 Communication Blvd', phone: '+44 20 1234 5678', hours: 'Mon-Fri: 9:00 AM - 5:00 PM GMT' }
-		];
-	}
-
-	const primaryOffice = offices[0];
-
-	const contactInfo = [
-		{ icon: Phone, title: 'Sales', details: siteSettings?.primaryPhone || primaryOffice?.phone || '+1 (555) 123-4567', description: 'Speak with our sales team' },
-		{ icon: MessageSquare, title: siteSettings?.supportPhone ? 'Support' : 'Support Email', details: siteSettings?.supportPhone || siteSettings?.supportEmail || '+1 (555) 123-4568', description: siteSettings?.supportPhone ? '24/7 technical support' : 'Contact our support team by email' },
-		{ icon: Mail, title: 'Email', details: siteSettings?.primaryEmail || 'info@foneroute.com', description: 'General inquiries' },
-		{ icon: MapPin, title: 'Address', details: primaryOffice?.address || '123 Business Ave, Tech City, TC 12345', description: 'Visit our headquarters' },
-	];
-
-	function formatTime(time: string) {
-		if (!time) return '';
-		const [h, m] = time.split(':');
-		let hour = parseInt(h, 10);
-		const min = m !== undefined ? m : '00';
-		const ampm = hour >= 12 ? 'PM' : 'AM';
-		hour = hour % 12 || 12;
-		return `${hour}:${min} ${ampm}`;
-	}
-
-	const dayOrder = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-	const dayLabels = { monday: 'Monday', tuesday: 'Tuesday', wednesday: 'Wednesday', thursday: 'Thursday', friday: 'Friday', saturday: 'Saturday', sunday: 'Sunday' };
-
-	let businessHours = [];
-	if (siteSettings?.businessHours) {
-		businessHours = dayOrder
-			.filter(day => siteSettings.businessHours[day])
-			.map(day => {
-				const hours = siteSettings.businessHours[day];
-				if (typeof hours === 'object') {
-					if (hours.closed) return { day: dayLabels[day], hours: 'Closed' };
-					if (hours.open && hours.close) return { day: dayLabels[day], hours: `${formatTime(hours.open)} - ${formatTime(hours.close)}` };
-				}
-				if (typeof hours === 'string') {
-					const [start, end] = hours.split('-');
-					if (start && end) return { day: dayLabels[day], hours: `${formatTime(start)} - ${formatTime(end)}` };
-				}
-				return { day: dayLabels[day], hours: 'Closed' };
-			});
-	} else {
-		businessHours = [
-			{ day: 'Monday - Friday', hours: '9:00 AM - 6:00 PM' },
-			{ day: 'Saturday', hours: '10:00 AM - 4:00 PM' },
-			{ day: 'Sunday', hours: 'Closed' },
-		];
-	}
-
-	let supportHours = siteSettings?.supportHours || '24/7 Available';
-	let holidayMessage = siteSettings?.holidayMessage || '';
-
-	const faqs = [
-		{
-			question: "How quickly can we get started?",
-			answer: "Most implementations can begin within 24-48 hours of contract signing, with full deployment typically completed within 1-2 weeks."
-		},
-		{
-			question: "Do you offer 24/7 support?",
-			answer: "Yes, we provide round-the-clock technical support and customer service to ensure your communications never go down."
-		},
-		{
-			question: "Can you integrate with our existing systems?",
-			answer: "Absolutely. Our solutions integrate with most CRM, helpdesk, and business applications through APIs and pre-built connectors."
-		},
-		{
-			question: "What's included in the setup?",
-			answer: "We provide complete setup, configuration, training, and ongoing support. No hidden fees or additional charges for standard implementation."
-		}
-	];
-
-	return (
-		<div>
-			<PageHeader title={s.title} subtitle={s.description} />
-
-			{/* Hero / Overview */}
-			<section className="section-padding bg-background">
-				<div className="container-custom max-w-4xl">
-					{/* Render s.longDescription (PortableText) if present; else a detailed static overview */}
-					<PortableText value={s.longDescription ?? fallback.longDescription} className="prose prose-lg mb-8" />
-				</div>
-			</section>
-
-			{/* Features Grid */}
-			<section className="section-padding bg-surface">
-				<div className="container-custom grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					{(s.features ?? fallback.features!).map((f, i) => (
-						<Card key={i} className="card-professional card-hover">
-							<CardContent className="p-6 font-semibold text-foreground">{f}</CardContent>
-						</Card>
-					))}
-				</div>
-			</section>
-
-			{/* Benefits Section */}
-			<section className="section-padding bg-background">
-				<div className="container-custom max-w-3xl">
-					<h2 className="text-2xl font-bold mb-4">Business Benefits</h2>
-					<ul className="list-disc pl-6 text-lg">
-						{(s.benefits ?? fallback.benefits!).map((b, i) => (
-							<li key={i}>{b}</li>
-						))}
-					</ul>
-				</div>
-			</section>
-
-			{/* Specifications Section */}
-			<section className="section-padding bg-surface">
-				<div className="container-custom max-w-3xl">
-					<h2 className="text-2xl font-bold mb-4">Technical Specifications</h2>
-					<PortableText value={s.specifications ?? fallback.specifications} className="prose" />
-				</div>
-			</section>
-
-			{/* Testimonials Section */}
-			{s.testimonials && s.testimonials.length > 0 && (
-				<section className="section-padding bg-background">
-					<div className="container-custom max-w-3xl">
-						<h2 className="text-2xl font-bold mb-4">Customer Testimonials</h2>
-						<ul className="space-y-4">
-							{s.testimonials.map((t, i) => (
-								<li key={i} className="italic text-muted-foreground">{t}</li>
-							))}
-						</ul>
-					</div>
-				</section>
-			)}
-
-			{/* Pricing Section */}
-			<section className="section-padding bg-surface">
-				<div className="container-custom max-w-2xl">
-					<h2 className="text-2xl font-bold mb-4">Pricing</h2>
-					<div className="text-lg font-semibold mb-2">{s.pricing ?? 'Contact us for pricing details.'}</div>
-					<div className="text-muted-foreground">Model: {s.pricingModel ?? 'Custom'}</div>
-				</div>
-			</section>
-
-			{/* Related Solutions Section */}
-			{s.relatedSolutions && s.relatedSolutions.length > 0 && (
-				<section className="section-padding bg-background">
-					<div className="container-custom">
-						<h2 className="text-2xl font-bold mb-4">Related Solutions</h2>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-							{s.relatedSolutions.map((rel, i) => (
-								<a key={i} href={rel.slug?.current ? `/solutions/${rel.slug.current}` : '#'} className="block">
-									<Card className="card-professional card-hover">
-										<CardContent className="p-4 font-semibold text-primary">{rel.title}</CardContent>
-									</Card>
-								</a>
-							))}
-						</div>
-					</div>
-				</section>
-			)}
-
-			{/* Contact Form Section */}
-			<section id="contact-form" className="section-padding bg-background">
-				<div className="container-custom">
-					<div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-						{/* Contact Form */}
-						<div>
-							<Card className="card-professional">
-								<CardHeader>
-									<CardTitle className="text-2xl font-poppins font-bold text-foreground">
-										Get Started Today
-									</CardTitle>
-									<p className="text-muted-foreground">
-										Fill out the form below and our team will contact you within 24 hours to discuss your needs.
-									</p>
-								</CardHeader>
-								<CardContent className="space-y-6">
-									<form onSubmit={handleSubmit} className="space-y-6">
-										<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-											<div className="space-y-2">
-												<Label htmlFor="firstName">First Name *</Label>
-												<Input id="firstName" type="text" value={formData.firstName} onChange={(e) => handleInputChange('firstName', e.target.value)} required className="bg-surface border-input-border" />
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="lastName">Last Name *</Label>
-												<Input id="lastName" type="text" value={formData.lastName} onChange={(e) => handleInputChange('lastName', e.target.value)} required className="bg-surface border-input-border" />
-											</div>
-										</div>
-										<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-											<div className="space-y-2">
-												<Label htmlFor="email">Email Address *</Label>
-												<Input id="email" type="email" value={formData.email} onChange={(e) => handleInputChange('email', e.target.value)} required className="bg-surface border-input-border" />
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="phone">Phone Number</Label>
-												<Input id="phone" type="tel" value={formData.phone} onChange={(e) => handleInputChange('phone', e.target.value)} className="bg-surface border-input-border" />
-											</div>
-										</div>
-										<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-											<div className="space-y-2">
-												<Label htmlFor="company">Company Name</Label>
-												<Input id="company" type="text" value={formData.company} onChange={(e) => handleInputChange('company', e.target.value)} className="bg-surface border-input-border" />
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="jobTitle">Job Title</Label>
-												<Input id="jobTitle" type="text" value={formData.jobTitle} onChange={(e) => handleInputChange('jobTitle', e.target.value)} className="bg-surface border-input-border" />
-											</div>
-										</div>
-										<div className="space-y-2">
-											<Label htmlFor="solution">Solution of Interest</Label>
-											<Select value={formData.solution} onValueChange={(value) => handleInputChange('solution', value)}>
-												<SelectTrigger className="bg-surface border-input-border">
-													<SelectValue placeholder="Select a solution" />
-												</SelectTrigger>
-												<SelectContent>
-													<SelectItem value="contact-center">Contact Center Solution</SelectItem>
-													<SelectItem value="auto-dialer">Auto Dialer</SelectItem>
-													<SelectItem value="cloud-pbx">Cloud PBX</SelectItem>
-													<SelectItem value="unified-communications">Unified Communications</SelectItem>
-													<SelectItem value="multiple">Multiple Solutions</SelectItem>
-													<SelectItem value="not-sure">Not Sure / Need Consultation</SelectItem>
-												</SelectContent>
-											</Select>
-										</div>
-										<div className="space-y-2">
-											<Label htmlFor="message">Message</Label>
-											<Textarea id="message" rows={4} value={formData.message} onChange={(e) => handleInputChange('message', e.target.value)} placeholder="Tell us about your business needs and requirements..." className="bg-surface border-input-border resize-none" />
-										</div>
-										<Button type="submit" size="lg" className="w-full btn-hero">
-											Send Message
-											<Send className="ml-2 h-4 w-4" />
-										</Button>
-									</form>
-								</CardContent>
-							</Card>
-						</div>
-
-						{/* Contact Information */}
-						<div className="space-y-8">
-							<div>
-								<h2 className="text-2xl font-poppins font-bold text-foreground mb-6">
-									Get In Touch
-								</h2>
-								<div className="space-y-6">
-									{contactInfo.map((info, index) => (
-										<div key={index} className="flex items-start space-x-4">
-											<div className="p-3 bg-primary-light rounded-lg">
-												<info.icon className="h-6 w-6 text-primary" />
-											</div>
-											<div>
-												<h3 className="font-medium text-foreground mb-1">{info.title}</h3>
-												<p className="text-foreground font-medium mb-1">{info.details}</p>
-												<p className="text-muted-foreground text-sm">{info.description}</p>
-											</div>
-										</div>
-									))}
-								</div>
-							</div>
-
-							<Card className="card-professional">
-								<CardHeader>
-									<CardTitle className="flex items-center space-x-2">
-										<Clock className="h-5 w-5 text-primary" />
-										<span>Business Hours</span>
-									</CardTitle>
-								</CardHeader>
-								<CardContent>
-									<div className="space-y-2 text-sm">
-										{businessHours.map((bh, idx) => (
-											<div key={idx} className="flex justify-between">
-												<span className="text-muted-foreground">{bh.day}:</span>
-												<span className="text-foreground font-medium">{bh.hours}</span>
-											</div>
-										))}
-										<div className="pt-3 border-t border-border">
-											<div className="flex justify-between">
-												<span className="text-muted-foreground">Support:</span>
-												<span className="text-accent font-medium">{supportHours}</span>
-											</div>
-											{holidayMessage && (
-												<div className="mt-2 text-warning text-xs font-semibold">{holidayMessage}</div>
-											)}
-										</div>
-									</div>
-								</CardContent>
-							</Card>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			{/* Office Locations */}
-			<section className="section-padding bg-surface">
-				<div className="container-custom">
-					<div className="text-center mb-12">
-						<h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-							Our Locations
-						</h2>
-						<p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-							Visit us at one of our global offices or connect with our regional teams
-						</p>
-					</div>
-
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-						{offices.map((office, index) => (
-							<Card key={index} className="card-professional card-hover text-center">
-								<CardContent className="p-8">
-									<Building className="h-12 w-12 text-primary mx-auto mb-4" />
-									<h3 className="text-xl font-poppins font-semibold text-foreground mb-3">
-										{office.city}
-									</h3>
-									<div className="space-y-2 text-muted-foreground">
-										<p>{office.address}</p>
-										<p className="font-medium text-foreground">{office.phone}</p>
-										<p className="text-sm">{office.hours}</p>
-									</div>
-								</CardContent>
-							</Card>
-						))}
-					</div>
-				</div>
-			</section>
-
-			{/* FAQ Section */}
-			<section className="section-padding bg-background">
-				<div className="container-custom">
-					<div className="text-center mb-12">
-						<h2 className="text-3xl md:text-4xl font-poppins font-bold text-foreground mb-4">
-							Frequently Asked Questions
-						</h2>
-						<p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-							Quick answers to common questions about our services and getting started
-						</p>
-					</div>
-
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-						{faqs.map((faq, index) => (
-							<Card key={index} className="card-professional">
-								<CardContent className="p-6">
-									<h3 className="font-poppins font-semibold text-foreground mb-3">
-										{faq.question}
-									</h3>
-									<p className="text-muted-foreground leading-relaxed">
-										{faq.answer}
-									</p>
-								</CardContent>
-							</Card>
-						))}
-					</div>
-				</div>
-			</section>
-		</div>
-	);
-
+          {solution.faq && solution.faq.length > 0 && renderFAQ('Frequently Asked Questions', solution.faq)}
+        </main>
+      </div>
+    </>
+  );
 };
-export default ContactCenter;
+
+export default ContactCenterSolutionPage;

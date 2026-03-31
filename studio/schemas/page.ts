@@ -1,126 +1,59 @@
-import { defineType } from 'sanity';
-
-function isUniqueSlug(slug, context) {
-	return context.defaultIsUnique(slug, context);
-}
+import {defineField, defineType} from 'sanity'
 
 export default defineType({
-	name: 'page',
-	title: 'Page',
-	type: 'document',
-	fields: [
-		{
-			name: 'title',
-			title: 'Title',
-			type: 'string',
-			validation: Rule => Rule.required(),
-		},
-			{
-				name: 'slug',
-				title: 'Slug',
-				type: 'slug',
-				options: {
-					source: 'title',
-					maxLength: 96,
-					isUnique: isUniqueSlug,
-				},
-				validation: Rule => Rule.required(),
-			},
-		{
-			name: 'content',
-			title: 'Content',
-			type: 'array',
-			of: [{ type: 'block' }],
-			validation: Rule => Rule.required(),
-		},
-		{
-			name: 'metaTitle',
-			title: 'Meta Title',
-			type: 'string',
-		},
-		{
-			name: 'metaDescription',
-			title: 'Meta Description',
-			type: 'text',
-		},
-		{
-			name: 'ogImage',
-			title: 'OG Image',
-			type: 'image',
-			options: { hotspot: true },
-			fields: [
-				{
-					name: 'alt',
-					title: 'Alt text',
-					type: 'string',
-					validation: Rule => Rule.required(),
-				},
-			],
-		},
-		{
-			name: 'showInNavigation',
-			title: 'Show in Navigation',
-			type: 'boolean',
-		},
-		{
-			name: 'pageOrder',
-			title: 'Page Order',
-			type: 'number',
-		},
-			{
-				name: 'heroImage',
-				title: 'Hero Image',
-				type: 'image',
-				options: { hotspot: true },
-				fields: [
-					{
-						name: 'alt',
-						title: 'Alt text',
-						type: 'string',
-						validation: Rule => Rule.required(),
-					},
-				],
-			},
-		{
-			name: 'excerpt',
-			title: 'Excerpt',
-			type: 'text',
-		},
-		{
-			name: 'pageTemplate',
-			title: 'Page Template',
-			type: 'string',
-			options: {
-				list: [
-					{ title: 'Default', value: 'default' },
-					{ title: 'Landing', value: 'landing' },
-					{ title: 'Contact', value: 'contact' },
-				],
-			},
-		},
-	],
-	preview: {
-		select: {
-			title: 'title',
-			subtitle: 'slug.current',
-			media: 'heroImage',
-		},
-		prepare(selection) {
-			const { title, subtitle, media } = selection;
-			return {
-				title,
-				subtitle,
-				media,
-			};
-		},
-	},
-	orderings: [
-		{
-			title: 'Page order',
-			name: 'pageOrderAsc',
-			by: [
-				{ field: 'pageOrder', direction: 'asc' },
-			],
-		},
-	],
-});
+  name: 'page',
+  title: 'Page',
+  type: 'document',
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      description: 'The title of the page (e.g., Home, About Us, Contact).',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+      },
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO Settings',
+      type: 'seo', // Custom object type for SEO metadata
+      description: 'SEO meta title, description, and image.',
+    }),
+    defineField({
+      name: 'sections',
+      title: 'Page Sections',
+      type: 'array',
+      description: 'Build the page by adding and ordering content sections.',
+      of: [
+        {type: 'heroSection'},
+        {type: 'featuresSection'},
+        {type: 'topSolutionsSection'},
+        {type: 'industriesSection'},
+        {type: 'statsSection'},
+        {type: 'testimonialsSection'},
+        {type: 'whyChooseUsSection'},
+        {type: 'ourValuesSection'},
+        {type: 'pricingComparisonSection'},
+        {type: 'faqSection'},
+        {type: 'ctaSection'},
+      ],
+    }),
+  ],
+  preview: {
+    select: {
+      title: 'title',
+    },
+    prepare({title}) {
+      return {
+        title: title || 'Untitled Page',
+      }
+    },
+  },
+})

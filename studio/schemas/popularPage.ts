@@ -16,7 +16,6 @@ export default defineType({
     defineField({ name: 'featured', title: 'Featured', type: 'boolean' }),
     defineField({ name: 'trending', title: 'Trending', type: 'boolean' }),
     defineField({ name: 'relatedSolutions', title: 'Related Solutions', type: 'array', of: [{type: 'reference', to: [{type: 'solution'}]}] }),
-    defineField({ name: 'relatedFeatures', title: 'Related Features', type: 'array', of: [{type: 'reference', to: [{type: 'feature'}]}] }),
     defineField({ name: 'relatedPosts', title: 'Related Posts', type: 'array', of: [{type: 'reference', to: [{type: 'post'}]}] }),
     defineField({ name: 'metaTitle', title: 'Meta Title', type: 'string' }),
     defineField({ name: 'metaDescription', title: 'Meta Description', type: 'text' }),
