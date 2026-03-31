@@ -1,4 +1,4 @@
-name = "vite-react-spa-on-workers"
+name = "foneroute"
 main = "worker.js"
 compatibility_date = "2024-07-15"
 account_id = "7babfcd3582e11bdccbbbc1ec0cfa621"
