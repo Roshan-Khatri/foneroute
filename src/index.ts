@@ -1,20 +1,29 @@
 export default {
   async fetch(request: Request, env: any): Promise<Response> {
-    try {
-      // Serve static assets
-      return await env.ASSETS.fetch(request);
-    } catch (e) {
-      // SPA fallback (important for React/Vite routing)
-      const url = new URL(request.url);
+    const url = new URL(request.url);
 
-      // Ignore API routes (optional)
-      if (url.pathname.startsWith('/api/')) {
-        return new Response('Not Found', { status: 404 });
+    // Static files check (js, css, images)
+    if (url.pathname.startsWith("/assets") || url.pathname.includes(".")) {
+      return env.ASSETS.fetch(request);
+    }
+
+    try {
+      // Try original request
+      let response = await env.ASSETS.fetch(request);
+
+      // If found → return
+      if (response.status !== 404) {
+        return response;
       }
 
-      // Fallback to index.html
+      // 🔥 SPA fallback (MAIN FIX)
       return await env.ASSETS.fetch(
-        new Request(new URL('/index.html', request.url), request)
+        new Request(new URL("/index.html", request.url), request)
+      );
+
+    } catch (e) {
+      return await env.ASSETS.fetch(
+        new Request(new URL("/index.html", request.url), request)
       );
     }
   },

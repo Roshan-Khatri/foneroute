@@ -1,10 +1,17 @@
 import { createClient } from "@sanity/client";
 
 export function getSanityClient() {
-return createClient({
-projectId: "00t6xfuz",
-dataset: "production",
-apiVersion: "2024-01-01",
-useCdn: true
-});
+  const projectId = import.meta.env.VITE_SANITY_PROJECT_ID || "00t6xfuz";
+  const dataset = import.meta.env.VITE_SANITY_DATASET || "production";
+
+  if (!projectId || !dataset) {
+    console.error("Sanity project ID or dataset missing");
+  }
+
+  return createClient({
+    projectId,
+    dataset,
+    apiVersion: "2024-01-01",
+    useCdn: true, // fast for production
+  });
 }

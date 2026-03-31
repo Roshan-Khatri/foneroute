@@ -1,11 +1,10 @@
-name = "my-vite-app"
-main = "src/index.ts"
-compatibility_date = "2024-07-08"
-
+name = "vite-react-spa-on-workers"
+main = "worker.js"
+compatibility_date = "2024-07-15"
 account_id = "698bd58a6d5dfe849499d0f0d774b2d2"
-
-[build]
-command = "npm run build"
 
 [assets]
 directory = "./dist"
+
+[build]
+command = "npm run build"
