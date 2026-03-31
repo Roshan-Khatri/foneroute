@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { PhoneCall, Moon, Sun, Menu, X, ChevronDown } from "lucide-react";
 import AnimatedSearch from "@/components/layout/AnimatedSearch";
 import { useTheme } from "@/components/layout/ThemeProvider";
@@ -62,7 +62,7 @@ const Header = () => {
 
           {/* LEFT */}
           <div className="flex items-center gap-10">
-            <Link href="/" className="flex items-center gap-2">
+            <Link to="/" className="flex items-center gap-2">
               <PhoneCall className="h-6 w-6 text-gray-800 dark:text-white" />
               <span className="text-lg font-semibold text-gray-900 dark:text-white">
                 {siteSettings?.siteName || "FoneRoute"}
@@ -72,7 +72,7 @@ const Header = () => {
             {/* DESKTOP NAV */}
             <div className="hidden lg:flex items-center gap-8 text-sm text-gray-600 dark:text-gray-300">
 
-              <Link href="/">Home</Link>
+              <Link to="/">Home</Link>
 
               {navigation?.items?.map((item: any) => (
                 <div
@@ -82,7 +82,7 @@ const Header = () => {
                   onMouseLeave={handleLeave}
                 >
                   <Link
-                    href={item.title.toLowerCase() === "features" ? "/features" : "/solutions"}
+                    to={item.title.toLowerCase() === "features" ? "/features" : "/solutions"}
                     className="flex items-center gap-1 hover:text-black dark:hover:text-white"
                   >
                     {item.title}
@@ -102,7 +102,7 @@ const Header = () => {
                             return (
                               <Link
                                 key={slug}
-                                href={
+                                to={
                                   item.title.toLowerCase() === "features"
                                     ? `/features/${slug}`
                                     : `/solutions/${slug}`
@@ -121,8 +121,8 @@ const Header = () => {
                 </div>
               ))}
 
-              <Link href="/support">Support</Link>
-              <Link href="/about">About</Link>
+              <Link to="/support">Support</Link>
+              <Link to="/about">About</Link>
 
             </div>
           </div>
@@ -141,7 +141,7 @@ const Header = () => {
 
               {/* ✅ FIXED DARK MODE BUTTON */}
               <Link
-                href="/contact"
+                to="/contact"
                 className="px-4 py-2 rounded-md bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-[#27272a] text-gray-800 dark:text-white text-sm font-medium"
               >
                 Contact Sales
@@ -166,7 +166,7 @@ const Header = () => {
 
           <div className="px-6 py-4 space-y-4">
 
-            <Link href="/" className="block py-2 text-sm">Home</Link>
+            <Link to="/" className="block py-2 text-sm">Home</Link>
 
             {navigation?.items?.map((item: any) => (
               <div key={item.title} className="border-t pt-3">
@@ -190,7 +190,7 @@ const Header = () => {
                         return (
                           <Link
                             key={slug}
-                            href={
+                            to={
                               item.title.toLowerCase() === "features"
                                 ? `/features/${slug}`
                                 : `/solutions/${slug}`
@@ -210,11 +210,11 @@ const Header = () => {
 
             {/* ✅ FIXED SUPPORT & ABOUT */}
             <div className="border-t pt-3">
-              <Link href="/support" className="block py-2 text-sm">Support</Link>
+              <Link to="/support" className="block py-2 text-sm">Support</Link>
             </div>
 
             <div className="border-t pt-3">
-              <Link href="/about" className="block py-2 text-sm">About</Link>
+              <Link to="/about" className="block py-2 text-sm">About</Link>
             </div>
 
           </div>
@@ -231,7 +231,7 @@ const Header = () => {
             </div>
 
             <Link
-              href="/contact"
+              to="/contact"
               className="block text-center py-2 rounded-md bg-gray-100 dark:bg-zinc-800 dark:hover:bg-[#27272a] text-sm font-medium"
             >
               Contact Sales
