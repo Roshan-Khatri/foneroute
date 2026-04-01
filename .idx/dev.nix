@@ -1,14 +1,20 @@
-{pkgs}: {
+{ pkgs }:
+
+{
   channel = "stable-24.05";
+
   packages = [
-    pkgs.nodejs_22
+    pkgs.nodejs_20
     pkgs.vite
   ];
+
   idx.extensions = [
     "svelte.svelte-vscode"
     "vue.volar"
   ];
+
   idx.previews = {
+    enable = true;
     previews = {
       web = {
         command = [
