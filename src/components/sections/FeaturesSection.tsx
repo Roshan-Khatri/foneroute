@@ -60,7 +60,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ section }) => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all h-full">
+                  <Card className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all h-full transform hover:-translate-y-1">
 
                     <CardHeader className="flex flex-row items-center gap-3">
 

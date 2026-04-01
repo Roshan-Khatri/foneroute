@@ -65,7 +65,7 @@ const IndustrySolutionsSection: React.FC<IndustrySolutionsSectionProps> = ({ sec
             return (
               <div
                 key={card?._key ?? index}
-                className="border p-6 rounded-lg bg-background shadow-sm flex flex-col"
+                className="border p-6 rounded-lg bg-background shadow-sm flex flex-col transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
               >
                 <h3 className="text-xl font-bold mb-2">
                   {sanityText(title)}

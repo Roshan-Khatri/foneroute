@@ -160,19 +160,19 @@ const HeroSection: React.FC<HeroSectionProps> = ({ section }) => {
           {heroContent.length > 1 && (
             <>
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 onClick={previousSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2"
+                className="absolute left-1 top-1/2 -translate-y-1/2 bg-transparent"
               >
                 <ChevronLeft />
               </Button>
 
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2"
+                className="absolute right-1 top-1/2 -translate-y-1/2 bg-transparent"
               >
                 <ChevronRight />
               </Button>

@@ -1,0 +1,9 @@
+name = "foneroute"
+account_id = "7babfcd3582e11bdccbbbc1ec0cfa621"
+compatibility_date = "2024-07-15"
+
+[assets]
+directory = "./dist"
+
+[build]
+command = "npm run build"

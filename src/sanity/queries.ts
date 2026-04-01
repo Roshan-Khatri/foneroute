@@ -151,8 +151,7 @@ export const SUPPORT_PAGE_QUERY = `*[_type == "supportPage"][0]{
 }`;
 
 
-// ================= BLOG (🔥 ADDED) =================
-// ================= BLOG PAGE =================
+// ================= BLOG =================
 export const BLOG_PAGE_QUERY = `*[_type == "blogPage"][0]{
   heroSection{
     heading,
@@ -192,6 +191,41 @@ export const BLOG_PAGE_QUERY = `*[_type == "blogPage"][0]{
     }
   }
 }`;
+
+
+// ================= PRICING (🔥 NEW) =================
+export const PRICING_PAGE_QUERY = `*[_type == "pricingPage"][0]{
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  plans[]{
+    name,
+    description,
+    price,
+    buttonText
+  },
+
+  featureComparison{
+    heading,
+    features[]{
+      feature,
+      solo,
+      pro,
+      enterprise
+    }
+  },
+
+  faqSection{
+    heading,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+}`;
+
 
 // ================= SITE SETTINGS =================
 export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
@@ -281,7 +315,7 @@ export const solutionBySlugQuery = `*[
 
 // ================= PAGE BY SLUG =================
 export const pageBySlugQuery = `*[
-  _type in ["homePage", "aboutPage", "contactPage", "supportPage"]
+  _type in ["homePage", "aboutPage", "contactPage", "supportPage", "pricingPage"]
   && slug.current == $slug
 ][0]{
   title,
