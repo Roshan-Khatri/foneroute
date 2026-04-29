@@ -1,113 +1,78 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import PageHeader from "@/components/layout/PageHeader";
+import { sanityFetch } from "@/lib/sanity";
+import { FEATURES_MAIN_PAGE_QUERY } from "@/sanity/queries";
 import { Link } from "react-router-dom";
-import { getSanityClient } from "@/sanity/client";
-import { FEATURES_PAGE_QUERY } from "@/sanity/queries";
 
 const FeaturesPage = () => {
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
-    const client = getSanityClient();
-
-    client.fetch(FEATURES_PAGE_QUERY).then((res) => {
-      console.log("FEATURES DATA 👉", res);
-      setData(res);
-    });
+    sanityFetch({ query: FEATURES_MAIN_PAGE_QUERY })
+      .then((res) => {
+        console.log("🔥 FEATURES PAGE DATA:", res);
+        setData(res);
+      })
+      .catch(console.error);
   }, []);
 
-  // ✅ Loading state
   if (!data) {
-    return <div className="p-10 text-center">Loading...</div>;
+    return <div className="text-center py-20">Loading...</div>;
   }
 
+  // ✅ FIX: correct structure
+  const page = data[0];
+  const features = page?.featuresSection?.features || [];
+
   return (
-    <main>
+    <main className="bg-background text-foreground pt-16">
 
-      {/* ================= HEADER ================= */}
-      <PageHeader 
-        title={data.heroSection?.heading || "Features"}
-        description={data.heroSection?.subtitle || ""}
-        breadcrumb={{
-          links: [
-            { name: "Home", url: "/" },
-            { name: "Features", url: "/features" }
-          ]
-        }}
-      />
+      {/* ================= HERO ================= */}
+      <section className="py-16 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          {page?.heroSection?.heading}
+        </h1>
 
-      {/* ================= FEATURES ================= */}
-      <section className="py-16 sm:py-24 bg-[#fafafa]">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <p className="text-gray-600 max-w-3xl mx-auto">
+          {page?.heroSection?.subtitle}
+        </p>
+      </section>
 
-            {data.featuresSection?.features?.map((feature: any, i: number) => {
+      {/* ================= FEATURES GRID ================= */}
+      {features.length > 0 && (
+        <section className="py-16 bg-gray-50 dark:bg-gray-800">
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
 
-              // ✅ Handle both string & object (safe)
-              const title =
-                typeof feature === "string" ? feature : feature?.title;
+            {features.map((feature: any, i: number) => {
 
+              // ✅ FIX: proper slug extraction
               const slug =
-                title?.toLowerCase().replace(/\s+/g, "-");
+                feature?.slug?.current ||
+                feature?.slug ||
+                feature?.link?.split("/").pop();
+
+              if (!slug) {
+                console.warn("❌ Missing slug:", feature);
+                return null;
+              }
 
               return (
-                <Link to={`/features/${slug}`} key={i}>
-                  <Card className="bg-white border border-gray-200 rounded-lg shadow-sm p-8 flex flex-col justify-start h-full transition-transform transform hover:scale-105 hover:shadow-lg">
-                    
-                    <CardHeader className="p-0">
-                      <CardTitle className="text-xl font-semibold text-gray-900 mb-2">
-                        {title}
-                      </CardTitle>
-                    </CardHeader>
+                <Link key={i} to={`/features/${slug}`}>
+                  <div className="p-6 border rounded-lg text-center hover:shadow-lg transition-shadow">
+                    <h3 className="font-semibold mb-2">
+                      {feature.title}
+                    </h3>
 
-                    <CardContent className="p-0">
-                      <p className="text-gray-500">
-                        Powerful feature to enhance your communication system.
-                      </p>
-                    </CardContent>
-
-                  </Card>
+                    <p className="text-gray-600 text-sm">
+                      {feature.description}
+                    </p>
+                  </div>
                 </Link>
               );
             })}
 
           </div>
-        </div>
-      </section>
-
-      {/* ================= FAQ ================= */}
-      <section className="py-16 sm:py-24 bg-white">
-        <div className="container-custom">
-
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
-              {data.faqSection?.heading || "Frequently Asked Questions"}
-            </h2>
-            <p className="mt-4 text-lg text-gray-500">
-              {data.faqSection?.subtitle || ""}
-            </p>
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {data.faqSection?.faqs?.map((item: any, index: number) => (
-              <div
-                key={index}
-                className="bg-white border border-gray-200 rounded-lg p-6 transition-shadow hover:shadow-lg"
-              >
-                <h3 className="font-semibold text-gray-900 text-lg">
-                  {item.question}
-                </h3>
-
-                <p className="mt-2 text-gray-500">
-                  {item.answer}
-                </p>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
+        </section>
+      )}
 
     </main>
   );

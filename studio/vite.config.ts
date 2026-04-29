@@ -7,7 +7,7 @@ export default defineConfig(({mode}) => {
             'process.env': env
         },
         server: {
-            port: 3334,
+            port: 10001,
             open: true,
         },
         optimizeDeps: {

@@ -1,131 +1,108 @@
-
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import PageHeader from '@/components/layout/PageHeader';
-import { Check, Users, Shield, Zap, TrendingUp } from 'lucide-react';
+import { Check } from 'lucide-react';
 
-const benefits = [
-    {
-      icon: <TrendingUp className="h-8 w-8 text-primary" />,
-      title: "Boost Productivity & Collaboration",
-      description: "With all communication tools in one place, your team can collaborate more effectively and make faster decisions.",
-    },
-    {
-      icon: <Zap className="h-8 w-8 text-primary" />,
-      title: "Simplify IT Management",
-      description: "A single, cloud-based platform is easier to manage, maintain, and scale than multiple disparate systems.",
-    },
-    {
-      icon: <Shield className="h-8 w-8 text-primary" />,
-      title: "Reduce Communication Costs",
-      description: "Consolidate your communication expenses into a single, predictable monthly subscription and reduce reliance on multiple vendors.",
-    },
-    {
-      icon: <Users className="h-8 w-8 text-primary" />,
-      title: "Enhance the Employee Experience",
-      description: "Empower your employees with the flexibility to communicate and collaborate from anywhere, on any device, improving job satisfaction and retention.",
-    },
-];
-
-const features = [
-    {
-      name: "HD Voice & Video Calling",
-      description: "Make and receive high-definition voice and video calls from your desk phone, computer, or mobile device.",
-    },
-    {
-      name: "Team Chat & Instant Messaging",
-      description: "Create private or public channels for team discussions, share files, and get instant feedback with real-time messaging.",
-    },
-    {
-      name: "Video Conferencing & Webinars",
-      description: "Host online meetings with screen sharing, virtual backgrounds, and recording capabilities to connect with your team and customers.",
-    },
-    {
-      name: "Presence Status",
-      description: "See the real-time availability of your colleagues—whether they are on a call, in a meeting, or available—to reduce interruptions.",
-    },
-    {
-      name: "One Unified Application",
-      description: "Access all your communication tools—voice, video, and chat—from a single, easy-to-use application on any device.",
-    },
-    {
-      name: "Seamless Integration with Business Apps",
-      description: "Integrate with popular tools like Google Workspace, Microsoft 365, and your CRM to streamline workflows and boost productivity.",
-    },
-];
+// ✅ SAME as working file
+import { sanityFetch } from '@/lib/sanity';
+import { UNIFIED_COMMUNICATIONS_QUERY } from '@/sanity/queries';
 
 const UnifiedCommunicationsPage = () => {
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    sanityFetch({ query: UNIFIED_COMMUNICATIONS_QUERY })
+      .then((res) => {
+        console.log("UNIFIED DATA:", res);
+        setData(res);
+      })
+      .catch((err) => console.error("SANITY ERROR:", err));
+  }, []);
+
+  if (!data) return <div className="text-center py-20">Loading...</div>;
+
   return (
     <main>
       <PageHeader
-        title="Unify Your Business Communications"
-        description="Integrate voice, video, messaging, and collaboration tools into one seamless experience to boost productivity and simplify communication."
-        breadcrumb={{ 
-            links: [
-                { name: 'Home', url: '/' }, 
-                { name: 'Solutions', url: '/solutions' }, 
-                { name: 'Unified Communications', url: '/solutions/unified-communications' }
-            ]
+        title={data?.heroSection?.heading}
+        description={data?.heroSection?.subtitle}
+        breadcrumb={{
+          links: [
+            { name: 'Home', url: '/' },
+            { name: 'Solutions', url: '/solutions' },
+            { name: 'Unified Communications', url: '/solutions/unified-communications' }
+          ]
         }}
       />
 
-      <section className="py-16 sm:py-20 bg-gray-50 dark:bg-transparent">
-        <div className="container-custom">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Why Choose Unified Communications?</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-                Bring your team together with a single, powerful platform.
-            </p>
-          </div>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {benefits.map((benefit) => (
-              <div key={benefit.title} className="rounded-lg border bg-card p-6 shadow-sm card-hover-animation dark:bg-[#252525]">
-                <div className="mb-4">{benefit.icon}</div>
-                <h3 className="text-xl font-bold">{benefit.title}</h3>
-                <p className="mt-2 text-muted-foreground">{benefit.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 sm:py-20">
-        <div className="container-custom">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-black dark:text-white">Key Features</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-                All the tools you need to communicate and collaborate effectively.
-            </p>
-          </div>
-          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => (
-              <div key={feature.name} className="flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <Check className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold">{feature.name}</h3>
-                  <p className="mt-1 text-muted-foreground">{feature.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 sm:py-20 bg-primary/5 dark:bg-primary/10">
+      {/* WHY CHOOSE */}
+      <section className="py-16 bg-gray-50 dark:bg-[#18181B]">
         <div className="container-custom text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Ready to Unify Your Communications?
+          <h2 className="text-3xl font-bold">
+            {data?.whyChooseSection?.heading}
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Let us show you how a unified platform can transform your business.
+
+          <p className="mt-4 text-muted-foreground dark:text-gray-300">
+            {data?.whyChooseSection?.subtitle}
           </p>
-          <div className="mt-8">
-            <Button asChild size="lg">
-              <Link to="/contact">Request a Consultation</Link>
-            </Button>
+
+          <div className="grid mt-10 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {data?.whyChooseSection?.cards?.map((item: any, i: number) => (
+              <div key={i} className="p-6 border rounded-lg">
+                <h3 className="font-semibold">{item.title}</h3>
+                <p className="text-sm text-muted-foreground mt-2 dark:text-gray-300">
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section className="py-16">
+        <div className="container-custom text-center">
+          <h2 className="text-3xl font-bold">
+            {data?.featuresSection?.heading}
+          </h2>
+
+          <p className="mt-4 text-muted-foreground dark:text-gray-300">
+            {data?.featuresSection?.subtitle}
+          </p>
+
+          <div className="grid mt-10 gap-6 md:grid-cols-2 lg:grid-cols-3 text-left">
+            {data?.featuresSection?.features?.map((f: any, i: number) => (
+              <div key={i} className="flex gap-3">
+                <Check className="text-primary" />
+                <div>
+                  <h3 className="font-semibold">{f.title}</h3>
+                  <p className="text-sm text-muted-foreground dark:text-gray-300">
+                    {f.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 bg-primary/5 dark:bg-[#18181B] text-center">
+        <h2 className="text-3xl font-bold">
+          {data?.ctaSection?.heading}
+        </h2>
+
+        <p className="mt-4 text-muted-foreground dark:text-gray-300">
+          {data?.ctaSection?.subtitle}
+        </p>
+
+        <div className="mt-6">
+          <Button asChild>
+            <Link to={data?.ctaSection?.buttonLink || "/contact"}>
+              {data?.ctaSection?.buttonText}
+            </Link>
+          </Button>
         </div>
       </section>
     </main>

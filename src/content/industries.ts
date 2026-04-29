@@ -161,44 +161,4 @@ export const industries = [
     useCases: [],
     benefits: [],
   },
-
-  // ✅ ONLY NEW ADDITION
-  {
-    slug: 'power-dialer',
-    title: 'Power Dialer',
-    icon: Briefcase,
-    hero: {
-      title: 'Intelligent Power Dialer',
-      subtitle: 'Boost your outbound sales with smart auto-dialing.',
-    },
-    overview: 'Power dialer helps agents connect faster by auto dialing leads.',
-    keyProblems: [
-      'Manual dialing wastes time',
-      'Low productivity',
-      'High idle time',
-    ],
-    ourSolutions: [
-      {
-        title: 'Auto Dialing',
-        description: 'Automatically dial numbers.',
-        icon: 'Phone',
-      },
-      {
-        title: 'Lead Management',
-        description: 'Manage leads efficiently.',
-        icon: 'Users',
-      },
-    ],
-    useCases: [
-      {
-        title: 'Sales Teams',
-        description: 'Increase outbound efficiency.',
-      },
-    ],
-    benefits: [
-      'Higher productivity',
-      'Better conversion',
-      'Reduced idle time',
-    ],
-  },
 ];

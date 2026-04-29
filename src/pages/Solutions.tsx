@@ -30,9 +30,10 @@ const iconList = [
 
 const Solutions = () => {
   const location = useLocation();
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Smooth scroll for hash links
   useEffect(() => {
     if (location.hash) {
       const element = document.querySelector(location.hash);
@@ -42,6 +43,7 @@ const Solutions = () => {
     }
   }, [location]);
 
+  // Fetch data from Sanity
   useEffect(() => {
     const client = getSanityClient();
     client.fetch(SOLUTIONS_PAGE_QUERY).then((res) => {
@@ -51,9 +53,7 @@ const Solutions = () => {
     });
   }, []);
 
-  if (loading) {
-    return <SolutionsSkeleton />;
-  }
+  if (loading) return <SolutionsSkeleton />;
 
   if (!data) {
     return <div className="p-10 text-center">No data available.</div>;
@@ -63,7 +63,7 @@ const Solutions = () => {
     <main className="flex-1 bg-white dark:bg-[#0d0d0d]">
 
       {/* ================= HERO ================= */}
-      <section className="pt-28 pb-20 bg-white dark:bg-[#0d0d0d]">
+      <section className="pt-28 pb-20">
         <div className="container-custom text-center">
           <h1 className="text-4xl lg:text-5xl font-poppins font-bold mb-4 text-gray-900 dark:text-white">
             {data?.heroSection?.heading || "Our Solutions"}
@@ -75,7 +75,7 @@ const Solutions = () => {
       </section>
 
       {/* ================= CORE SOLUTIONS ================= */}
-      <section className="py-16 bg-white dark:bg-[#0d0d0d]">
+      <section className="py-16">
         <div className="container-custom">
 
           <div className="text-center mb-12">
@@ -85,7 +85,7 @@ const Solutions = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {data?.coreSolutionsSection?.solutions?.map((solution: any, i: number) => {
+            {data?.coreSolutionsSection?.solutions?.map((solution, i) => {
               const Icon = iconList[i % iconList.length];
 
               return (
@@ -95,8 +95,11 @@ const Solutions = () => {
                 >
                   <CardHeader className="p-0">
                     <div className="bg-gray-100 dark:bg-[#1a1a1a] rounded-full p-3 mx-auto mb-4">
-                      {Icon && <Icon className="h-8 w-8 text-gray-700 dark:text-gray-300" />}
+                      {Icon && (
+                        <Icon className="h-8 w-8 text-gray-700 dark:text-gray-300" />
+                      )}
                     </div>
+
                     <CardTitle className="font-poppins text-xl font-bold text-gray-900 dark:text-white">
                       {solution?.title || "Solution"}
                     </CardTitle>
@@ -108,9 +111,18 @@ const Solutions = () => {
                     </p>
                   </CardContent>
 
+                  {/* ✅ FIXED BUTTON */}
                   <div className="mt-auto pt-6">
                     <Button variant="outline" asChild>
-                      <Link to={solution?.buttonLink || "#"}>
+                      <Link
+                        to={
+                          solution?.slug?.current
+                            ? `/solutions/${solution.slug.current}`
+                            : solution?.buttonLink && solution.buttonLink !== "#"
+                            ? solution.buttonLink
+                            : "/solutions"
+                        }
+                      >
                         {solution?.buttonText || "Learn More"}
                       </Link>
                     </Button>
@@ -127,7 +139,7 @@ const Solutions = () => {
       <SolutionsByIndustry />
 
       {/* ================= FEATURES ================= */}
-      <section className="py-20 bg-white dark:bg-[#0d0d0d]">
+      <section className="py-20">
         <div className="container-custom">
 
           <div className="text-center mb-12">
@@ -141,7 +153,7 @@ const Solutions = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data?.featuresSection?.features?.map((feature: any, i: number) => {
+            {data?.featuresSection?.features?.map((feature, i) => {
               const Icon = iconList[i % iconList.length];
 
               const title =
@@ -160,7 +172,7 @@ const Solutions = () => {
                   className="bg-white dark:bg-[#111111] border border-gray-200 dark:border-gray-800 rounded-lg shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 h-full text-left"
                 >
                   <CardHeader className="flex flex-row items-center gap-4">
-                    <div className="bg-gray-100 dark:bg-[#1a1a1a] text-gray-700 dark:text-gray-300 rounded-full p-3">
+                    <div className="bg-gray-100 dark:bg-[#1a1a1a] rounded-full p-3">
                       {Icon && <Icon className="h-6 w-6" />}
                     </div>
 

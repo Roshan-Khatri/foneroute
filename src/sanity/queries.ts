@@ -1,3 +1,4 @@
+
 // ================= HOME PAGE =================
 export const HOME_PAGE_QUERY = `*[_type == "homePage"][0]{
   title,
@@ -273,14 +274,37 @@ export const allPostsQuery = `*[_type == "post"]{
 
 
 // ================= FEATURE BY SLUG =================
-export const featureBySlugQuery = `*[_type == "solution" && slug.current == $slug][0]{
+export const featureBySlugQuery = `
+*[_type == "featuresPage" && slug.current == $slug][0]{
   title,
   "slug": slug.current,
-  overview,
-  "mainImage": mainImage.asset->url,
-  sections[]{...}
-}`;
 
+  seo{
+    metaTitle,
+    metaDescription,
+    keywords
+  },
+
+  hero{
+    heading,
+    subtitle
+  },
+
+  overview,
+
+  capabilities[]{
+    title,
+    description
+  },
+
+  benefits[],
+
+  useCases[]{
+    title,
+    description
+  }
+}
+`;
 
 // ================= SOLUTION BY SLUG =================
 export const solutionBySlugQuery = `*[
@@ -428,3 +452,636 @@ export const NAVIGATION_QUERY = `*[_type == "navigation"][0]{
     }
   }
 }`;
+export const AUTO_DIALER_QUERY = 
+`*[
+    slug.current == "auto-dialer"]
+    [0]{
+  title,
+  "slug": slug.current,
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  introSection{
+    heading,
+    description
+  },
+
+  benefitsSection{
+    heading,
+    benefits[]{
+      title,
+      description   // ✅ IMPORTANT
+    }
+  },
+
+  keyFeaturesSection{
+    heading,
+    features[]{
+      title,
+      description   // ✅ IMPORTANT
+    }
+  },
+
+  ctaSection{
+    heading,
+    description,
+    primaryButtonText,
+    primaryButtonLink,
+    secondaryButtonText,
+    secondaryButtonLink
+  }
+}`;
+export const POWER_DIALER_QUERY = `
+*[
+  slug.current == "power-dialer"
+][0]{
+  title,
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  benefitsSection{
+    heading,
+    benefits[]{
+      title,
+      description   // ✅ ADD THIS
+    }
+  },
+
+  keyFeaturesSection{
+    heading,
+    features[]{
+      title,
+      description   // ✅ ADD THIS (optional but recommended)
+    }
+  },
+
+  ctaSection{
+    heading,
+    description,
+    primaryButtonText,
+    primaryButtonLink,
+    secondaryButtonText,
+    secondaryButtonLink
+  }
+}
+`;
+export const PREDICTIVE_DIALER_QUERY = `*[
+  slug.current == "predictive-dialer"
+][0]{
+  title,
+  "slug": slug.current,
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  introSection{
+    heading,
+    description
+  },
+
+  benefitsSection{
+    heading,
+    benefits[]{
+      title,
+      description
+    }
+  },
+
+  keyFeaturesSection{
+    heading,
+    features[]{
+      title,
+      description
+    }
+  },
+
+  ctaSection{
+    heading,
+    description,
+    primaryButtonText,
+    primaryButtonLink,
+    secondaryButtonText,
+    secondaryButtonLink
+  }
+}`;
+export const PROGRESSIVE_DIALER_QUERY = `*[
+  slug.current == "progressive-dialer"
+][0]{
+  title,
+  "slug": slug.current,
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  introSection{
+    heading,
+    description
+  },
+
+  benefitsSection{
+    heading,
+    benefits[]{
+      title,
+      description
+    }
+  },
+
+  keyFeaturesSection{
+    heading,
+    features[]{
+      title,
+      description
+    }
+  },
+
+  ctaSection{
+    heading,
+    description,
+    primaryButtonText,
+    primaryButtonLink,
+    secondaryButtonText,
+    secondaryButtonLink
+  }
+}`;
+export const INBOUND_CALL_QUERY = `*[
+  slug.current == "inbound-call-solutions"
+][0]{
+  title,
+  "slug": slug.current,
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  keyFeaturesSection{
+    heading,
+    image{
+      asset->{
+        url
+      }
+    },
+    features[]
+  },
+
+  benefitsSection{
+    heading,
+    image{
+      asset->{
+        url
+      }
+    },
+    benefits[]
+  },
+
+  ctaSection{
+    heading,
+    subtitle,
+    primaryButtonText,
+    primaryButtonLink,
+    secondaryButtonText,
+    secondaryButtonLink
+  }
+}`;
+export const OUTBOUND_CALL_QUERY = `*[
+  slug.current == "outbound-call-center"
+][0]{
+  title,
+  "slug": slug.current,
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  keyFeaturesSection{
+    heading,
+    image{
+      asset->{url}
+    },
+    features[]{
+      title,
+      description
+    }
+  },
+
+  benefitsSection{
+    heading,
+    image{
+      asset->{url}
+    },
+    benefits[]{
+      title,
+      description
+    }
+  },
+
+  ctaSection{
+    heading,
+    subtitle,
+    primaryButtonText,
+    primaryButtonLink,
+    secondaryButtonText,
+    secondaryButtonLink
+  }
+}`;
+export const TOLL_FREE_QUERY = `*[
+  slug.current == "toll-free"
+][0]{
+  title,
+  "slug": slug.current,
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  whyChooseSection{
+    heading,
+    subtitle,
+    cards[]{
+      title,
+      description
+    }
+  },
+
+  keyFeaturesSection{
+    heading,
+    description,
+    features[]{
+      title,
+      description
+    }
+  },
+
+  ctaSection{
+    heading,
+    subtitle,
+    buttonText,
+    buttonLink
+  }
+}`;
+export const LOCAL_QUERY = `*[
+  _type == "localNumbersPage" &&
+  slug.current == "local"
+][0]{
+  title,
+  "slug": slug.current,
+
+  seo{
+    metaTitle,
+    metaDescription,
+    keywords
+  },
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  whyChooseSection{
+    heading,
+    subtitle,
+    cards[]{
+      title,
+      description
+    }
+  },
+
+  featuresSection{
+    heading,
+    subtitle,
+    features[]{
+      title,
+      description
+    }
+  },
+
+  ctaSection{
+    heading,
+    subtitle,
+    buttonText,
+    buttonLink
+  }
+}`;
+export const CLOUD_PBX_QUERY = `*[
+  _type == "cloudPbxPage" &&
+  slug.current == "cloud-pbx"
+][0]{
+  title,
+  "slug": slug.current,
+
+  seo{
+    metaTitle,
+    metaDescription,
+    keywords
+  },
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  whyChooseSection{
+    heading,
+    subtitle,
+    cards[]{
+      title,
+      description
+    }
+  },
+
+  keyFeaturesSection{
+    heading,
+    description,
+    features[]{
+      title,
+      description
+    }
+  },
+
+  ctaSection{
+    heading,
+    subtitle,
+    buttonText,
+    buttonLink
+  }
+}`;
+// ================= UNIFIED COMMUNICATIONS =================
+export const UNIFIED_COMMUNICATIONS_QUERY = `*[
+  _type == "unifiedCommunicationsPage" &&
+  slug.current == "unified-communications"
+][0]{
+  title,
+  "slug": slug.current,
+
+  seo{
+    metaTitle,
+    metaDescription,
+    keywords
+  },
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  whyChooseSection{
+    heading,
+    subtitle,
+    cards[]{
+      title,
+      description
+    }
+  },
+
+  featuresSection{
+    heading,
+    subtitle,
+    features[]{
+      title,
+      description
+    }
+  },
+
+  ctaSection{
+    heading,
+    subtitle,
+    buttonText,
+    buttonLink
+  }
+}`;
+export const CLICK_TO_CALL_QUERY = `*[_type == "clickToCallPage"][0]{
+  title,
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  whySection{
+    heading,
+    cards[]{
+      title,
+      description
+    }
+  },
+
+  howItWorksSection{
+    heading,
+    steps[]{
+      title,
+      description
+    }
+  },
+
+  keyFeaturesSection{
+    heading,
+    features[]
+  },
+
+  ctaSection{
+    heading,
+    subtitle,
+    buttonText,
+    buttonLink
+  }
+}`;
+export const SMS_MMS_API_QUERY = `*[_type == "smsMmsApiPage" && slug.current == "sms-mms-api"][0]{
+  seo{
+    metaTitle,
+    metaDescription
+  },
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  whyChooseSection{
+    heading,
+    cards[]{
+      title,
+      description
+    }
+  },
+
+  useCaseSection{
+    heading,
+    items[]{
+      title,
+      description
+    }
+  },
+
+  stepsSection{
+    heading,
+    steps[]{
+      title,
+      description
+    }
+  },
+
+  ctaSection{
+    heading,
+    subtitle,
+    buttonText,
+    buttonLink
+  }
+}`;
+export const NUMBER_MASKING_QUERY = `*[
+  _type == "numberMaskingPage" &&
+  slug.current == "number-masking"
+][0]{
+  seo{
+    metaTitle,
+    metaDescription,
+    keywords
+  },
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  benefitsSection{
+    heading,
+    cards[]{
+      title,
+      description
+    }
+  },
+
+  howItWorksSection{
+    heading,
+    steps[]{
+      title,
+      description
+    }
+  },
+
+  platformSection{
+    heading,
+    cards[]{
+      title,
+      description
+    }
+  },
+
+  ctaSection{
+    heading,
+    subtitle,
+    buttonText,
+    buttonLink
+  }
+}`;
+
+export const FEATURES_MAIN_PAGE_QUERY = `
+*[_type == "featuresPage"][0]{
+  title,
+  "slug": slug.current,
+
+  seo{
+    metaTitle,
+    metaDescription,
+    keywords
+  },
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  featuresSection{
+    heading,
+    features[]{
+      title,
+      description,
+
+      "slug": slug.current,
+
+      link,              // ✅ ADD THIS
+
+      button{            // ✅ ADD THIS (VERY IMPORTANT)
+        link
+      }
+    }
+  },
+
+  faqSection{
+    heading,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+}
+`;
+export const FEATURE_DETAIL_QUERY = `
+*[_type == "featuresMainPage"]{
+  title,
+  "slug": slug.current,
+  heroSection,
+  overviewSection,
+  capabilitiesSection,
+  benefitsSection,
+  useCasesSection
+}
+`;
+
+// ================= INDUSTRY BY SLUG =================
+// src/sanity/queries.ts
+
+const query = `
+*[_type == "industryPage" && slug.current == $slug][0]{
+  title,
+
+  seo,
+
+  heroSection{
+    heading,
+    subtitle
+  },
+
+  overviewSection{
+    heading,
+    description
+  },
+
+  benefitsSection{
+    heading,
+    benefits
+  },
+
+  challengesSection{
+    heading,
+    challenges[]{
+      text
+    }
+  },
+
+  ourTailoredSolutionsSection{
+    heading,
+    solutions[]{
+      title
+    }
+  },
+
+  realWorldUseCasesSection{
+    heading,
+    useCases[]{
+      title
+    }
+  }
+}
+`;

@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { aiAssistantApi } from './src/middleware/ai-assistant.js';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -27,14 +26,11 @@ export default defineConfig({
   },
   base: '/',
   server: {
-    host: '0.0.0.0',
-    port: 3000,
-    hmr: {
-        clientPort: 443,
-        protocol: 'wss',
-    },
+    host: true,
+    port: Number(process.env.PORT) || 3000,
+    strictPort: true,
   },
   define: {
-    'process.env': {}
+    'process.env': process.env // ✅ FIXED
   },
 });

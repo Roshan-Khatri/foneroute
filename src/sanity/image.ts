@@ -140,4 +140,3 @@ export function getResponsiveImageAttrs(
   const srcSet = getSrcSet(source, widths, format, quality);
   return { src, srcSet, sizes, alt, width, height };
 }
-

@@ -1,3 +1,4 @@
+// Core
 import siteSettings from './siteSettings';
 
 // Pages
@@ -6,10 +7,10 @@ import aboutPage from './pages/aboutPage';
 import contactPage from './pages/contactPage';
 import supportPage from './supportPage';
 import solutionsPage from './pages/solutionsPage';
-import featuresPage from './pages/featuresPage';
+import featuresPage from './pages/featuresPage'; // ✅ Detail Page
 import blogPage from './pages/blogPage';
 import pricingPage from './pages/pricingPage';
-import featuresMainPage from './pages/featuresMainPage';
+import featuresMainPage from './pages/featuresMainPage'; // ✅ Listing Page
 import industryPage from './pages/industryPage';
 import terms from './pages/terms';
 import privacyPolicy from './pages/privacyPolicy';
@@ -28,6 +29,8 @@ import clickToCallPage from './pages/clickToCallPage';
 import smsMmsApiPage from './pages/smsMmsApiPage';
 import numberMaskingPage from './pages/numberMaskingPage';
 import tollFreePage from './pages/tollFreePage';
+import localNumbersPage from './pages/localNumbersPage';
+import unifiedCommunicationsPage from './pages/unifiedCommunicationsPage';
 
 // Objects
 import link from './objects/link';
@@ -67,10 +70,10 @@ export const schemaTypes = [
   contactPage,
   supportPage,
   solutionsPage,
-  featuresPage,
+  featuresPage,       // ✅ Detail Page (IMPORTANT)
+  featuresMainPage,   // ✅ Listing Page
   blogPage,
   pricingPage,
-  featuresMainPage,
   industryPage,
   terms,
   privacyPolicy,
@@ -89,6 +92,8 @@ export const schemaTypes = [
   smsMmsApiPage,
   numberMaskingPage,
   tollFreePage,
+  localNumbersPage,
+  unifiedCommunicationsPage,
 
   // Sections
   heroSection,

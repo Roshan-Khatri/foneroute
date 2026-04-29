@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "sanity dev --port 9999",
+    "dev": "sanity dev --port 3335",
     "build": "sanity build",
     "deploy": "sanity deploy",
     "seed": "sanity dataset import studio/data/seed.ndjson production --replace"
